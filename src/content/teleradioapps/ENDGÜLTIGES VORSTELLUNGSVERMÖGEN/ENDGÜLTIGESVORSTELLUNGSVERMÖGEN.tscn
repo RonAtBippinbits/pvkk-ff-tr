@@ -256,9 +256,10 @@ texture = SubResource("GradientTexture2D_0kuwl")
 
 [node name="BattleScene" type="CanvasLayer" parent="."]
 
-[node name="BattleManager" type="Node2D" parent="BattleScene"]
+[node name="BattleManager" type="Node2D" parent="BattleScene" node_paths=PackedStringArray("root")]
 visible = false
 script = ExtResource("7_jrt2u")
+root = NodePath("../..")
 
 [node name="enemy_group" type="Node2D" parent="BattleScene/BattleManager"]
 

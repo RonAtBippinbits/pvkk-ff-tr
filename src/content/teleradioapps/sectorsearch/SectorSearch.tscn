@@ -86,22 +86,22 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Gradient" id="Gradient_43jgv"]
+[sub_resource type="Gradient" id="Gradient_gmsph"]
 offsets = PackedFloat32Array(0.965065, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nw3gk"]
-gradient = SubResource("Gradient_43jgv")
+gradient = SubResource("Gradient_gmsph")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
-[sub_resource type="Gradient" id="Gradient_15lmm"]
+[sub_resource type="Gradient" id="Gradient_tia2w"]
 offsets = PackedFloat32Array(0.965065, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fx2b5"]
-gradient = SubResource("Gradient_15lmm")
+gradient = SubResource("Gradient_tia2w")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -472,7 +472,6 @@ scale = Vector2(0.1, 0.1)
 texture = SubResource("GradientTexture2D_fx2b5")
 
 [node name="MainMenu" type="Node2D" parent="."]
-visible = false
 z_index = 20
 
 [node name="Background" type="Node2D" parent="MainMenu"]
@@ -511,7 +510,6 @@ text = "Sektorheld 2"
 horizontal_alignment = 1
 
 [node name="MenuLabel" type="Label" parent="MainMenu"]
-visible = false
 modulate = Color(0.403922, 0.713726, 0.741176, 1)
 anchors_preset = 8
 anchor_left = 0.5
