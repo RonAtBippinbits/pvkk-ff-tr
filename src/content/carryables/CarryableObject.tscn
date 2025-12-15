@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds4ktcm2xfuft"]
+
+[ext_resource type="Script" path="res://content/carryables/CarryableObject.gd" id="1_oufoa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rbe6u"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g0btn"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="CarryableObject" type="Area3D" node_paths=PackedStringArray("highlightMeshes")]
+collision_mask = 0
+input_ray_pickable = false
+script = ExtResource("1_oufoa")
+highlightMeshes = [NodePath("MeshInstance3D")]
+canHold = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rbe6u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_g0btn")

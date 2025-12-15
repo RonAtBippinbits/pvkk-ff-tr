@@ -1,0 +1,108 @@
+[gd_scene load_steps=23 format=3 uid="uid://bglqprf84tw07"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/screensaver/TeleradioContentScreensaver.gd" id="1_0g0wn"]
+[ext_resource type="Texture2D" uid="uid://4ndbq6g365rt" path="res://content/teleradio/software/os/images/teleradio_os_logo.png" id="2_cp2s8"]
+[ext_resource type="Texture2D" uid="uid://d1qikfi378by6" path="res://content/teleradio/software/os/apps/screensaver/star.png" id="3_6tg1p"]
+[ext_resource type="FontFile" uid="uid://c0iqrufaeox52" path="res://content/teleradio/software/os/fonts/AVHersheySimplexHeavy.ttf" id="4_i6t1g"]
+[ext_resource type="AudioStream" uid="uid://bhpbt121std0d" path="res://content/teleradio/software/os/apps/screensaver/PVKK_sfx_Computer_Idle_Icon_Bump.wav" id="5_th6ts"]
+[ext_resource type="AudioStream" uid="uid://cs4stlemhhep5" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-001.ogg" id="6_s02re"]
+[ext_resource type="AudioStream" uid="uid://bmrxcpiquc6iu" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-002.ogg" id="7_qm6u4"]
+[ext_resource type="AudioStream" uid="uid://caxn2sgc0dxmv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-003.ogg" id="8_kdday"]
+[ext_resource type="AudioStream" uid="uid://2pvu55d3dkjv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-004.ogg" id="9_afors"]
+[ext_resource type="AudioStream" uid="uid://d1s755e3vkwnh" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-005.ogg" id="10_7juvl"]
+[ext_resource type="AudioStream" uid="uid://juyuqia1ibc8" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-006.ogg" id="11_i7deh"]
+[ext_resource type="AudioStream" uid="uid://c0ksq6m7hpstp" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-001.ogg" id="12_8o8ea"]
+[ext_resource type="AudioStream" uid="uid://egjy5pq7g6oc" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-002.ogg" id="13_qsh4w"]
+[ext_resource type="AudioStream" uid="uid://c2x56o326vupo" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-003.ogg" id="14_pgo4a"]
+[ext_resource type="AudioStream" uid="uid://dciwn6g82trv8" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-004.ogg" id="15_e87k2"]
+[ext_resource type="AudioStream" uid="uid://clq1r8t8g2c5v" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-005.ogg" id="16_3jvlu"]
+[ext_resource type="AudioStream" uid="uid://dhrjrj8o2503r" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-006.ogg" id="17_ybmhp"]
+
+[sub_resource type="Curve" id="Curve_7srkc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.42953, 1), 0.0, 0.0, 0, 0, Vector2(0.553691, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_wwlpw"]
+curve = SubResource("Curve_7srkc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h13tb"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(320, 220, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_wwlpw")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x2gex"]
+streams_count = 6
+stream_0/stream = ExtResource("6_s02re")
+stream_1/stream = ExtResource("7_qm6u4")
+stream_2/stream = ExtResource("8_kdday")
+stream_3/stream = ExtResource("9_afors")
+stream_4/stream = ExtResource("10_7juvl")
+stream_5/stream = ExtResource("11_i7deh")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pjlna"]
+streams_count = 6
+stream_0/stream = ExtResource("12_8o8ea")
+stream_1/stream = ExtResource("13_qsh4w")
+stream_2/stream = ExtResource("14_pgo4a")
+stream_3/stream = ExtResource("15_e87k2")
+stream_4/stream = ExtResource("16_3jvlu")
+stream_5/stream = ExtResource("17_ybmhp")
+
+[node name="TeleradioContentScreensaver" type="Node2D"]
+script = ExtResource("1_0g0wn")
+
+[node name="BG" type="Node2D" parent="."]
+z_index = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="Logo" type="Sprite2D" parent="."]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 200)
+texture = ExtResource("2_cp2s8")
+
+[node name="GoodNight" type="Node2D" parent="."]
+visible = false
+
+[node name="Stars" type="GPUParticles2D" parent="GoodNight"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(320, 216)
+process_material = SubResource("ParticleProcessMaterial_h13tb")
+texture = ExtResource("3_6tg1p")
+lifetime = 6.0
+
+[node name="GoodNight2" type="Label" parent="GoodNight"]
+offset_left = 156.0
+offset_top = 170.0
+offset_right = 446.0
+offset_bottom = 253.0
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_outline_color = Color(0.215686, 0.14902, 0.0627451, 1)
+theme_override_constants/outline_size = 34
+theme_override_fonts/font = ExtResource("4_i6t1g")
+theme_override_font_sizes/font_size = 40
+text = "Sleep well.
+Time to rest."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IconBumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_th6ts")
+bus = &"TeleradioApp"
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_x2gex")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_pjlna")
+volume_db = -20.0

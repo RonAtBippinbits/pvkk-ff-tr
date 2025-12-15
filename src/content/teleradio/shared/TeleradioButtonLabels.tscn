@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbra70bf2ylfg"]
+
+[ext_resource type="Script" path="res://content/teleradio/shared/TeleradioButtonLabels.gd" id="1_dl8ct"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="1_wjpav"]
+
+[sub_resource type="Gradient" id="Gradient_kd63o"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ipvc1"]
+gradient = SubResource("Gradient_kd63o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="ButtonLabels" type="Node2D"]
+modulate = Color(1, 0.705882, 0, 1)
+script = ExtResource("1_dl8ct")
+
+[node name="Option1Text" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 44.0
+offset_right = 571.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("1_wjpav")
+theme_override_font_sizes/font_size = 16
+text = "Select"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option1Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Option1Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_ipvc1")
+
+[node name="Option2Text" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 98.0
+offset_right = 571.0
+offset_bottom = 113.0
+theme_override_fonts/font = ExtResource("1_wjpav")
+theme_override_font_sizes/font_size = 16
+text = "▲"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option2Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Option2Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_ipvc1")
+
+[node name="Option3Text" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 150.0
+offset_right = 571.0
+offset_bottom = 165.0
+theme_override_fonts/font = ExtResource("1_wjpav")
+theme_override_font_sizes/font_size = 16
+text = "▼"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option3Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="Option3Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_ipvc1")
+
+[node name="Option4Text" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 202.0
+offset_right = 571.0
+offset_bottom = 217.0
+theme_override_fonts/font = ExtResource("1_wjpav")
+theme_override_font_sizes/font_size = 16
+text = "Back"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option4Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="Option4Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_ipvc1")
+
+[node name="Outline" type="Line2D" parent="."]
+modulate = Color(1, 1, 1, 0.294118)
+z_index = 50
+points = PackedVector2Array(-2, -2, 602, -2, 602, 452, -2, 452)
+closed = true
+width = 4.0
+default_color = Color(0.75, 0.388105, 0.240369, 1)

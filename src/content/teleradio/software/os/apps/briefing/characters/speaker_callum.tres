@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeleradioBriefingSpeaker" load_steps=7 format=3 uid="uid://bg6uybmwpor14"]
+
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/callum/callum_idle1.ogv" id="1_en7ae"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/callum/callum_idle2.ogv" id="2_pyd18"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/callum/callum_harolding.ogv" id="3_b6ksa"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/callum/callum_talking.ogv" id="5_qh7u1"]
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/briefing/characters/teleradio_briefing_character_resource.gd" id="6_vftnn"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_tea.ogv" id="8_3skl7"]
+
+[resource]
+script = ExtResource("6_vftnn")
+talk_streams = Array[VideoStreamTheora]([ExtResource("5_qh7u1")])
+idle_default_streams = Array[VideoStreamTheora]([ExtResource("1_en7ae"), ExtResource("2_pyd18")])
+idle_harold_streams = Array[VideoStreamTheora]([ExtResource("3_b6ksa")])
+tea_streams = Array[VideoStreamTheora]([ExtResource("8_3skl7")])
+tts_voice = "DAVID"
+tts_pitch = 0.8
+tts_rate = 1.15

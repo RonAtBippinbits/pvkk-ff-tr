@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhc7smuykkyy6"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearchSector.gd" id="1_i8bbl"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_d5h6g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucqas"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u42i"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[node name="SectorNode" type="Node2D"]
+script = ExtResource("1_i8bbl")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0.25098, 0.192157, 0.552941, 1)
+offset_left = -104.652
+offset_top = -0.00012207
+offset_right = 43.3482
+offset_bottom = 148.0
+rotation = -0.785398
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ucqas")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Selection" type="Panel" parent="Panel"]
+visible = false
+modulate = Color(0.580392, 0.878431, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -68.0
+offset_right = 68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6u42i")
+
+[node name="Aim" type="Line2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.807843, 0.172549, 0.117647, 0)
+points = PackedVector2Array(-45, -48, 0, -93, 93, 0, 0, 93, -93, 0, -45, -48)
+width = 3.0
+
+[node name="AimCenter" type="Node2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.807843, 0.172549, 0.117647, 0)
+
+[node name="AimLine1" type="Line2D" parent="AimCenter"]
+points = PackedVector2Array(0, -22, 0, -4)
+width = 3.0
+
+[node name="AimLine2" type="Line2D" parent="AimCenter"]
+rotation = 1.57079
+points = PackedVector2Array(0, -22, 0, -4)
+width = 3.0
+
+[node name="AimLine3" type="Line2D" parent="AimCenter"]
+rotation = 3.14159
+points = PackedVector2Array(0, -22, 0, -4)
+width = 3.0
+
+[node name="AimLine4" type="Line2D" parent="AimCenter"]
+rotation = 4.71238
+points = PackedVector2Array(0, -22, 0, -4)
+width = 3.0
+
+[node name="CountdownLabel" type="Label" parent="AimCenter"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = 22.0
+offset_right = 38.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_d5h6g")
+theme_override_font_sizes/font_size = 20
+text = "3.0"
+horizontal_alignment = 1
+
+[node name="FiringLabel" type="Label" parent="AimCenter"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -44.0
+offset_right = 38.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_d5h6g")
+theme_override_font_sizes/font_size = 20
+text = "FIRING"
+horizontal_alignment = 1

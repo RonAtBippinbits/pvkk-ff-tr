@@ -1,0 +1,1359 @@
+[gd_scene load_steps=50 format=3 uid="uid://bpn8askjhlqdf"]
+
+[ext_resource type="Script" path="res://content/teleradio/briefing/TeleradioContentBriefing.gd" id="1_ao4g6"]
+[ext_resource type="FontFile" uid="uid://bhrmtwh76iner" path="res://gui/fonts/VCR_OSD_MONO.ttf" id="2_6bgrb"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos_actor_schwarz/talking.ogv" id="2_tanao"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos_actor_schwarz/idle.ogv" id="3_v67gm"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos_actor_schwarz/idle4.ogv" id="4_6whyb"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos_actor_schwarz/idle3.ogv" id="5_uajdw"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos_actor_schwarz/harolding.ogv" id="6_5cjgv"]
+[ext_resource type="Material" uid="uid://bg5p2otvl14uj" path="res://content/teleradio/briefing/TeleradioContentBriefing_portrait.material" id="6_hjhe1"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos/schwarz_idle1-converted.ogv" id="8_8c7ls"]
+[ext_resource type="FontFile" uid="uid://b2263ujws4t86" path="res://content/teleradio/briefing/VCR_OSD_MONO_1.001.ttf" id="9_brxg6"]
+[ext_resource type="VideoStream" path="res://content/teleradio/briefing/videos/vhs_noise-converted.ogv" id="9_yk1rh"]
+[ext_resource type="Script" path="res://content/teleradio/briefing/TeleradioMissionSummary.gd" id="16_jsdcw"]
+[ext_resource type="Script" path="res://content/teleradio/briefing/TeleradioMissionResult.gd" id="17_sk8eo"]
+[ext_resource type="Script" path="res://content/teleradio/briefing/TeleradioBriefingUpgradeSelection.gd" id="18_x1i5g"]
+[ext_resource type="Texture2D" uid="uid://brmxfhi8trtwl" path="res://content/teleradio/briefing/experiment_upgrade_bg.png" id="19_7sx0c"]
+[ext_resource type="Theme" uid="uid://v2tygplowh5v" path="res://content/teleradio/teleradio_theme.theme" id="19_qap1q"]
+[ext_resource type="Texture2D" uid="uid://ck4awimnmsk4j" path="res://content/logos/main_logo_outline.png" id="21_ile31"]
+[ext_resource type="Texture2D" uid="uid://4ndbq6g365rt" path="res://content/logos/main_logo_white_small.png" id="22_oyuk2"]
+
+[sub_resource type="Shader" id="Shader_fv66c"]
+code = "shader_type canvas_item;
+
+uniform float range : hint_range(0.0, 0.1, 0.005)= 0.05;
+uniform float noiseQuality : hint_range(0.0, 300.0, 0.1)= 250.0;
+uniform float noiseIntensity : hint_range(-0.6, 0.6, 0.0010)= 0.0088;
+uniform float offsetIntensity : hint_range(-0.1, 0.1, 0.001) = 0.03;
+uniform float colorOffsetIntensity : hint_range(0.0, 5.0, 0.001) = 1.3;
+uniform float effectIntensity;
+uniform float destructionIntensity;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
+
+float rand(vec2 co)
+{
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+float verticalBar(float pos, float UVY, float offset)
+{
+    float edge0 = (pos - range);
+    float edge1 = (pos + range);
+
+    float x = smoothstep(edge0, pos, UVY) * offset;
+    x -= smoothstep(pos, edge1, UVY) * offset;
+    return x;
+}
+const float saturation = 0.2;
+void fragment()
+{
+    vec2 uv = SCREEN_UV;
+    for (float i = 0.0; i < 0.71; i += 0.1313)
+    {
+        float d = mod(TIME * i, 1.7);
+        float o = sin(1.0 - tan(TIME * 0.24 * i));
+    	o *= offsetIntensity * effectIntensity;
+        uv.x += verticalBar(d, UV.y, o);
+    }
+    
+    float UVY = uv.y;
+    UVY *= noiseQuality;
+    UVY = float(int(UVY)) * (1.0 / noiseQuality);
+    float noise = rand(vec2(TIME * 0.00001, UVY))-0.5;
+    uv.x += noise * noiseIntensity * effectIntensity;
+
+    vec2 offsetR = vec2(0.009 * sin(TIME), 0.0) * colorOffsetIntensity * effectIntensity;
+    vec2 offsetG = vec2(0.0073 * (cos(TIME * 0.97)), 0.0) * colorOffsetIntensity * effectIntensity;
+    
+	uv.y += noise * destructionIntensity * effectIntensity;
+    float r = textureLod(SCREEN_TEXTURE, uv + offsetR, 0.0+destructionIntensity).r;
+    float g = textureLod(SCREEN_TEXTURE, uv + offsetG, 0.0+destructionIntensity).g;
+    float b = textureLod(SCREEN_TEXTURE, uv, 0.0+destructionIntensity).b;
+    vec4 tex = vec4(r, g, b, 1.0);
+    COLOR = tex;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pedxc"]
+shader = SubResource("Shader_fv66c")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 156.8
+shader_parameter/noiseIntensity = 0.135
+shader_parameter/offsetIntensity = 0.1
+shader_parameter/colorOffsetIntensity = 2.736
+shader_parameter/effectIntensity = 0.0
+shader_parameter/destructionIntensity = 0.105
+
+[sub_resource type="Shader" id="Shader_p4tsq"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+void fragment(){
+	COLOR = textureLod(TEXTURE, UV, 2.3);
+	COLOR.a *= 0.5;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3cse"]
+shader = SubResource("Shader_p4tsq")
+
+[sub_resource type="Gradient" id="Gradient_038ka"]
+offsets = PackedFloat32Array(0, 0.527574, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xa8b1"]
+gradient = SubResource("Gradient_038ka")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_hhu3d"]
+offsets = PackedFloat32Array(0.971264, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vjlnm"]
+gradient = SubResource("Gradient_hhu3d")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_ql4bi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_q478x"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2f0je"]
+_data = {
+"RESET": SubResource("Animation_ql4bi"),
+"blink": SubResource("Animation_q478x")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j1884"]
+content_margin_bottom = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f32g1"]
+shader = SubResource("Shader_fv66c")
+shader_parameter/range = 0.02
+shader_parameter/noiseQuality = 60.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.002
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/effectIntensity = 1.0
+shader_parameter/destructionIntensity = null
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ur8ji"]
+blend_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pfu1"]
+content_margin_top = 2.0
+bg_color = Color(1, 0.705882, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqemn"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.262745)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_joesw"]
+content_margin_left = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osske"]
+content_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2a8e"]
+content_margin_top = 2.0
+bg_color = Color(1, 0.705882, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyqgm"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35s0s"]
+content_margin_top = 2.0
+bg_color = Color(1, 0.705882, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pddhw"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clynf"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.729412)
+border_width_left = 2
+border_width_top = 26
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.721569, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+expand_margin_top = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iy5a5"]
+
+[sub_resource type="Gradient" id="Gradient_kd63o"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_om8fv"]
+gradient = SubResource("Gradient_kd63o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_lje86"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wave:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.0468749, 0.0468749)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Wave2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.0468749, 0.0468749)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Wave:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Wave2:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Wave3:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Wave3:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.719, 1.719)]
+}
+
+[sub_resource type="Animation" id="Animation_72kcs"]
+resource_name = "call"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wave:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.882812, 0.882812), Vector2(1.71875, 1.71875)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Wave2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.0468749, 0.0468749), Vector2(1.719, 1.719)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Wave:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.5), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Wave2:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Wave3:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Wave3:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.047, 0.047), Vector2(0.047, 0.047), Vector2(0.883, 0.883)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nygqm"]
+_data = {
+"RESET": SubResource("Animation_lje86"),
+"call": SubResource("Animation_72kcs")
+}
+
+[sub_resource type="Gradient" id="Gradient_cpm5h"]
+offsets = PackedFloat32Array(0.958963, 0.969762, 0.991361, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gways"]
+gradient = SubResource("Gradient_cpm5h")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="TeleradioContentBriefingV2" type="Node2D" groups=["pause-listener"]]
+script = ExtResource("1_ao4g6")
+character_talk_streams = Array[VideoStreamTheora]([ExtResource("2_tanao")])
+character_idle_streams = Array[VideoStreamTheora]([ExtResource("3_v67gm"), ExtResource("4_6whyb"), ExtResource("5_uajdw")])
+character_harold_streams = Array[VideoStreamTheora]([ExtResource("6_5cjgv")])
+
+[node name="BG" type="ColorRect" parent="."]
+z_index = -1
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="OptionText2" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 225.0
+offset_top = 18.0
+offset_right = 498.0
+offset_bottom = 36.0
+pivot_offset = Vector2(64, 10)
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Mission Briefing"
+
+[node name="OptionText3" type="Label" parent="."]
+visible = false
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 225.0
+offset_top = 55.0
+offset_right = 498.0
+offset_bottom = 232.0
+pivot_offset = Vector2(64, 10)
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Weather: Calm
+Temp.:   12°C
+
+Armament:
+14x KWG"
+
+[node name="CharacterVideoPlayer" type="VideoStreamPlayer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(508, 382)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 600.0
+offset_bottom = 451.0
+grow_horizontal = 0
+stream = ExtResource("8_8c7ls")
+autoplay = true
+expand = true
+
+[node name="TransitionFilter" type="ColorRect" parent="CharacterVideoPlayer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_pedxc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VHSOverlay" type="Node2D" parent="CharacterVideoPlayer"]
+
+[node name="Logo" type="Sprite2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(1, 1, 1, 0.501961)
+texture_filter = 6
+material = SubResource("ShaderMaterial_a3cse")
+position = Vector2(40.712, 78.9798)
+scale = Vector2(0.27675, 0.27675)
+texture = ExtResource("22_oyuk2")
+
+[node name="Line2D" type="Line2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(1, 1, 1, 0.427451)
+position = Vector2(16, 434)
+points = PackedVector2Array(80, 0, 0, 0, 0, -80)
+width = 4.0
+texture = SubResource("GradientTexture2D_xa8b1")
+texture_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(1, 1, 1, 0.427451)
+position = Vector2(584, 434)
+points = PackedVector2Array(-80, 0, 0, 0, 0, -80)
+width = 4.0
+texture = SubResource("GradientTexture2D_xa8b1")
+texture_mode = 2
+
+[node name="Line2D3" type="Line2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(1, 1, 1, 0.427451)
+position = Vector2(16, 16)
+points = PackedVector2Array(80, 0, 0, 0, 0, 80)
+width = 4.0
+texture = SubResource("GradientTexture2D_xa8b1")
+texture_mode = 2
+
+[node name="Line2D4" type="Line2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(1, 1, 1, 0.427451)
+position = Vector2(584, 16)
+points = PackedVector2Array(-80, 0, 0, 0, 0, 80)
+width = 4.0
+texture = SubResource("GradientTexture2D_xa8b1")
+texture_mode = 2
+
+[node name="RecThing" type="Sprite2D" parent="CharacterVideoPlayer/VHSOverlay"]
+modulate = Color(0.764706, 0.00784314, 0, 0.647059)
+position = Vector2(30, 113)
+texture = SubResource("GradientTexture2D_vjlnm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterVideoPlayer/VHSOverlay/RecThing"]
+libraries = {
+"": SubResource("AnimationLibrary_2f0je")
+}
+autoplay = "blink"
+
+[node name="CharacterName" type="Label" parent="CharacterVideoPlayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+offset_left = 23.0
+offset_top = 24.0
+offset_right = 302.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 14
+text = "Text"
+autowrap_mode = 2
+clip_text = true
+uppercase = true
+
+[node name="FluffLabel" type="Label" parent="CharacterVideoPlayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.470588)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+offset_left = 66.0
+offset_top = 58.0
+offset_right = 324.0
+offset_bottom = 80.0
+scale = Vector2(2, 2)
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 7
+text = "A. 19-299-2-PVKK"
+autowrap_mode = 2
+clip_text = true
+
+[node name="FeedLabel" type="Label" parent="CharacterVideoPlayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.501961)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+offset_left = 23.0
+offset_top = 104.0
+offset_right = 302.0
+offset_bottom = 128.0
+scale = Vector2(2, 2)
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 10
+text = "  REC"
+autowrap_mode = 2
+clip_text = true
+
+[node name="MainText" type="Label" parent="CharacterVideoPlayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(270, 65)
+layout_mode = 2
+offset_left = 29.0
+offset_top = 298.0
+offset_right = 299.0
+offset_bottom = 363.0
+scale = Vector2(2, 2)
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.392157)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 1
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("9_brxg6")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j1884")
+text = "JUST TESTING OUT SUBTITLE LIKE APPEARANCE"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+clip_text = true
+uppercase = true
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="CharacterVideoPlayer"]
+copy_mode = 2
+
+[node name="Filter" type="ColorRect" parent="CharacterVideoPlayer"]
+visible = false
+material = ExtResource("6_hjhe1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Filter2" type="ColorRect" parent="CharacterVideoPlayer"]
+material = SubResource("ShaderMaterial_f32g1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VHSEffect" type="VideoStreamPlayer" parent="CharacterVideoPlayer"]
+modulate = Color(1, 1, 1, 0.313726)
+material = SubResource("CanvasItemMaterial_ur8ji")
+custom_minimum_size = Vector2(508, 382)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -600.0
+offset_bottom = 451.0
+grow_horizontal = 0
+stream = ExtResource("9_yk1rh")
+autoplay = true
+expand = true
+loop = true
+
+[node name="MissionSummary" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_jsdcw")
+
+[node name="BG" type="ColorRect" parent="MissionSummary"]
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="MissionSummaryContent" type="VBoxContainer" parent="MissionSummary"]
+custom_minimum_size = Vector2(440, 400)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 464.0
+offset_bottom = 424.0
+
+[node name="MissionTitle" type="Label" parent="MissionSummary/MissionSummaryContent"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 22
+text = "Operation Silver Rain"
+
+[node name="MissionSummaryLabel" type="Label" parent="MissionSummary/MissionSummaryContent"]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Mission Summary"
+
+[node name="HSeparator" type="HSeparator" parent="MissionSummary/MissionSummaryContent"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_5pfu1")
+
+[node name="Objective" type="PanelContainer" parent="MissionSummary/MissionSummaryContent"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionSummary/MissionSummaryContent/Objective"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ObjectiveHeadline" type="Label" parent="MissionSummary/MissionSummaryContent/Objective/VBoxContainer"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Objective"
+
+[node name="ObjectiveLabel" type="RichTextLabel" parent="MissionSummary/MissionSummaryContent/Objective/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_6bgrb")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_joesw")
+bbcode_enabled = true
+text = "Surveillance has spotted two spy balloons. Spot and lock them using the [color=#ffd678]Radar[/color] and shoot them down using your [color=#ffd678]KWG[/color] ammunition."
+fit_content = true
+
+[node name="Control" type="Control" parent="MissionSummary/MissionSummaryContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Loadout" type="PanelContainer" parent="MissionSummary/MissionSummaryContent"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionSummary/MissionSummaryContent/Loadout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LoadoutHeadline" type="Label" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Loadout"
+
+[node name="AmmoGridContainer" type="HBoxContainer" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer"]
+layout_mode = 2
+
+[node name="AmmunitionLabel" type="Label" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer/AmmoGridContainer"]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_osske")
+text = "Ammunitions"
+autowrap_mode = 3
+
+[node name="AmmunitionList" type="Label" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer/AmmoGridContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "20x KWG
+ 4x HE"
+autowrap_mode = 3
+
+[node name="DevicesGridContainer" type="HBoxContainer" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer"]
+layout_mode = 2
+
+[node name="DevicesLabel" type="Label" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer/DevicesGridContainer"]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_osske")
+text = "New Devices"
+autowrap_mode = 3
+
+[node name="DevicesList" type="Label" parent="MissionSummary/MissionSummaryContent/Loadout/VBoxContainer/DevicesGridContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "• Radar
+• Locking Device"
+autowrap_mode = 3
+
+[node name="Assignments" type="PanelContainer" parent="MissionSummary/MissionSummaryContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionSummary/MissionSummaryContent/Assignments"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AssignmentsHeadline" type="Label" parent="MissionSummary/MissionSummaryContent/Assignments/VBoxContainer"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Assignments"
+
+[node name="AssignmentsLabel" type="RichTextLabel" parent="MissionSummary/MissionSummaryContent/Assignments/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_6bgrb")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_joesw")
+bbcode_enabled = true
+text = "Finish the Operation in less than [color=#ffd678]three Minutes[/color]."
+fit_content = true
+
+[node name="MissionResult" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_sk8eo")
+
+[node name="BG" type="ColorRect" parent="MissionResult"]
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="MissionResultContent" type="VBoxContainer" parent="MissionResult"]
+custom_minimum_size = Vector2(440, 400)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 464.0
+offset_bottom = 424.0
+
+[node name="MissionTitleResult" type="Label" parent="MissionResult/MissionResultContent"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 22
+text = "Operation Silver Rain"
+
+[node name="MissionResultLabel" type="Label" parent="MissionResult/MissionResultContent"]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Mission Result"
+
+[node name="HSeparator" type="HSeparator" parent="MissionResult/MissionResultContent"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_x2a8e")
+
+[node name="Combatbox" type="PanelContainer" parent="MissionResult/MissionResultContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="CombatResultContainer" type="VBoxContainer" parent="MissionResult/MissionResultContent/Combatbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DestroyedEnemiesHeadline" type="Label" parent="MissionResult/MissionResultContent/Combatbox/CombatResultContainer"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Combat Performance"
+
+[node name="Generalbox" type="PanelContainer" parent="MissionResult/MissionResultContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="GeneralContainer" type="VBoxContainer" parent="MissionResult/MissionResultContent/Generalbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GeneralLabel" type="Label" parent="MissionResult/MissionResultContent/Generalbox/GeneralContainer"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "General Performance"
+
+[node name="Spacer" type="Control" parent="MissionResult/MissionResultContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TotalBox" type="PanelContainer" parent="MissionResult/MissionResultContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iyqgm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MissionResult/MissionResultContent/TotalBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TotalContainer" type="HBoxContainer" parent="MissionResult/MissionResultContent/TotalBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="TotalLabel" type="Label" parent="MissionResult/MissionResultContent/TotalBox/VBoxContainer/TotalContainer"]
+modulate = Color(0.160784, 0.109804, 0.0470588, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_osske")
+text = "Total"
+autowrap_mode = 3
+
+[node name="TotalPointsLabel" type="Label" parent="MissionResult/MissionResultContent/TotalBox/VBoxContainer/TotalContainer"]
+unique_name_in_owner = true
+modulate = Color(0.160784, 0.109804, 0.0470588, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 2
+
+[node name="PerformanceRatingLabel" type="Label" parent="MissionResult/MissionResultContent"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 22
+text = "Performance Rating: Good"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeSelection" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_x1i5g")
+
+[node name="BG" type="ColorRect" parent="UpgradeSelection"]
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="UpgradeSelectionContent" type="VBoxContainer" parent="UpgradeSelection"]
+custom_minimum_size = Vector2(440, 400)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 464.0
+offset_bottom = 424.0
+theme_override_constants/separation = 0
+
+[node name="Top" type="VBoxContainer" parent="UpgradeSelection/UpgradeSelectionContent"]
+layout_mode = 2
+
+[node name="UpgradeTitleLabel" type="Label" parent="UpgradeSelection/UpgradeSelectionContent/Top"]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 22
+text = "Improvement Selection"
+
+[node name="UpgradeSubtitleLabel" type="Label" parent="UpgradeSelection/UpgradeSelectionContent/Top"]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "We become what we behold"
+
+[node name="HSeparator" type="HSeparator" parent="UpgradeSelection/UpgradeSelectionContent/Top"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_35s0s")
+
+[node name="Box" type="PanelContainer" parent="UpgradeSelection/UpgradeSelectionContent/Top"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pddhw")
+
+[node name="SelectedUpgradeLabel" type="Label" parent="UpgradeSelection/UpgradeSelectionContent/Top/Box"]
+unique_name_in_owner = true
+modulate = Color(0.168627, 0.117647, 0.0470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "SELECTED: cannon_quicklock"
+clip_text = true
+
+[node name="UpgradesScroller" type="ScrollContainer" parent="UpgradeSelection/UpgradeSelectionContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("19_qap1q")
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeSelection/UpgradeSelectionContent/UpgradesScroller"]
+clip_children = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+
+[node name="AvailableUpgrades" type="VBoxContainer" parent="UpgradeSelection/UpgradeSelectionContent/UpgradesScroller/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spacer" type="Control" parent="UpgradeSelection/UpgradeSelectionContent"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Box2" type="PanelContainer" parent="UpgradeSelection/UpgradeSelectionContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqemn")
+
+[node name="Label" type="Label" parent="UpgradeSelection/UpgradeSelectionContent/Box2"]
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Installed Improvements"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UpgradeSelection/UpgradeSelectionContent"]
+visible = false
+layout_mode = 2
+
+[node name="ConfirmationScreen" type="ColorRect" parent="UpgradeSelection"]
+unique_name_in_owner = true
+visible = false
+z_index = 3
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="ExperimentUpgradeBg" type="Sprite2D" parent="UpgradeSelection/ConfirmationScreen"]
+visible = false
+z_index = 1
+position = Vector2(632, -10)
+texture = ExtResource("19_7sx0c")
+
+[node name="ConfirmationMargin" type="MarginContainer" parent="UpgradeSelection/ConfirmationScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 136
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin"]
+z_index = 1
+layout_mode = 2
+
+[node name="Headline" type="Label" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+z_index = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Confirm Improvement Selection"
+horizontal_alignment = 1
+
+[node name="MainPanel" type="PanelContainer" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_clynf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Question" type="Label" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Install the following Improvement before the next Mission?"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Box" type="PanelContainer" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer/MainPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_iy5a5")
+
+[node name="FinalSelectedUpgradeLabel" type="Label" parent="UpgradeSelection/ConfirmationScreen/ConfirmationMargin/VBoxContainer/MainPanel/VBoxContainer/Box"]
+unique_name_in_owner = true
+modulate = Color(1, 0.839216, 0.470588, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 20
+text = "SELECTED: cannon_quicklock"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Option1Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+z_index = 4
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 50.0
+offset_right = 571.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Option 1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option1Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Option1Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Option2Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+z_index = 4
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 98.0
+offset_right = 571.0
+offset_bottom = 113.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Option 2"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option2Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Option2Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Option3Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+z_index = 4
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 147.0
+offset_right = 571.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Option 3"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option3Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="Option3Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Option4Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+z_index = 4
+custom_minimum_size = Vector2(150, 0)
+offset_left = 371.0
+offset_top = 195.0
+offset_right = 571.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Option 3"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option4Text"]
+position = Vector2(209, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="Option4Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="IncomingCall" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="IncomingCall"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="IcomingCallAnimation" type="AnimationPlayer" parent="IncomingCall"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_nygqm")
+}
+
+[node name="Wave" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 170)
+scale = Vector2(0.0468749, 0.0468749)
+texture = SubResource("GradientTexture2D_gways")
+
+[node name="Wave3" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 170)
+scale = Vector2(1.719, 1.719)
+texture = SubResource("GradientTexture2D_gways")
+
+[node name="Wave2" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 170)
+scale = Vector2(0.0468749, 0.0468749)
+texture = SubResource("GradientTexture2D_gways")
+
+[node name="Logo" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(0.215686, 0.14902, 0.0627451, 1)
+position = Vector2(300, 200)
+scale = Vector2(0.247887, 0.247887)
+texture = ExtResource("21_ile31")
+
+[node name="Logo3" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 200)
+scale = Vector2(1.16, 1.16)
+texture = ExtResource("22_oyuk2")
+
+[node name="IncomingLabel" type="Label" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 156.0
+offset_top = 318.0
+offset_right = 446.0
+offset_bottom = 373.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 19
+text = "Icoming Call"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AcceptCallLabel" type="Label" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 50.0
+offset_right = 571.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Accept"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="IncomingCall/AcceptCallLabel"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="IncomingCall/AcceptCallLabel/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="MuteCallLabel" type="Label" parent="IncomingCall"]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 195.0
+offset_right = 571.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("2_6bgrb")
+theme_override_font_sizes/font_size = 16
+text = "Mute"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="IncomingCall/MuteCallLabel"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="IncomingCall/MuteCallLabel/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[connection signal="finished" from="CharacterVideoPlayer" to="." method="_on_character_video_player_finished"]

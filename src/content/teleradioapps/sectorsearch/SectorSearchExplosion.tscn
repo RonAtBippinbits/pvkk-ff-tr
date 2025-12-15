@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://boaux7qxyficl"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearchExplosion.gd" id="1_qjyoy"]
+[ext_resource type="Texture2D" uid="uid://bayqocixvnr8" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_explosion_smoke.png" id="2_nx45n"]
+
+[sub_resource type="Gradient" id="Gradient_42r1c"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5, 0.561462, 0.767442, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.145098, 1, 1, 1, 0.0509804, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_untl5"]
+gradient = SubResource("Gradient_42r1c")
+width = 32
+height = 128
+fill_to = Vector2(0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wxwwt"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vhk31"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+angle_max = 360.0
+spread = 180.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 0.3
+
+[node name="SectorSearchExplosion" type="Node2D"]
+script = ExtResource("1_qjyoy")
+
+[node name="Outline" type="Line2D" parent="."]
+closed = true
+texture = SubResource("GradientTexture2D_untl5")
+texture_mode = 1
+
+[node name="ExplosionParticle" type="GPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_wxwwt")
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_vhk31")
+texture = ExtResource("2_nx45n")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="ExplosionSprite" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -2, 2, -6, 2, -1, 5, 0, 2, 1, 2, 3, 0, 1, -2, 2, -1, 0, -3, -3)

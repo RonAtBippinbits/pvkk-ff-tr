@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtwgrpgb8y6bl"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/briefing/TeleradioContentBriefingResultContainer.gd" id="1_53l76"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="1_jwnf7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osske"]
+content_margin_left = 8.0
+
+[node name="ResultContainer" type="HBoxContainer"]
+script = ExtResource("1_53l76")
+
+[node name="Description" type="Label" parent="."]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_jwnf7")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxEmpty_osske")
+text = "2x Destroyed: Spy Baloon"
+autowrap_mode = 3
+
+[node name="Points" type="Label" parent="."]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_jwnf7")
+theme_override_font_sizes/font_size = 14
+text = "+4"
+horizontal_alignment = 2

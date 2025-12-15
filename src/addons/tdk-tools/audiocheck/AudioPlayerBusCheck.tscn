@@ -1,0 +1,289 @@
+[gd_scene load_steps=6 format=3 uid="uid://67b75fjbumqd"]
+
+[ext_resource type="Script" path="res://addons/tdk-tools/audiocheck/AudioPlayerBusCheck.gd" id="1_wlqyg"]
+[ext_resource type="Texture2D" uid="uid://bvpbcq7x0hs2b" path="res://addons/tdk-tools/RefreshMenu.svg" id="2_hlfbe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sm3dg"]
+
+[sub_resource type="Gradient" id="Gradient_uvl0p"]
+offsets = PackedFloat32Array(0, 0.232143, 0.521429, 0.764286, 1)
+colors = PackedColorArray(0.577223, 0.921875, 0, 1, 0.945313, 0.894792, 0, 1, 0.992188, 0.31771, 0, 1, 0.924576, 0, 0.674847, 1, 0.128933, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fprm5"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="AudioPlayerList" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sm3dg")
+script = ExtResource("1_wlqyg")
+gradient = SubResource("Gradient_uvl0p")
+
+[node name="MarginContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Headline" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Teleradio App - Audio Player Bus Check"
+
+[node name="Explanation" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "All Audio Players that should be playing sound through the Teleradios Speaker must use the  TeleradioApp bus."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="FolderLineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "res://content/teleradioapps/sectorsearch"
+
+[node name="OpenFolderButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "📁"
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="RefreshButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Refresh"
+icon = ExtResource("2_hlfbe")
+
+[node name="ShowCorrectCheckButton" type="CheckButton" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Enable this to show all Audio Players including ones that correctly used the TeleradioApp audio bus."
+text = "Show correct"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "😎 all good!"
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+
+[node name="FixAllButton" type="Button" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "🛠 Fix all"
+
+[node name="MainView" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainView"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Loading" type="VBoxContainer" parent="MarginContainer/MainView/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="FoundLabel" type="Label" parent="MarginContainer/MainView/VBoxContainer/Loading"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Working..."
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainView/VBoxContainer/Loading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="AnalyzingLabel" type="Label" parent="MarginContainer/MainView/VBoxContainer/Loading"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Last: res://content/teleradioapps/sectorsearch/SectorSearchSector.tscn"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/MainView/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tree" type="Tree" parent="MarginContainer/MainView/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+column_titles_visible = true
+hide_root = true
+
+[node name="EditorPanel" type="PanelContainer" parent="MarginContainer/MainView"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fprm5")
+
+[node name="Editor" type="VBoxContainer" parent="MarginContainer/MainView/EditorPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "✨ AudioStreamPlayer: Quick Edit"
+
+[node name="EditorContent" type="VBoxContainer" parent="MarginContainer/MainView/EditorPanel/Editor"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Control2" type="Control" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SceneLabel" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+modulate = Color(1, 1, 1, 0.572549)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Scene:"
+
+[node name="ScenePath" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Scene:"
+
+[node name="NodeLabel" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+modulate = Color(1, 1, 1, 0.572549)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Node:"
+
+[node name="NodePath" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Scene:"
+
+[node name="Control4" type="Control" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+layout_mode = 2
+text = "🔊 Preview Play/Stop"
+
+[node name="PreviewAudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+unique_name_in_owner = true
+
+[node name="Control3" type="Control" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BusLabel" type="Label" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+modulate = Color(1, 1, 1, 0.572549)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Bus:"
+
+[node name="BusOptionButton" type="OptionButton" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 18
+popup/item_0/text = "Master"
+popup/item_1/text = "TeleradioSpeaker"
+popup/item_1/id = 1
+popup/item_2/text = "TeleradioApp"
+popup/item_2/id = 2
+popup/item_3/text = "Master"
+popup/item_3/id = 3
+popup/item_4/text = "TeleradioSpeaker"
+popup/item_4/id = 4
+popup/item_5/text = "TeleradioApp"
+popup/item_5/id = 5
+popup/item_6/text = "Master"
+popup/item_6/id = 6
+popup/item_7/text = "TeleradioSpeaker"
+popup/item_7/id = 7
+popup/item_8/text = "TeleradioApp"
+popup/item_8/id = 8
+popup/item_9/text = "Master"
+popup/item_9/id = 9
+popup/item_10/text = "TeleradioSpeaker"
+popup/item_10/id = 10
+popup/item_11/text = "TeleradioApp"
+popup/item_11/id = 11
+popup/item_12/text = "Master"
+popup/item_12/id = 12
+popup/item_13/text = "TeleradioSpeaker"
+popup/item_13/id = 13
+popup/item_14/text = "TeleradioApp"
+popup/item_14/id = 14
+popup/item_15/text = "Master"
+popup/item_15/id = 15
+popup/item_16/text = "TeleradioSpeaker"
+popup/item_16/id = 16
+popup/item_17/text = "TeleradioApp"
+popup/item_17/id = 17
+
+[node name="Control5" type="Control" parent="MarginContainer/MainView/EditorPanel/Editor/EditorContent"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="MarginContainer/MainView/EditorPanel/Editor"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="MarginContainer/MainView/EditorPanel/Editor/BottomBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Close"
+
+[node name="Spacer" type="Control" parent="MarginContainer/MainView/EditorPanel/Editor/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="MarginContainer/MainView/EditorPanel/Editor/BottomBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Save"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a Directory"
+position = Vector2i(0, 36)
+size = Vector2i(303, 180)
+ok_button_text = "Select Current Folder"
+dialog_hide_on_ok = true
+file_mode = 2
+root_subfolder = "res://content/"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/OpenFolderButton" to="." method="_on_open_folder_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ShowCorrectCheckButton" to="." method="_on_show_correct_check_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FixAllButton" to="." method="_on_fix_all_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/MainView/VBoxContainer/ScrollContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="MarginContainer/MainView/EditorPanel/Editor/EditorContent/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/MainView/EditorPanel/Editor/EditorContent/BusOptionButton" to="." method="_on_bus_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/MainView/EditorPanel/Editor/BottomBar/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainView/EditorPanel/Editor/BottomBar/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]

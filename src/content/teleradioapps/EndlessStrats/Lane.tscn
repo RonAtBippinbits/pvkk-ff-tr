@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1m64uhuoqyl5"]
+
+[ext_resource type="Texture2D" uid="uid://d37tafpprsx07" path="res://content/teleradioapps/EndlessStrats/assets/placeholder_white.png" id="1_qxh7s"]
+
+[node name="Lane" type="Node2D"]
+
+[node name="SpawnPos" type="Node2D" parent="."]
+position = Vector2(-208, 0)
+scale = Vector2(6.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6.5, 1.5)
+texture = ExtResource("1_qxh7s")

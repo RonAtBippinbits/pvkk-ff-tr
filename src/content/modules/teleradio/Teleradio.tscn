@@ -1,0 +1,696 @@
+[gd_scene load_steps=79 format=3 uid="uid://dok7nqvuixp3n"]
+
+[ext_resource type="Script" path="res://content/modules/teleradio/TeleradioHardware3D.gd" id="1_fnxcy"]
+[ext_resource type="PackedScene" uid="uid://ycml18urbwxi" path="res://content/devices/complex/teleradio/room_teleradio_mesh_new.glb" id="2_h7csc"]
+[ext_resource type="Script" path="res://content/devices/complex/teleradio/teleradio_screen.gd" id="3_s0648"]
+[ext_resource type="Material" path="res://content/devices/complex/teleradio/teleradio_new.material" id="4_ow4hq"]
+[ext_resource type="Material" uid="uid://4jqawwlhj3bs" path="res://content/materials/teleradio_screen.tres" id="5_uibnt"]
+[ext_resource type="PackedScene" uid="uid://dflup4wmnfxtw" path="res://content/teleradio/TeleradioLogic.tscn" id="6_kwuq3"]
+[ext_resource type="Texture2D" uid="uid://ct66rou7btnbq" path="res://content/modules/teleradio/decal_lines.png" id="12_f7ipp"]
+[ext_resource type="PackedScene" path="res://content/devices/input/buttons/hit/ButtonHitKeypadNext.tscn" id="13_ow6pq"]
+[ext_resource type="Material" uid="uid://dhf13718j75k6" path="res://content/materials/mat_paint_white.tres" id="14_87icu"]
+[ext_resource type="Material" path="res://content/materials/mat_paint_white_backlit.tres" id="16_hwaea"]
+[ext_resource type="Material" path="res://content/materials/mat_pure_black.tres" id="16_jvrjm"]
+[ext_resource type="ArrayMesh" uid="uid://ba6ktdmibqthp" path="res://content/modules/teleradio/meshes/teleradio_button_case.mesh" id="17_6dujd"]
+[ext_resource type="Material" path="res://content/materials/chrome.tres" id="17_d07i0"]
+[ext_resource type="FontFile" path="res://gui/fonts/D-DIN-Bold.otf" id="18_dmd4y"]
+[ext_resource type="AudioStream" uid="uid://cs4stlemhhep5" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-001.ogg" id="18_fcnt5"]
+[ext_resource type="AudioStream" uid="uid://bmrxcpiquc6iu" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-002.ogg" id="19_7tyy0"]
+[ext_resource type="AudioStream" uid="uid://dc33w0b8qtcur" path="res://content/modules/teleradio/PVKKAlarmCall.wav" id="19_s8duf"]
+[ext_resource type="ArrayMesh" uid="uid://gv40d1g0v3v2" path="res://content/modules/teleradio/meshes/teleradio_button.mesh" id="20_owau7"]
+[ext_resource type="AudioStream" uid="uid://caxn2sgc0dxmv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-003.ogg" id="20_untlt"]
+[ext_resource type="AudioStream" uid="uid://2pvu55d3dkjv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-004.ogg" id="21_mbtg0"]
+[ext_resource type="AudioStream" uid="uid://cfkbjdljuuelb" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-001.ogg" id="22_hlkbx"]
+[ext_resource type="Script" path="res://content/modules/teleradio/CartridgeDrive3D.gd" id="22_p22e1"]
+[ext_resource type="AudioStream" uid="uid://d1s755e3vkwnh" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-005.ogg" id="22_uuf32"]
+[ext_resource type="AudioStream" uid="uid://dwetjw516i3d7" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-002.ogg" id="23_6b1tr"]
+[ext_resource type="AudioStream" uid="uid://juyuqia1ibc8" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-006.ogg" id="23_6lm6x"]
+[ext_resource type="AudioStream" uid="uid://sacnu40c0lua" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-003.ogg" id="24_0j1yq"]
+[ext_resource type="AudioStream" uid="uid://c0ksq6m7hpstp" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-001.ogg" id="24_up06d"]
+[ext_resource type="AudioStream" uid="uid://egjy5pq7g6oc" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-002.ogg" id="25_i0ork"]
+[ext_resource type="AudioStream" uid="uid://dx3b5rf1opx5n" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-004.ogg" id="25_i1qo8"]
+[ext_resource type="AudioStream" uid="uid://b1us3dgo7cp67" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-005.ogg" id="26_hroa5"]
+[ext_resource type="AudioStream" uid="uid://c2x56o326vupo" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-003.ogg" id="26_xpkdg"]
+[ext_resource type="AudioStream" uid="uid://dciwn6g82trv8" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-004.ogg" id="27_olw4o"]
+[ext_resource type="AudioStream" uid="uid://clq1r8t8g2c5v" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-005.ogg" id="28_pmt7x"]
+[ext_resource type="AudioStream" uid="uid://dhrjrj8o2503r" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-006.ogg" id="29_0jsen"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/on/PVKK_sfx_Console_Lightindicator_Generic_On-001.ogg" id="33_bvv8o"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/on/PVKK_sfx_Console_Lightindicator_Generic_On-002.ogg" id="34_soncb"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/on/PVKK_sfx_Console_Lightindicator_Generic_On-003.ogg" id="35_rkac8"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/on/PVKK_sfx_Console_Lightindicator_Generic_On-004.ogg" id="36_ihli0"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/on/PVKK_sfx_Console_Lightindicator_Generic_On-005.ogg" id="37_y7thn"]
+[ext_resource type="PackedScene" path="res://content/devices/output/lamps/led/LampLed5x2.tscn" id="38_gld6q"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/off/PVKK_sfx_Console_Lightindicator_Generic_Off-001.ogg" id="38_y7i8o"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/off/PVKK_sfx_Console_Lightindicator_Generic_Off-002.ogg" id="39_2f0p7"]
+[ext_resource type="AudioStream" uid="uid://cye2c0h4wq4i" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_1.ogg" id="40_fvw7o"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/off/PVKK_sfx_Console_Lightindicator_Generic_Off-003.ogg" id="40_hrwis"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/off/PVKK_sfx_Console_Lightindicator_Generic_Off-004.ogg" id="41_drhon"]
+[ext_resource type="PackedScene" path="res://content/carryables/cartriges/SM_8_Tape.glb" id="41_hn7v8"]
+[ext_resource type="AudioStream" uid="uid://k1xyqmr7uusi" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_2.ogg" id="41_qfgcc"]
+[ext_resource type="AudioStream" uid="uid://dmu48nehav8kq" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_3.ogg" id="42_r6sua"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/console/light_indicators/generic/off/PVKK_sfx_Console_Lightindicator_Generic_Off-005.ogg" id="42_u6cdf"]
+[ext_resource type="AudioStream" uid="uid://diyjkbi5jvpg4" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_4.ogg" id="43_in8kp"]
+[ext_resource type="AudioStream" uid="uid://vof3pdo7goqr" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_1.ogg" id="44_ivene"]
+[ext_resource type="AudioStream" uid="uid://vp27aaws16u7" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_2.ogg" id="45_ytk78"]
+[ext_resource type="AudioStream" uid="uid://ooocoxelikhb" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_3.ogg" id="46_tmb5r"]
+[ext_resource type="AudioStream" uid="uid://bmox7db3p7h6b" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_4.ogg" id="47_6mdws"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/PVKK_sfx_Teleradio_Idle_Loop.ogg" id="55_g0s6w"]
+[ext_resource type="PackedScene" path="res://sounds/tools/AmbienceScatterer.tscn" id="59_g51ol"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-001.ogg" id="60_cqykw"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-002.ogg" id="61_684o7"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-003.ogg" id="62_t0d5r"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-004.ogg" id="63_516kx"]
+[ext_resource type="PackedScene" path="res://content/devices/complex/teleradiojoystick/TeleradioJoystick.tscn" id="64_78lv6"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-005.ogg" id="64_k8skl"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-006.ogg" id="65_37k1y"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-007.ogg" id="66_rbnlu"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/idle/oneshots/PVKK_sfx_Teleradio_Idle_Oneshots-008.ogg" id="67_h7blw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vfxmn"]
+size = Vector3(0.0715485, 0.0078125, 0.0185547)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_604fh"]
+streams_count = 6
+stream_0/stream = ExtResource("18_fcnt5")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("19_7tyy0")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("20_untlt")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("21_mbtg0")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("22_uuf32")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("23_6lm6x")
+stream_5/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b2dus"]
+streams_count = 6
+stream_0/stream = ExtResource("24_up06d")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("25_i0ork")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("26_xpkdg")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("27_olw4o")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("28_pmt7x")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("29_0jsen")
+stream_5/weight = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j88uk"]
+size = Vector3(0.055851, 0.0112305, 0.0266113)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m8fft"]
+size = Vector3(0.102539, 0.0217285, 0.0146484)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7e3l"]
+transparency = 2
+alpha_scissor_threshold = 1.0
+alpha_antialiasing_mode = 0
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_82n21"]
+streams_count = 4
+stream_0/stream = ExtResource("44_ivene")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("45_ytk78")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("46_tmb5r")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("47_6mdws")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pn8s7"]
+streams_count = 4
+stream_0/stream = ExtResource("40_fvw7o")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("41_qfgcc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("42_r6sua")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("43_in8kp")
+stream_3/weight = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_cc8ic"]
+size = Vector3(0.008, 0.025, 0.006)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v2unb"]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.02
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s0e01"]
+random_pitch = 1.05
+streams_count = 5
+stream_0/stream = ExtResource("22_hlkbx")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("23_6b1tr")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("24_0j1yq")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("25_i1qo8")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("26_hroa5")
+stream_4/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1mrp3"]
+streams_count = 5
+stream_0/stream = ExtResource("33_bvv8o")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("34_soncb")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("35_rkac8")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("36_ihli0")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("37_y7thn")
+stream_4/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ms4mo"]
+streams_count = 5
+stream_0/stream = ExtResource("38_y7i8o")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("39_2f0p7")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("40_hrwis")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("41_drhon")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("42_u6cdf")
+stream_4/weight = 1.0
+
+[node name="Teleradio" type="Node3D" groups=["pause-listener"]]
+script = ExtResource("1_fnxcy")
+
+[node name="TeleradioMesh" parent="." instance=ExtResource("2_h7csc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0162437, 0, 0)
+script = ExtResource("3_s0648")
+
+[node name="SM_Teleradio" parent="TeleradioMesh" index="0"]
+layers = 3
+material_override = ExtResource("4_ow4hq")
+
+[node name="SM_Teleradio_Button" parent="TeleradioMesh" index="1"]
+visible = false
+
+[node name="SM_Teleradio_Screen" parent="TeleradioMesh" index="2"]
+transform = Transform3D(0.638, 0, 0, 0, 1, 0, 0, 0, 1, 0.0188919, 1.69763e-05, 0.00693276)
+material_override = ExtResource("5_uibnt")
+
+[node name="VisibleOnScreen" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446776, 0.20494, 0)
+aabb = AABB(-0.273298, -0.178621, -0.0916158, 0.546595, 0.357241, 0.183232)
+
+[node name="TeleradioLogic" parent="." node_paths=PackedStringArray("ButtonOption1", "ButtonOption2", "ButtonOption3", "ButtonOption4", "Joystick", "TeleradioAudioPlayer", "hardware") instance=ExtResource("6_kwuq3")]
+unique_name_in_owner = true
+ButtonOption1 = NodePath("../Buttons/HitButtonKeypad1")
+ButtonOption2 = NodePath("../Buttons/HitButtonKeypad2")
+ButtonOption3 = NodePath("../Buttons/HitButtonKeypad3")
+ButtonOption4 = NodePath("../Buttons/HitButtonKeypad4")
+Joystick = NodePath("../TeleradioJoystick")
+TeleradioAudioPlayer = NodePath("../Audio/TeleradioOutput")
+hardware = NodePath("..")
+
+[node name="Buttons" type="Node3D" parent="."]
+transform = Transform3D(1.023, 0, 0, 0, 1.023, 0, 0, 0, 1.023, 0.238516, 0.260632, 0.062234)
+
+[node name="HitButtonKeypad1" parent="Buttons" node_paths=PackedStringArray("coloredParts") instance=ExtResource("13_ow6pq")]
+transform = Transform3D(0.858, 0, 0, 0, -3.75044e-08, -0.858, 0, 0.858, -3.75044e-08, -0.0186929, 0.0403924, 0.00320857)
+label_text = "1"
+buttonMaterial = ExtResource("14_87icu")
+coloredParts = []
+
+[node name="PressSwitchCase" parent="Buttons/HitButtonKeypad1" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("17_6dujd")
+surface_material_override/0 = ExtResource("17_d07i0")
+surface_material_override/1 = ExtResource("16_jvrjm")
+
+[node name="PressSwitchMovingPart" parent="Buttons/HitButtonKeypad1/MovingPart" index="0"]
+mesh = null
+
+[node name="keypad-big-button2" parent="Buttons/HitButtonKeypad1/MovingPart" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 17
+material_override = ExtResource("16_hwaea")
+mesh = ExtResource("20_owau7")
+
+[node name="LetterLabel" parent="Buttons/HitButtonKeypad1/MovingPart/keypad-big-button2" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 4.14069e-15, 0, -4.14069e-15, 0.5, -0.000885829, 5.17964e-05, 0.00377612)
+transparency = 0.05
+modulate = Color(0, 0, 0, 1)
+text = "1"
+
+[node name="CollisionShape3D" parent="Buttons/HitButtonKeypad1/Interactor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.42109e-14, 0, 1.42109e-14, 1, -8.29101e-05, -0.00247192, 0)
+shape = SubResource("BoxShape3D_vfxmn")
+
+[node name="Press" parent="Buttons/HitButtonKeypad1" index="5"]
+stream = SubResource("AudioStreamRandomizer_604fh")
+volume_db = -20.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Release" parent="Buttons/HitButtonKeypad1" index="6"]
+stream = SubResource("AudioStreamRandomizer_b2dus")
+volume_db = -22.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="HitButtonKeypad2" parent="Buttons" node_paths=PackedStringArray("coloredParts") instance=ExtResource("13_ow6pq")]
+transform = Transform3D(0.858, 0, 0, 0, -3.75044e-08, -0.858, 0, 0.858, -3.75044e-08, -0.0186929, 0.0126653, 0.00320857)
+label_text = "2"
+buttonMaterial = ExtResource("14_87icu")
+coloredParts = []
+
+[node name="PressSwitchCase" parent="Buttons/HitButtonKeypad2" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("17_6dujd")
+surface_material_override/0 = ExtResource("17_d07i0")
+surface_material_override/1 = ExtResource("16_jvrjm")
+
+[node name="PressSwitchMovingPart" parent="Buttons/HitButtonKeypad2/MovingPart" index="0"]
+mesh = null
+
+[node name="keypad-big-button2" parent="Buttons/HitButtonKeypad2/MovingPart" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 17
+material_override = ExtResource("16_hwaea")
+mesh = ExtResource("20_owau7")
+
+[node name="LetterLabel" parent="Buttons/HitButtonKeypad2/MovingPart/keypad-big-button2" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 4.14069e-15, 0, -4.14069e-15, 0.5, -0.000885829, 5.17964e-05, 0.00377612)
+transparency = 0.05
+modulate = Color(0, 0, 0, 1)
+text = "2"
+
+[node name="CollisionShape3D" parent="Buttons/HitButtonKeypad2/Interactor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.42109e-14, 0, 1.42109e-14, 1, -8.29101e-05, -0.00247192, 0)
+shape = SubResource("BoxShape3D_vfxmn")
+
+[node name="Press" parent="Buttons/HitButtonKeypad2" index="5"]
+stream = SubResource("AudioStreamRandomizer_604fh")
+volume_db = -20.0
+unit_size = 1.5
+max_db = -10.0
+max_polyphony = 32
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Release" parent="Buttons/HitButtonKeypad2" index="6"]
+stream = SubResource("AudioStreamRandomizer_b2dus")
+volume_db = -22.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="HitButtonKeypad3" parent="Buttons" node_paths=PackedStringArray("coloredParts") instance=ExtResource("13_ow6pq")]
+transform = Transform3D(0.858, 0, 0, 0, -3.75044e-08, -0.858, 0, 0.858, -3.75044e-08, -0.0186929, -0.0145086, 0.00320857)
+label_text = "3"
+buttonMaterial = ExtResource("14_87icu")
+coloredParts = []
+
+[node name="PressSwitchCase" parent="Buttons/HitButtonKeypad3" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("17_6dujd")
+surface_material_override/0 = ExtResource("17_d07i0")
+surface_material_override/1 = ExtResource("16_jvrjm")
+
+[node name="PressSwitchMovingPart" parent="Buttons/HitButtonKeypad3/MovingPart" index="0"]
+mesh = null
+
+[node name="keypad-big-button2" parent="Buttons/HitButtonKeypad3/MovingPart" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 17
+material_override = ExtResource("16_hwaea")
+mesh = ExtResource("20_owau7")
+
+[node name="LetterLabel" parent="Buttons/HitButtonKeypad3/MovingPart/keypad-big-button2" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 4.14069e-15, 0, -4.14069e-15, 0.5, -0.000885829, 5.17964e-05, 0.00377612)
+transparency = 0.05
+modulate = Color(0, 0, 0, 1)
+text = "3"
+
+[node name="CollisionShape3D" parent="Buttons/HitButtonKeypad3/Interactor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.42109e-14, 0, 1.42109e-14, 1, -8.29101e-05, -0.00247192, 0)
+shape = SubResource("BoxShape3D_vfxmn")
+
+[node name="Press" parent="Buttons/HitButtonKeypad3" index="5"]
+stream = SubResource("AudioStreamRandomizer_604fh")
+volume_db = -20.0
+unit_size = 1.5
+max_db = -10.0
+max_polyphony = 32
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Release" parent="Buttons/HitButtonKeypad3" index="6"]
+stream = SubResource("AudioStreamRandomizer_b2dus")
+volume_db = -22.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="HitButtonKeypad4" parent="Buttons" node_paths=PackedStringArray("coloredParts") instance=ExtResource("13_ow6pq")]
+transform = Transform3D(0.858, 0, 0, 0, -3.75044e-08, -0.858, 0, 0.858, -3.75044e-08, -0.0186929, -0.0422356, 0.00320857)
+label_text = "4"
+buttonMaterial = ExtResource("14_87icu")
+coloredParts = []
+
+[node name="PressSwitchCase" parent="Buttons/HitButtonKeypad4" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("17_6dujd")
+surface_material_override/0 = ExtResource("17_d07i0")
+surface_material_override/1 = ExtResource("16_jvrjm")
+
+[node name="PressSwitchMovingPart" parent="Buttons/HitButtonKeypad4/MovingPart" index="0"]
+mesh = null
+
+[node name="keypad-big-button2" parent="Buttons/HitButtonKeypad4/MovingPart" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 17
+material_override = ExtResource("16_hwaea")
+mesh = ExtResource("20_owau7")
+
+[node name="LetterLabel" parent="Buttons/HitButtonKeypad4/MovingPart/keypad-big-button2" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 4.14069e-15, 0, -4.14069e-15, 0.5, -0.000885829, 5.17815e-05, 0.00377612)
+transparency = 0.05
+modulate = Color(0, 0, 0, 1)
+text = "4"
+
+[node name="CollisionShape3D" parent="Buttons/HitButtonKeypad4/Interactor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.42109e-14, 0, 1.42109e-14, 1, -8.29101e-05, -0.00247192, 0)
+shape = SubResource("BoxShape3D_vfxmn")
+
+[node name="Press" parent="Buttons/HitButtonKeypad4" index="5"]
+stream = SubResource("AudioStreamRandomizer_604fh")
+volume_db = -20.0
+unit_size = 1.5
+max_db = -10.0
+max_polyphony = 32
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Release" parent="Buttons/HitButtonKeypad4" index="6"]
+stream = SubResource("AudioStreamRandomizer_b2dus")
+volume_db = -22.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="HitButtonOnOff" parent="Buttons" node_paths=PackedStringArray("coloredParts") instance=ExtResource("13_ow6pq")]
+transform = Transform3D(0.858, 0, 0, 0, -3.75044e-08, -0.858, 0, 0.858, -3.75044e-08, -0.0462252, -0.185477, 0.00320857)
+coloredParts = []
+
+[node name="PressSwitchCase" parent="Buttons/HitButtonOnOff" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("17_6dujd")
+surface_material_override/0 = ExtResource("17_d07i0")
+surface_material_override/1 = ExtResource("16_jvrjm")
+
+[node name="TeleradioButton" parent="Buttons/HitButtonOnOff/MovingPart" index="0" instance=ExtResource("2_h7csc")]
+transform = Transform3D(-4.98003e-08, 0, -1.1393, 1.1393, -4.98003e-08, -4.98003e-08, -4.98003e-08, -1.1393, 2.17684e-15, -0.199359, -0.0746426, 0.0807635)
+
+[node name="SM_Teleradio" parent="Buttons/HitButtonOnOff/MovingPart/TeleradioButton" index="0"]
+visible = false
+layers = 3
+material_override = ExtResource("4_ow4hq")
+
+[node name="SM_Teleradio_Screen" parent="Buttons/HitButtonOnOff/MovingPart/TeleradioButton" index="2"]
+transform = Transform3D(0.638, 0, 0, 0, 1, 0, 0, 0, 1, 0.009, -0.000771308, 0.00155717)
+visible = false
+material_override = ExtResource("5_uibnt")
+
+[node name="PressSwitchMovingPart" parent="Buttons/HitButtonOnOff/MovingPart" index="1"]
+mesh = null
+
+[node name="keypad-big-button2" parent="Buttons/HitButtonOnOff/MovingPart" index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+visible = false
+layers = 17
+mesh = ExtResource("20_owau7")
+
+[node name="LetterLabel" parent="Buttons/HitButtonOnOff/MovingPart/keypad-big-button2" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 4.14069e-15, 0, -4.14069e-15, 0.5, -0.000885829, 5.17815e-05, 0.00377612)
+transparency = 0.05
+modulate = Color(0, 0, 0, 1)
+text = "4"
+
+[node name="Interactor" parent="Buttons/HitButtonOnOff" index="2" node_paths=PackedStringArray("highlightMeshes")]
+highlightMeshes = [NodePath("../MovingPart/TeleradioButton/SM_Teleradio_Button")]
+
+[node name="CollisionShape3D" parent="Buttons/HitButtonOnOff/Interactor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.77636e-14, 0, 1.77636e-14, 1, 0.00489335, -0.00418091, -0.000366211)
+shape = SubResource("BoxShape3D_j88uk")
+
+[node name="Press" parent="Buttons/HitButtonOnOff" index="5"]
+stream = SubResource("AudioStreamRandomizer_604fh")
+volume_db = -20.0
+unit_size = 1.5
+max_db = -10.0
+max_polyphony = 32
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Release" parent="Buttons/HitButtonOnOff" index="6"]
+stream = SubResource("AudioStreamRandomizer_b2dus")
+volume_db = -22.0
+unit_size = 1.5
+max_db = -10.0
+panning_strength = 0.2
+attenuation_filter_db = -15.0
+
+[node name="Details" type="Node3D" parent="."]
+
+[node name="Decal" type="Decal" parent="Details"]
+transform = Transform3D(-7.78063e-09, -0.178, 7.78063e-09, 0, -7.78063e-09, -0.178, 0.178, -7.78063e-09, 3.40102e-16, 0.15, 0.259, 0.055)
+size = Vector3(0.24, 0.402, 0.512)
+texture_albedo = ExtResource("12_f7ipp")
+emission_energy = 0.0
+modulate = Color(1, 0.823529, 0, 1)
+cull_mask = 1047038
+
+[node name="TeleradioLabel" type="Label3D" parent="Details"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 5.32907e-15, 0, -5.32907e-15, 0.5, 0.218564, 0.192199, 0.0603366)
+pixel_size = 0.0002
+shaded = true
+double_sided = false
+text = "Kommunikationsklasse 3"
+font = ExtResource("18_dmd4y")
+font_size = 41
+outline_size = 0
+autowrap_mode = 3
+
+[node name="TeleradioLabel4" type="Label3D" parent="Details"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 5.32907e-15, 0, -5.32907e-15, 0.5, 0.218564, 0.155732, 0.0650563)
+pixel_size = 0.0002
+shaded = true
+double_sided = false
+text = "Kasettenlaufwerk"
+font = ExtResource("18_dmd4y")
+font_size = 70
+outline_size = 0
+autowrap_mode = 3
+width = 600.0
+
+[node name="TeleradioLabel3" type="Label3D" parent="Details"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 5.32907e-15, 0, -5.32907e-15, 0.5, 0.217638, 0.338136, 0.0601336)
+pixel_size = 0.0002
+shaded = true
+double_sided = false
+text = "Modell BB"
+font = ExtResource("18_dmd4y")
+font_size = 51
+outline_size = 0
+autowrap_mode = 3
+
+[node name="TeleradioLabel2" type="Label3D" parent="Details"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 5.32907e-15, 0, -5.32907e-15, 0.5, 0.217638, 0.350417, 0.0601336)
+pixel_size = 0.0002
+shaded = true
+double_sided = false
+text = "Teleradio"
+font = ExtResource("18_dmd4y")
+font_size = 129
+outline_size = 0
+autowrap_mode = 3
+
+[node name="FailstateTeleradioLamp" type="OmniLight3D" parent="."]
+transform = Transform3D(0.996269, 0, -0.0863038, 0, 1, 0, 0.0863038, 0, 0.996269, -0.031, 0.174, 0.162)
+visible = false
+light_color = Color(1, 0.168627, 0, 1)
+light_energy = 5.115
+light_volumetric_fog_energy = 5.0
+light_cull_mask = 4294966271
+shadow_enabled = true
+shadow_bias = 0.001
+shadow_blur = 4.205
+omni_range = 11.415
+
+[node name="CartridgeDrive" type="Area3D" parent="." node_paths=PackedStringArray("teleradio", "highlightMeshes")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22048, 0.161492, 0.0639054)
+script = ExtResource("22_p22e1")
+teleradio = NodePath("../TeleradioLogic")
+item_id = "casette-drive"
+combines_with = Array[String](["casette"])
+highlightMeshes = [NodePath("EndPosition/SM_8_Tape")]
+canHold = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CartridgeDrive"]
+shape = SubResource("BoxShape3D_m8fft")
+
+[node name="StartPosition" type="Node3D" parent="CartridgeDrive"]
+transform = Transform3D(1, -2.13163e-14, 0, 2.13163e-14, 1, 0, 0, 0, 1, 0, -0.01, 0.04)
+
+[node name="EndPosition" parent="CartridgeDrive" instance=ExtResource("41_hn7v8")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.0100366, -0.0565589)
+
+[node name="SM_8_Tape" parent="CartridgeDrive/EndPosition" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00952514, 0)
+material_override = SubResource("StandardMaterial3D_h7e3l")
+cast_shadow = 0
+
+[node name="CassetteLoad" type="AudioStreamPlayer3D" parent="CartridgeDrive"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000941053, 0.00132947, -0.0029564)
+stream = SubResource("AudioStreamRandomizer_82n21")
+volume_db = -8.0
+unit_size = 1.0
+max_db = -4.0
+panning_strength = 0.5
+attenuation_filter_cutoff_hz = 20500.0
+
+[node name="CassetteEject" type="AudioStreamPlayer3D" parent="CartridgeDrive"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000941053, 0.00132947, -0.0029564)
+stream = SubResource("AudioStreamRandomizer_pn8s7")
+volume_db = -8.0
+unit_size = 1.0
+max_db = -4.0
+panning_strength = 0.5
+attenuation_filter_cutoff_hz = 20500.0
+
+[node name="CartridgeLock" type="Node3D" parent="CartridgeDrive"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.030307, 0.0158618, 0.011369)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CartridgeDrive/CartridgeLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0101328, 0)
+mesh = SubResource("BoxMesh_cc8ic")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CartridgeDrive/CartridgeLock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.00648001)
+mesh = SubResource("CylinderMesh_v2unb")
+
+[node name="LedBusy" parent="CartridgeDrive" instance=ExtResource("38_gld6q")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0491078, 0.0177824, -0.00472355)
+color = Color(0.443137, 0.921569, 0, 1)
+
+[node name="LedSlot" parent="CartridgeDrive" instance=ExtResource("38_gld6q")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0405443, 0.0177824, -0.00472355)
+color = Color(1, 0.705882, 0, 1)
+
+[node name="Audio" type="Node3D" parent="."]
+
+[node name="TeleradioOutput" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0142944, 0.210205, 0.0440674)
+unit_size = 5.0
+panning_strength = 0.5
+bus = &"TeleradioSpeaker"
+
+[node name="RingSound" type="AudioStreamPlayer3D" parent="Audio"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0119741, 0.203412, 0.0166414)
+stream = ExtResource("19_s8duf")
+volume_db = -3.0
+unit_size = 3.0
+max_db = 0.0
+panning_strength = 0.5
+bus = &"Teleradio"
+
+[node name="LoadingSound" type="AudioStreamPlayer3D" parent="Audio"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0469303, 0.311269, 0.0166414)
+stream = SubResource("AudioStreamRandomizer_s0e01")
+volume_db = -3.0
+unit_size = 1.5
+max_db = -3.0
+panning_strength = 0.5
+bus = &"Teleradio"
+
+[node name="TurnOnSound" type="AudioStreamPlayer3D" parent="Audio"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.244578, 0.23643, 0.0912765)
+stream = SubResource("AudioStreamRandomizer_1mrp3")
+volume_db = -4.0
+unit_size = 1.5
+max_db = -4.0
+panning_strength = 0.2
+bus = &"Console"
+
+[node name="TurnOffSound" type="AudioStreamPlayer3D" parent="Audio"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.244578, 0.23643, 0.0912765)
+stream = SubResource("AudioStreamRandomizer_ms4mo")
+volume_db = -4.0
+unit_size = 1.5
+max_db = -4.0
+panning_strength = 0.2
+bus = &"Console"
+
+[node name="IdleLoop" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202283, 0)
+stream = ExtResource("55_g0s6w")
+volume_db = -9.0
+unit_size = 0.4
+max_db = -9.0
+autoplay = true
+panning_strength = 0.2
+bus = &"Teleradio"
+attenuation_filter_cutoff_hz = 15000.0
+attenuation_filter_db = -50.0
+
+[node name="TeleradioIdleOneshots" parent="Audio" instance=ExtResource("59_g51ol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00739986, 0.28369, 0.0959114)
+visible = false
+spawn_rate = 2.0
+volume_db = -48.0
+panning_strength = 0.6
+scatter_distance = 0.0
+sound_source_size = 1.0
+polyphony = 1
+spawn_interval_min = 10.0
+spawn_interval_max = 30.0
+pitch_random = 0.3
+target_bus = "Teleradio"
+sounds = Array[AudioStream]([ExtResource("60_cqykw"), ExtResource("61_684o7"), ExtResource("62_t0d5r"), ExtResource("63_516kx"), ExtResource("64_k8skl"), ExtResource("65_37k1y"), ExtResource("66_rbnlu"), ExtResource("67_h7blw")])
+
+[node name="TeleradioJoystick" parent="." instance=ExtResource("64_78lv6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0878906, -0.258667, 0.161743)
+
+[connection signal="screen_entered" from="VisibleOnScreen" to="TeleradioLogic" method="enable_viewport"]
+[connection signal="screen_exited" from="VisibleOnScreen" to="TeleradioLogic" method="disable_viewport"]
+[connection signal="load_sound_start" from="TeleradioLogic" to="." method="_on_teleradio_logic_load_start"]
+[connection signal="load_sound_stop" from="TeleradioLogic" to="." method="_on_teleradio_logic_load_stop"]
+[connection signal="ring_start" from="TeleradioLogic" to="." method="_on_teleradio_logic_ring_start"]
+[connection signal="ring_stop" from="TeleradioLogic" to="." method="_on_teleradio_logic_ring_stop"]
+[connection signal="finished" from="Audio/RingSound" to="." method="_on_ring_sound_finished"]
+
+[editable path="TeleradioMesh"]
+[editable path="Buttons/HitButtonKeypad1"]
+[editable path="Buttons/HitButtonKeypad2"]
+[editable path="Buttons/HitButtonKeypad3"]
+[editable path="Buttons/HitButtonKeypad4"]
+[editable path="Buttons/HitButtonOnOff"]
+[editable path="Buttons/HitButtonOnOff/MovingPart/TeleradioButton"]
+[editable path="CartridgeDrive/EndPosition"]

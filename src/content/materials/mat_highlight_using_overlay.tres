@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byoduj828k6n2"]
+
+[ext_resource type="Shader" path="res://content/materials/highlight_extra.gdshader" id="1_so85q"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_so85q")
+shader_parameter/outline_width = 1.4
+shader_parameter/smoothness = Vector2(0.1, 0.5)
+shader_parameter/base_color = Color(1, 1, 1, 1)

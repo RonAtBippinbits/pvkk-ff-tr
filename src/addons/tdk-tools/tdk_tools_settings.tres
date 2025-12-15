@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TdkToolsSettings" load_steps=2 format=3 uid="uid://c6d88cw3c6rju"]
+
+[ext_resource type="Script" path="res://content/teleradio/devkit/tdk_tools_settings.gd" id="1_s8ap2"]
+
+[resource]
+script = ExtResource("1_s8ap2")
+content_selected = "res://content/teleradioapps/boilerplate/BoilerplateApp.tscn"
+custom_play_pressed = false
+last_audio_check_path = "res://content/teleradioapps/"

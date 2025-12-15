@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtpdvulw02o7i"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/example_counter/ExampleCounter.gd" id="1_agep1"]
+[ext_resource type="PackedScene" uid="uid://cwfrf80frsggn" path="res://content/teleradio/shared/TeleradioButtonLabels.tscn" id="2_83sr2"]
+[ext_resource type="FontFile" uid="uid://c0iqrufaeox52" path="res://content/teleradio/software/os/fonts/AVHersheySimplexHeavy.ttf" id="3_55uiw"]
+[ext_resource type="AudioStream" uid="uid://dhmggeh4xoahp" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_select.wav" id="4_0vs00"]
+
+[sub_resource type="Gradient" id="Gradient_73tqi"]
+colors = PackedColorArray(0.244, 0.121779, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oaiqq"]
+gradient = SubResource("Gradient_73tqi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ExampleBasics" type="Node2D"]
+script = ExtResource("1_agep1")
+
+[node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(620, 470)
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 612.0
+offset_bottom = 462.0
+texture = SubResource("GradientTexture2D_oaiqq")
+
+[node name="ButtonLabels" parent="." instance=ExtResource("2_83sr2")]
+unique_name_in_owner = true
+label_1 = "Press"
+label_2_visible = false
+label_3 = "Oh no!"
+label_4 = "Quit"
+
+[node name="LabelTop" type="Label" parent="."]
+offset_left = 184.0
+offset_top = 128.0
+offset_right = 413.0
+offset_bottom = 178.0
+theme_override_fonts/font = ExtResource("3_55uiw")
+theme_override_font_sizes/font_size = 30
+text = "You pressed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CounterLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 200.0
+offset_top = 194.0
+offset_right = 400.0
+offset_bottom = 264.0
+pivot_offset = Vector2(100, 35)
+theme_override_fonts/font = ExtResource("3_55uiw")
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelBottom" type="Label" parent="."]
+offset_left = 185.0
+offset_top = 280.0
+offset_right = 414.0
+offset_bottom = 330.0
+theme_override_fonts/font = ExtResource("3_55uiw")
+theme_override_font_sizes/font_size = 30
+text = "times."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0vs00")
+bus = &"TeleradioApp"

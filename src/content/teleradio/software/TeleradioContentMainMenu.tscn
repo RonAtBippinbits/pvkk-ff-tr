@@ -1,0 +1,747 @@
+[gd_scene load_steps=20 format=3 uid="uid://b3fa7ocfuigtt"]
+
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_flcuq"]
+[ext_resource type="Texture2D" uid="uid://4ndbq6g365rt" path="res://content/teleradio/software/os/images/teleradio_os_logo.png" id="3_tdb4y"]
+[ext_resource type="Texture2D" uid="uid://nlsmqoq8h4k1" path="res://content/teleradio/software/os/images/teleradio_os_404.svg" id="4_odtwu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgusw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1i02e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8r71g"]
+
+[sub_resource type="Gradient" id="Gradient_7lgk3"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_om8fv"]
+gradient = SubResource("Gradient_7lgk3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixeo3"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptss0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5iyl"]
+bg_color = Color(1, 0.705882, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2qx7"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="Shader" id="Shader_rm3vv"]
+code = "shader_type canvas_item;
+
+uniform float pixel = 1.0;
+uniform vec2 red_offset = vec2(0.0, 0.0);
+uniform vec2 green_offset = vec2(0.0, 0.0);
+uniform vec2 blue_offset = vec2(0.0, 0.0);
+uniform float alpha = 1.0;
+uniform float rand_strength = 1.0;
+
+uniform vec4 affected = vec4(0.0, 0.0, 1.0, 1.0);
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear, repeat_enable;
+
+float Hash21(vec2 p) {
+	p = fract(p*vec2(123.34, 456.21));
+	p += dot(p, p+45.32);
+	
+	return fract(p.x*p.y);
+}
+
+vec2 pixelize(vec2 uv) {
+	float mult = 5000.0 / (pixel * pixel);
+	uv.x = floor(uv.x * mult) / mult;
+	uv.y = floor(uv.y * mult) / mult;
+	return uv;
+}
+
+vec4 chroma(vec2 uv, sampler2D tex) {
+	vec4 col = texture(tex, uv);
+	if (abs(red_offset.x) + abs(red_offset.y) > 0.001) {
+		col.r = texture(tex, vec2(uv.x + red_offset.x, uv.y + red_offset.y)).r;
+	}
+	if (abs(green_offset.x) + abs(green_offset.y) > 0.001) {
+		col.g = texture(tex, vec2(uv.x + green_offset.x, uv.y + green_offset.y)).g;	
+	}
+	if (abs(blue_offset.x) + abs(blue_offset.y) > 0.001) {
+		col.b = texture(tex, vec2(uv.x + blue_offset.x, uv.y + blue_offset.y)).b;
+	}
+	
+	return col;
+}
+
+void fragment() {
+	vec2 normal_uv = UV;
+	vec4 normal_col = texture(SCREEN_TEXTURE, SCREEN_UV);
+    if (normal_uv.x < affected.x || normal_uv.y < affected.y || normal_uv.x > affected.x + affected.z || normal_uv.y > affected.y + affected.a) {
+		COLOR = normal_col;
+	}
+	else {
+		vec2 uv = pixelize(SCREEN_UV);
+		vec4 col = chroma(uv, SCREEN_TEXTURE);
+		col.a = col.a * alpha;
+		vec2 id = floor(uv * 10.0);
+		float alpha_rand = Hash21(id + floor(TIME*10.0));
+		col = col * ( alpha_rand + (rand_strength * (1.0-alpha_rand)) );
+		COLOR = col;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5als"]
+shader = SubResource("Shader_rm3vv")
+shader_parameter/pixel = 8.39
+shader_parameter/red_offset = Vector2(0.015, -0.02)
+shader_parameter/green_offset = Vector2(0.03, 0.055)
+shader_parameter/blue_offset = Vector2(-0.025, -0.05)
+shader_parameter/alpha = 0.0
+shader_parameter/rand_strength = 0.0
+shader_parameter/affected = Vector4(0, 0, 1, 1)
+
+[sub_resource type="Shader" id="Shader_y8kg3"]
+code = "//MADE BY : @ahopness
+//LICENSE : CC0
+//COMATIBLE WITH : GLES2, GLES3, WEBGL
+
+shader_type canvas_item;
+
+uniform float sort :hint_range(0.0, 2.6)= 0.0;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear, repeat_enable;
+
+void fragment(){
+	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
+	
+	// Pseudo Pixel Sorting
+	float sortThreshold = 1.0 - clamp(sort / 2.6, 0.0, 1.0);
+	vec2 sortUv = vec2(uv.x, sortThreshold);
+	
+	// Curved melting transition
+	vec2 transitionUV = uv;
+	transitionUV.y += pow(sort, 2.0 + (sort * 2.0)) * uv.x * fract(sin(dot(vec2(transitionUV.x), vec2(12.9, 78.2)))* 437.5);
+	COLOR = texture(SCREEN_TEXTURE, transitionUV);
+	
+	// Draw pixel sorting effect behind the melting transition
+	if(transitionUV.y > 1.){
+		COLOR = texture(SCREEN_TEXTURE, sortUv);
+	}else{
+		COLOR = texture(SCREEN_TEXTURE, uv);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pqai"]
+shader = SubResource("Shader_y8kg3")
+shader_parameter/sort = 0.0
+
+[sub_resource type="Animation" id="Animation_7nbil"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrailerGlitch/ColorRect2:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrailerGlitch/ColorRect:material:shader_parameter/sort")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TrailerGlitch/LIES:max_lines_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TrailerGlitch/Reboot:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TrailerGlitch/OptionsPanel3:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TrailerGlitch/OptionsPanel3/LoadingBar:value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TrailerGlitch/Black:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_163oc"]
+resource_name = "hacked"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrailerGlitch/ColorRect2:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrailerGlitch/ColorRect:material:shader_parameter/sort")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.505]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TrailerGlitch/LIES:max_lines_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 26]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TrailerGlitch/Reboot:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.7, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TrailerGlitch/OptionsPanel3:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TrailerGlitch/OptionsPanel3/LoadingBar:value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 30.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TrailerGlitch/Black:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.5, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wr136"]
+_data = {
+"RESET": SubResource("Animation_7nbil"),
+"hacked": SubResource("Animation_163oc")
+}
+
+[node name="TeleradioContentMainMenu" type="Node2D"]
+
+[node name="BG" type="Node2D" parent="."]
+z_index = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="Headline" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(560, 0)
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 584.0
+offset_bottom = 53.0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_readonly_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kgusw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1i02e")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_8r71g")
+text = "Main Menu"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+draw_spaces = true
+
+[node name="Content" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(560, 300)
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 592.0
+offset_bottom = 364.0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_readonly_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kgusw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1i02e")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_8r71g")
+text = "Exams"
+editable = false
+draw_spaces = true
+
+[node name="Select" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 50.0
+offset_right = 571.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "Select"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Select"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="Select/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Up" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 99.0
+offset_right = 571.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "▲"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Up"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Up/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Down" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 147.0
+offset_right = 571.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "▼"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Down"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Down/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Back" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 195.0
+offset_right = 571.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "Back"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Back"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="Back/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="Logo" type="Sprite2D" parent="."]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(300, 376)
+scale = Vector2(0.347656, 0.347656)
+texture = ExtResource("3_tdb4y")
+
+[node name="FluffLabel" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+offset_top = 392.0
+offset_right = 600.0
+offset_bottom = 447.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 13
+text = "Teleradio - Modell BB - Kommunikationsklasse 3
+Betriebssystem Version 2.2.30.Nat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(24, 56, 448, 56)
+width = 1.0
+default_color = Color(1, 0.705882, 0, 1)
+
+[node name="ProgressOverlay" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ProgressOverlay"]
+custom_minimum_size = Vector2(600, 400)
+offset_right = 600.0
+offset_bottom = 400.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="OptionsPanel3" type="PanelContainer" parent="ProgressOverlay"]
+offset_left = 216.0
+offset_top = 248.0
+offset_right = 384.0
+offset_bottom = 266.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ixeo3")
+
+[node name="LoadingBar" type="ProgressBar" parent="ProgressOverlay/OptionsPanel3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ptss0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d5iyl")
+step = 1.0
+show_percentage = false
+
+[node name="OptionText3" type="Label" parent="ProgressOverlay"]
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 216.0
+offset_top = 224.0
+offset_right = 384.0
+offset_bottom = 241.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 19
+text = "loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Error" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Error"]
+custom_minimum_size = Vector2(600, 400)
+offset_right = 600.0
+offset_bottom = 400.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="OptionsPanel3" type="PanelContainer" parent="Error"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 169.0
+offset_top = 88.0
+offset_right = 432.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2qx7")
+
+[node name="Option1Text" type="Label" parent="Error/OptionsPanel3"]
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "Error 862:
+File not found or
+no access rights!
+
+"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Error"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(301, 167)
+scale = Vector2(0.890244, 0.890244)
+texture = ExtResource("4_odtwu")
+
+[node name="Back2" type="Label" parent="Error"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 195.0
+offset_right = 571.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "Back"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Error/Back2"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="Error/Back2/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_om8fv")
+
+[node name="TrailerGlitch" type="Node2D" parent="."]
+visible = false
+
+[node name="LIES" type="Label" parent="TrailerGlitch"]
+unique_name_in_owner = true
+modulate = Color(1, 0.113725, 0, 1)
+offset_right = 640.0
+offset_bottom = 450.0
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES. 
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+DO NOT BELIEVE THEIR LIES. DO NOT BELIEVE THEIR LIES.
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+max_lines_visible = 0
+
+[node name="ColorRect2" type="ColorRect" parent="TrailerGlitch"]
+material = SubResource("ShaderMaterial_t5als")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="TrailerGlitch"]
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="TrailerGlitch"]
+material = SubResource("ShaderMaterial_6pqai")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Black" type="ColorRect" parent="TrailerGlitch"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TrailerGlitch"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_wr136")
+}
+
+[node name="Reboot" type="Label" parent="TrailerGlitch"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 600.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_flcuq")
+theme_override_font_sizes/font_size = 16
+text = "System rebooting..."
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.0
+
+[node name="OptionsPanel3" type="PanelContainer" parent="TrailerGlitch"]
+visible = false
+offset_left = 216.0
+offset_top = 248.0
+offset_right = 384.0
+offset_bottom = 266.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ixeo3")
+
+[node name="LoadingBar" type="ProgressBar" parent="TrailerGlitch/OptionsPanel3"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ptss0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d5iyl")
+step = 1.0
+show_percentage = false

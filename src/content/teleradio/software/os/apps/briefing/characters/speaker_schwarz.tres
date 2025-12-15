@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TeleradioBriefingCharacter" load_steps=9 format=3 uid="uid://bja81w2sc4gjg"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/briefing/characters/teleradio_briefing_character_resource.gd" id="1_q2p54"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_idle3.ogv" id="1_rfe23"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_idle4.ogv" id="2_amj2y"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_idle.ogv" id="3_m0iod"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_harolding2.ogv" id="4_fghaw"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_harolding.ogv" id="5_ecq6o"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_talking.ogv" id="7_xy3au"]
+[ext_resource type="VideoStream" path="res://content/teleradio/software/os/apps/briefing/characters/schwarz/schwarz_tea.ogv" id="8_wj2ms"]
+
+[resource]
+script = ExtResource("1_q2p54")
+talk_streams = Array[VideoStreamTheora]([ExtResource("7_xy3au")])
+idle_default_streams = Array[VideoStreamTheora]([ExtResource("1_rfe23"), ExtResource("2_amj2y"), ExtResource("3_m0iod")])
+idle_harold_streams = Array[VideoStreamTheora]([ExtResource("4_fghaw"), ExtResource("5_ecq6o")])
+tea_streams = Array[VideoStreamTheora]([ExtResource("8_wj2ms")])

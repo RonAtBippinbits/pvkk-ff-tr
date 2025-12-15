@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=3 uid="uid://dcysaj4d0m00w"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/messages/TeleradioContentMessage.gd" id="1_v4t0n"]
+[ext_resource type="FontFile" uid="uid://b1q4jyc4s7itg" path="res://content/teleradio/software/os/fonts/AVHersheyComplexHeavy.ttf" id="2_ajovw"]
+[ext_resource type="Texture2D" uid="uid://c2wn7sgkfqghi" path="res://content/teleradio/software/os/apps/messages/separator.png" id="3_a0qil"]
+[ext_resource type="FontFile" uid="uid://cfeebewkvasx1" path="res://content/teleradio/software/os/fonts/AVHersheyComplexMedium.ttf" id="4_wfyat"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="6_0tk4u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvlwq"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="Gradient" id="Gradient_lrn34"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jurdk"]
+gradient = SubResource("Gradient_lrn34")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="TeleradioContentMessage" type="Node2D"]
+script = ExtResource("1_v4t0n")
+
+[node name="BG" type="Node2D" parent="."]
+z_index = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="Newspaper" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Title" type="Label" parent="Newspaper"]
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 568.0
+offset_bottom = 62.0
+theme_override_fonts/font = ExtResource("2_ajovw")
+theme_override_font_sizes/font_size = 40
+text = "Message"
+horizontal_alignment = 1
+
+[node name="Separator" type="Sprite2D" parent="Newspaper"]
+modulate = Color(1, 0.705882, 0, 1)
+position = Vector2(288.464, 53.5076)
+scale = Vector2(0.714195, 0.630919)
+texture = ExtResource("3_a0qil")
+
+[node name="MainPanel" type="PanelContainer" parent="Newspaper"]
+offset_left = 8.0
+offset_top = 68.0
+offset_right = 522.0
+offset_bottom = 422.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvlwq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Newspaper/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Newspaper/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ajovw")
+theme_override_font_sizes/font_size = 26
+text = "Title"
+autowrap_mode = 3
+
+[node name="Sender" type="Label" parent="Newspaper/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("4_wfyat")
+theme_override_font_sizes/font_size = 17
+text = "Sender:"
+autowrap_mode = 3
+
+[node name="Message" type="Label" parent="Newspaper/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("4_wfyat")
+theme_override_font_sizes/font_size = 17
+text = "awdwadawdwd"
+autowrap_mode = 3
+
+[node name="Option4Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 195.0
+offset_right = 571.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("6_0tk4u")
+theme_override_font_sizes/font_size = 16
+text = "Eject"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option4Text"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="Option4Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_jurdk")

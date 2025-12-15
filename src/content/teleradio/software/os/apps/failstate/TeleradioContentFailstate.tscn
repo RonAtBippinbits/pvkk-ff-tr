@@ -1,0 +1,274 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/failstate/TeleradioContentFailstate.gd" id="1_etey5"]
+[ext_resource type="FontFile" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_d8byt"]
+[ext_resource type="Texture2D" path="res://content/teleradio/software/os/images/teleradio_os_logo.png" id="2_uxdvs"]
+[ext_resource type="AudioStream" path="res://sounds/SFX/teleradio/content/PVKK_sfx_Selfdestruct_Alarm_Teleradio_Loop.ogg" id="4_lj8qw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn6n3"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee0ba"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afe0w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4172k"]
+bg_color = Color(1, 0.705882, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_lrn34"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_str42"]
+gradient = SubResource("Gradient_lrn34")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_b8ssj"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lim6b"]
+gradient = SubResource("Gradient_b8ssj")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_72hrk"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lnqqp"]
+gradient = SubResource("Gradient_72hrk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="TeleradioContentFailstate" type="Node2D"]
+script = ExtResource("1_etey5")
+
+[node name="IncomingCall" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="IncomingCall"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(1, 0.14902, 0, 1)
+
+[node name="Logo" type="Sprite2D" parent="IncomingCall"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(300, 96)
+scale = Vector2(1.14667, 1.14667)
+texture = ExtResource("2_uxdvs")
+
+[node name="OptionText3" type="Label" parent="IncomingCall"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 4.0
+offset_top = 183.0
+offset_right = 597.0
+offset_bottom = 280.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 19
+text = "The enemy is in control of the city.
+You failed your duty.
+Your Station can not fall into enemy control.
+
+Executing Rule 30:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsPanel3" type="PanelContainer" parent="IncomingCall"]
+custom_minimum_size = Vector2(300, 110)
+offset_left = 150.0
+offset_top = 300.0
+offset_right = 450.0
+offset_bottom = 410.0
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_dn6n3")
+
+[node name="CountdownLabel" type="Label" parent="IncomingCall/OptionsPanel3"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 80
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ObjectionOverlay" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ObjectionOverlay"]
+custom_minimum_size = Vector2(600, 0)
+offset_right = 600.0
+offset_bottom = 295.0
+color = Color(1, 0.14902, 0, 1)
+
+[node name="OptionText3" type="Label" parent="ObjectionOverlay"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(600, 0)
+offset_top = 160.0
+offset_right = 600.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 19
+text = "Objection is being processed."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsPanel3" type="PanelContainer" parent="ObjectionOverlay"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 216.0
+offset_top = 184.0
+offset_right = 384.0
+offset_bottom = 202.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ee0ba")
+
+[node name="LoadingBar" type="ProgressBar" parent="ObjectionOverlay/OptionsPanel3"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_afe0w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4172k")
+step = 1.0
+show_percentage = false
+
+[node name="ObjectionResult" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ObjectionResult"]
+custom_minimum_size = Vector2(600, 0)
+offset_right = 600.0
+offset_bottom = 295.0
+color = Color(1, 0.14902, 0, 1)
+
+[node name="OptionText3" type="Label" parent="ObjectionResult"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(600, 0)
+offset_top = 160.0
+offset_right = 600.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 19
+text = "Objection result:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionText4" type="Label" parent="ObjectionResult"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(600, 0)
+offset_top = 180.0
+offset_right = 600.0
+offset_bottom = 233.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 60
+text = "DENIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Option1Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 50.0
+offset_right = 571.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 16
+text = "File Objection"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option1Text"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Option1Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_str42")
+
+[node name="Option2Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 98.0
+offset_right = 571.0
+offset_bottom = 113.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 16
+text = "Mute Alarm"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option2Text"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Option2Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_lim6b")
+
+[node name="Option3Text" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 147.0
+offset_right = 571.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("2_d8byt")
+theme_override_font_sizes/font_size = 16
+text = "Emergency"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="Option3Text"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="Option3Text/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_lnqqp")
+
+[node name="SelfdestructAlarm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lj8qw")
+bus = &"TeleradioApp"

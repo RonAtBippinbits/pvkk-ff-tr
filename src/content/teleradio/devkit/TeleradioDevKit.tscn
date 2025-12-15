@@ -1,0 +1,674 @@
+[gd_scene load_steps=71 format=3 uid="uid://ds461jruqfp5o"]
+
+[ext_resource type="Script" path="res://content/teleradio/devkit/TeleradioDevKit.gd" id="1_pnctb"]
+[ext_resource type="PackedScene" uid="uid://dflup4wmnfxtw" path="res://content/teleradio/TeleradioLogic.tscn" id="2_xw0vt"]
+[ext_resource type="Texture2D" uid="uid://dc3xrryvphjv1" path="res://content/teleradio/devkit/device/border.png" id="7_hxgiq"]
+[ext_resource type="PackedScene" uid="uid://ycml18urbwxi" path="res://content/devices/complex/teleradio/room_teleradio_mesh_new.glb" id="8_iynhf"]
+[ext_resource type="Script" path="res://content/teleradio/devkit/TeleradioHardware2D.gd" id="8_t2skk"]
+[ext_resource type="Texture2D" uid="uid://1sqo73b550b1" path="res://content/teleradio/shared/test_image.png" id="9_dgx6e"]
+[ext_resource type="Shader" path="res://content/shaders/crt_screen.gdshader" id="9_u6ul6"]
+[ext_resource type="Texture2D" uid="uid://g1mgp3vms5mo" path="res://content/materials/Metal046B_1K-JPG/Metal046B_1K-JPG_NormalGL.jpg" id="10_5vr56"]
+[ext_resource type="Texture2D" uid="uid://u6swcoa8ny0r" path="res://content/materials/Plastic017B_1K-JPG/Plastic017B_1K-JPG_NormalGL.jpg" id="11_ugg2k"]
+[ext_resource type="Texture2D" uid="uid://bjpvmbm0gxjvq" path="res://content/materials/Effects/screen_edge.png" id="12_tb6dt"]
+[ext_resource type="Texture2D" uid="uid://8c2aw67t5wmm" path="res://content/teleradio/devkit/device/vintage_measuring_lab_1k.hdr" id="13_5ul26"]
+[ext_resource type="Texture2D" uid="uid://c7rajlmqyrdje" path="res://content/teleradio/devkit/device/emboss.png" id="14_0keit"]
+[ext_resource type="FontFile" uid="uid://cn1wdaj30cw3w" path="res://content/teleradio/devkit/FiraCode-Regular.ttf" id="15_72574"]
+[ext_resource type="Script" path="res://content/teleradio/hardware/TeleradioJoystick.gd" id="15_e685s"]
+[ext_resource type="AudioStream" uid="uid://cs4stlemhhep5" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-001.ogg" id="15_pjjhy"]
+[ext_resource type="PackedScene" uid="uid://2nmpcxxt5cab" path="res://content/teleradio/devkit/Teleradio2DButton.tscn" id="16_b625e"]
+[ext_resource type="AudioStream" uid="uid://bmrxcpiquc6iu" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-002.ogg" id="16_hqyta"]
+[ext_resource type="AudioStream" uid="uid://caxn2sgc0dxmv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-003.ogg" id="17_bm2tq"]
+[ext_resource type="PackedScene" uid="uid://dlhvong5jvcyw" path="res://content/teleradio/devkit/Teleradio2DJoystick.tscn" id="17_k5h5h"]
+[ext_resource type="AudioStream" uid="uid://2pvu55d3dkjv" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-004.ogg" id="18_0rl8m"]
+[ext_resource type="AudioStream" uid="uid://d1s755e3vkwnh" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-005.ogg" id="19_c7o4y"]
+[ext_resource type="AudioStream" uid="uid://cfkbjdljuuelb" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-001.ogg" id="20_0hf57"]
+[ext_resource type="AudioStream" uid="uid://juyuqia1ibc8" path="res://sounds/SFX/teleradio/buttons_v2/press/PVKK_sfx_Teleradio_Buttons_v2_Press-006.ogg" id="20_p44fa"]
+[ext_resource type="AudioStream" uid="uid://b72sxbp1dh6uk" path="res://sounds/SFX/teleradio/content/PVKK_sfx_Console_Lightindicator_Generic_On-001.ogg" id="20_png4h"]
+[ext_resource type="AudioStream" uid="uid://gn3xow25tn3q" path="res://sounds/SFX/teleradio/content/PVKK_sfx_Console_Lightindicator_Generic_Off-001.ogg" id="21_88obj"]
+[ext_resource type="AudioStream" uid="uid://dwetjw516i3d7" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-002.ogg" id="21_k54gg"]
+[ext_resource type="AudioStream" uid="uid://c0ksq6m7hpstp" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-001.ogg" id="21_tcap1"]
+[ext_resource type="AudioStream" uid="uid://sacnu40c0lua" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-003.ogg" id="22_e1thr"]
+[ext_resource type="AudioStream" uid="uid://egjy5pq7g6oc" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-002.ogg" id="22_xt72l"]
+[ext_resource type="AudioStream" uid="uid://dx3b5rf1opx5n" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-004.ogg" id="23_lhp1y"]
+[ext_resource type="AudioStream" uid="uid://c2x56o326vupo" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-003.ogg" id="23_vlvaj"]
+[ext_resource type="AudioStream" uid="uid://b1us3dgo7cp67" path="res://sounds/SFX/teleradio/loading/PVKK_sfx_Teleradio_Loading-005.ogg" id="24_28ept"]
+[ext_resource type="AudioStream" uid="uid://dciwn6g82trv8" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-004.ogg" id="24_s7e3h"]
+[ext_resource type="AudioStream" uid="uid://clq1r8t8g2c5v" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-005.ogg" id="25_2oclr"]
+[ext_resource type="AudioStream" uid="uid://dhrjrj8o2503r" path="res://sounds/SFX/teleradio/buttons_v2/release/PVKK_sfx_Teleradio_Buttons_v2_Release-006.ogg" id="26_3deox"]
+[ext_resource type="Script" path="res://content/teleradio/devkit/TeleradioCartridgeDrive2D.gd" id="29_lt1ha"]
+[ext_resource type="Script" path="res://content/teleradio/devkit/device/CartridgeLed.gd" id="30_twyit"]
+[ext_resource type="AudioStream" uid="uid://vof3pdo7goqr" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_1.ogg" id="31_m5qqj"]
+[ext_resource type="AudioStream" uid="uid://vp27aaws16u7" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_2.ogg" id="32_j71l7"]
+[ext_resource type="AudioStream" uid="uid://ooocoxelikhb" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_3.ogg" id="33_nv1ke"]
+[ext_resource type="AudioStream" uid="uid://bmox7db3p7h6b" path="res://sounds/SFX/cassette/eject/PVKK_sfx_Interaction_Cassette_Eject_4.ogg" id="34_ep200"]
+[ext_resource type="AudioStream" uid="uid://cye2c0h4wq4i" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_1.ogg" id="35_smu23"]
+[ext_resource type="AudioStream" uid="uid://k1xyqmr7uusi" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_2.ogg" id="36_fypqs"]
+[ext_resource type="AudioStream" uid="uid://dmu48nehav8kq" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_3.ogg" id="37_y8dps"]
+[ext_resource type="AudioStream" uid="uid://diyjkbi5jvpg4" path="res://sounds/SFX/cassette/insert/PVKK_sfx_Interaction_Cassette_Insert_4.ogg" id="38_achwf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2i06"]
+bg_color = Color(0.167969, 0.143025, 0.122617, 1)
+
+[sub_resource type="Shader" id="Shader_d3o4h"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D mask : source_color;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	COLOR.a = texture(mask, UV).r;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jwgqq"]
+shader = SubResource("Shader_d3o4h")
+shader_parameter/mask = ExtResource("7_hxgiq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qr8s6"]
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16nsu"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("9_u6ul6")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/roughness = 0.17
+shader_parameter/specular = 0.13
+shader_parameter/emission_energy = 2.5
+shader_parameter/normal_scale = 0.292001
+shader_parameter/clearcoat = 0.278
+shader_parameter/clearcoat_roughness = 1.0
+shader_parameter/image_scale = Vector2(1.022, 1.034)
+shader_parameter/image_offset = Vector2(0, 0)
+shader_parameter/screen_orientation = Vector2(0, 1)
+shader_parameter/screen_orientation_i = Vector2(1, 0)
+shader_parameter/scanlines_opacity = 0.212
+shader_parameter/scanlines_width = 0.5
+shader_parameter/grille_opacity = 0.206
+shader_parameter/resolution = Vector2(320, 200)
+shader_parameter/roll = true
+shader_parameter/roll_speed = 1.0
+shader_parameter/roll_size = 22.0
+shader_parameter/roll_variation = 1.321
+shader_parameter/distort_intensity = 0.002
+shader_parameter/noise_opacity = 0.005
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.012
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.5
+shader_parameter/discolor = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.241
+shader_parameter/tv_mask = ExtResource("12_tb6dt")
+shader_parameter/tv_image = ExtResource("9_dgx6e")
+shader_parameter/texture_normal = ExtResource("11_ugg2k")
+shader_parameter/texture_detail_normal = ExtResource("10_5vr56")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v7e71"]
+panorama = ExtResource("13_5ul26")
+
+[sub_resource type="Sky" id="Sky_8gqvl"]
+sky_material = SubResource("PanoramaSkyMaterial_v7e71")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_a2rty"]
+background_mode = 2
+background_energy_multiplier = 0.6
+sky = SubResource("Sky_8gqvl")
+sky_rotation = Vector3(0, 2.18166, 0)
+ambient_light_source = 3
+reflected_light_source = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qh8qh"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.0351563, 0.0351563, 0.0351563, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amjwr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rj8rw"]
+bg_color = Color(0.238281, 0.238281, 0.238281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg1xi"]
+bg_color = Color(0.167969, 0.167969, 0.167969, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nysp1"]
+bg_color = Color(0.234375, 0.234375, 0.234375, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Gradient" id="Gradient_cvb0o"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.976109, 0.976109, 0.976109, 1, 0.994691, 0.994691, 0.994691, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8y1s1"]
+gradient = SubResource("Gradient_cvb0o")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qm1if"]
+streams_count = 6
+stream_0/stream = ExtResource("15_pjjhy")
+stream_1/stream = ExtResource("16_hqyta")
+stream_2/stream = ExtResource("17_bm2tq")
+stream_3/stream = ExtResource("18_0rl8m")
+stream_4/stream = ExtResource("19_c7o4y")
+stream_5/stream = ExtResource("20_p44fa")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fovfa"]
+streams_count = 6
+stream_0/stream = ExtResource("21_tcap1")
+stream_1/stream = ExtResource("22_xt72l")
+stream_2/stream = ExtResource("23_vlvaj")
+stream_3/stream = ExtResource("24_s7e3h")
+stream_4/stream = ExtResource("25_2oclr")
+stream_5/stream = ExtResource("26_3deox")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yijbh"]
+gradient = SubResource("Gradient_cvb0o")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bddy4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dlw7l"]
+streams_count = 4
+stream_0/stream = ExtResource("31_m5qqj")
+stream_1/stream = ExtResource("32_j71l7")
+stream_2/stream = ExtResource("33_nv1ke")
+stream_3/stream = ExtResource("34_ep200")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_56r6h"]
+streams_count = 4
+stream_0/stream = ExtResource("35_smu23")
+stream_1/stream = ExtResource("36_fypqs")
+stream_2/stream = ExtResource("37_y8dps")
+stream_3/stream = ExtResource("38_achwf")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y3gx4"]
+streams_count = 5
+stream_0/stream = ExtResource("20_0hf57")
+stream_1/stream = ExtResource("21_k54gg")
+stream_2/stream = ExtResource("22_e1thr")
+stream_3/stream = ExtResource("23_lhp1y")
+stream_4/stream = ExtResource("24_28ept")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hloag"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_0ek75"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b1ipl"]
+gradient = SubResource("Gradient_0ek75")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="TeleradioDevKit" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2i06")
+script = ExtResource("1_pnctb")
+
+[node name="TeleradioLogic" parent="." node_paths=PackedStringArray("_DebugLog", "ButtonOption1", "ButtonOption2", "ButtonOption3", "ButtonOption4", "Joystick", "_TeleradioAudioPlayerLeft", "_TeleradioAudioPlayerRight", "_hardware") instance=ExtResource("2_xw0vt")]
+unique_name_in_owner = true
+_DebugLog = NodePath("../TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBox/DebugLog")
+ButtonOption1 = NodePath("../TeleradioHardware/Inputs/Input/Button1")
+ButtonOption2 = NodePath("../TeleradioHardware/Inputs/Input/Button2")
+ButtonOption3 = NodePath("../TeleradioHardware/Inputs/Input/Button3")
+ButtonOption4 = NodePath("../TeleradioHardware/Inputs/Input/Button4")
+Joystick = NodePath("../TeleradioHardware/Inputs/Input/Joystick")
+_TeleradioAudioPlayerLeft = NodePath("../TeleradioHardware/Outputs/TeleradioAudioOutputL")
+_TeleradioAudioPlayerRight = NodePath("../TeleradioHardware/Outputs/TeleradioAudioOutputR")
+_hardware = NodePath("../TeleradioHardware")
+
+[node name="TeleradioHardware" type="HBoxContainer" parent="." node_paths=PackedStringArray("buttons")]
+layout_mode = 2
+alignment = 1
+script = ExtResource("8_t2skk")
+buttons = [NodePath("Inputs/Input/Button1"), NodePath("Inputs/Input/Button2"), NodePath("Inputs/Input/Button3"), NodePath("Inputs/Input/Button4")]
+
+[node name="Outputs" type="VBoxContainer" parent="TeleradioHardware"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TeleradioHardware/Outputs"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="TeleradioHardware/Outputs/MarginContainer"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_jwgqq")
+custom_minimum_size = Vector2(1036, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1036, 800)
+render_target_update_mode = 4
+
+[node name="Node3D" type="Node3D" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport"]
+
+[node name="room_teleradio_mesh_new" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("8_iynhf")]
+
+[node name="SM_Teleradio" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D/room_teleradio_mesh_new" index="0"]
+material_override = SubResource("StandardMaterial3D_qr8s6")
+
+[node name="SM_Teleradio_Screen" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D/room_teleradio_mesh_new" index="2"]
+transform = Transform3D(0.638, 0, 0, 0, 1, 0, 0, 0, 1, 0.0188919, 1.69763e-05, 0.00693276)
+material_override = SubResource("ShaderMaterial_16nsu")
+
+[node name="Camera3D" type="Camera3D" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.138, 0.203, 0.073)
+projection = 1
+fov = 133.0
+size = 0.279
+near = 0.006
+far = 0.12
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D"]
+environment = SubResource("Environment_a2rty")
+
+[node name="Emboss" type="TextureRect" parent="TeleradioHardware/Outputs/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("14_0keit")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DebugMargin" type="MarginContainer" parent="TeleradioHardware/Outputs"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TeleradioHardware/Outputs/DebugMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBox" type="VBoxContainer" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "log"
+
+[node name="ClearLogButton" type="Button" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "clear log"
+
+[node name="DebugLog" type="TextEdit" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_readonly_color = Color(0.460938, 0.460938, 0.460938, 1)
+theme_override_colors/selection_color = Color(0.25, 0.25, 0.25, 1)
+theme_override_colors/font_selected_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/line_spacing = -1
+theme_override_fonts/font = ExtResource("15_72574")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_qh8qh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_amjwr")
+editable = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer"]
+layout_mode = 2
+
+[node name="CartridgeList" type="VBoxContainer" parent="TeleradioHardware/Outputs/DebugMargin/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TeleradioAudioOutputL" type="AudioStreamPlayer2D" parent="TeleradioHardware/Outputs"]
+volume_db = 6.0
+bus = &"TeleradioSpeaker"
+
+[node name="TeleradioAudioOutputR" type="AudioStreamPlayer2D" parent="TeleradioHardware/Outputs"]
+volume_db = 6.0
+bus = &"TeleradioSpeaker"
+
+[node name="Inputs" type="MarginContainer" parent="TeleradioHardware"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Input" type="VBoxContainer" parent="TeleradioHardware/Inputs"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="Spacer2" type="Control" parent="TeleradioHardware/Inputs/Input"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button1" parent="TeleradioHardware/Inputs/Input" instance=ExtResource("16_b625e")]
+custom_minimum_size = Vector2(200, 69)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_rj8rw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fg1xi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nysp1")
+
+[node name="Line2D" type="Line2D" parent="TeleradioHardware/Inputs/Input/Button1"]
+show_behind_parent = true
+position = Vector2(0, 9)
+points = PackedVector2Array(-70, 24, 3, 24)
+width = 4.0
+default_color = Color(0.53125, 0.53125, 0.53125, 1)
+texture = SubResource("GradientTexture2D_8y1s1")
+texture_mode = 1
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button1"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button1"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="Button2" parent="TeleradioHardware/Inputs/Input" instance=ExtResource("16_b625e")]
+custom_minimum_size = Vector2(200, 69)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_rj8rw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fg1xi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nysp1")
+text = "2"
+
+[node name="Line2D" type="Line2D" parent="TeleradioHardware/Inputs/Input/Button2"]
+show_behind_parent = true
+position = Vector2(0, 9)
+points = PackedVector2Array(-70, 24, 3, 24)
+width = 4.0
+default_color = Color(0.53125, 0.53125, 0.53125, 1)
+texture = SubResource("GradientTexture2D_yijbh")
+texture_mode = 1
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button2"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button2"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="Button3" parent="TeleradioHardware/Inputs/Input" instance=ExtResource("16_b625e")]
+custom_minimum_size = Vector2(200, 69)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_rj8rw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fg1xi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nysp1")
+text = "3"
+
+[node name="Line2D" type="Line2D" parent="TeleradioHardware/Inputs/Input/Button3"]
+show_behind_parent = true
+position = Vector2(0, 9)
+points = PackedVector2Array(-70, 24, 3, 24)
+width = 4.0
+default_color = Color(0.53125, 0.53125, 0.53125, 1)
+texture = SubResource("GradientTexture2D_yijbh")
+texture_mode = 1
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button3"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button3"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="Button4" parent="TeleradioHardware/Inputs/Input" instance=ExtResource("16_b625e")]
+custom_minimum_size = Vector2(200, 69)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_rj8rw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fg1xi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nysp1")
+text = "4"
+
+[node name="Line2D" type="Line2D" parent="TeleradioHardware/Inputs/Input/Button4"]
+show_behind_parent = true
+position = Vector2(0, 9)
+points = PackedVector2Array(-70, 24, 3, 24)
+width = 4.0
+default_color = Color(0.53125, 0.53125, 0.53125, 1)
+texture = SubResource("GradientTexture2D_yijbh")
+texture_mode = 1
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button4"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Button4"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="Spacer" type="Control" parent="TeleradioHardware/Inputs/Input"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Joystick" parent="TeleradioHardware/Inputs/Input" node_paths=PackedStringArray("JoystickButtonA", "JoystickButtonB", "JoystickAxis") instance=ExtResource("17_k5h5h")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("15_e685s")
+JoystickButtonA = NodePath("VBoxContainer/HBoxContainer/ButtonA")
+JoystickButtonB = NodePath("VBoxContainer/HBoxContainer/ButtonB")
+JoystickAxis = NodePath("VBoxContainer/CenterContainer/Stick")
+
+[node name="ButtonStick" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/CenterContainer/Stick" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 64.0
+offset_bottom = 64.0
+focus_mode = 0
+
+[node name="ButtonA" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer" index="0"]
+focus_mode = 0
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer/ButtonA" index="0"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer/ButtonA" index="1"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="ButtonB" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer" index="1"]
+focus_mode = 0
+
+[node name="ButtonPressSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer/ButtonB" index="0"]
+stream = SubResource("AudioStreamRandomizer_qm1if")
+volume_db = -20.0
+
+[node name="ButtonReleaseSound" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/Joystick/VBoxContainer/HBoxContainer/ButtonB" index="1"]
+stream = SubResource("AudioStreamRandomizer_fovfa")
+volume_db = -20.0
+
+[node name="Spacer3" type="Control" parent="TeleradioHardware/Inputs/Input"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="CartridgeDrive" type="VBoxContainer" parent="TeleradioHardware/Inputs/Input" node_paths=PackedStringArray("teleradio")]
+layout_mode = 2
+script = ExtResource("29_lt1ha")
+teleradio = NodePath("../../../../TeleradioLogic")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TeleradioHardware/Inputs/Input/CartridgeDrive"]
+layout_mode = 2
+
+[node name="LedBusy" type="ColorRect" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 2
+color = Color(0.352666, 1, 0.253499, 1)
+script = ExtResource("30_twyit")
+
+[node name="LedSlot" type="ColorRect" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 2
+color = Color(1, 0.705882, 0, 1)
+script = ExtResource("30_twyit")
+
+[node name="CartridgeLock" type="Control" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer/CartridgeLock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer/CartridgeLock/CenterContainer"]
+layout_mode = 2
+
+[node name="CartridgeLock" type="Polygon2D" parent="TeleradioHardware/Inputs/Input/CartridgeDrive/HBoxContainer/CartridgeLock/CenterContainer/Control"]
+unique_name_in_owner = true
+z_index = 1
+color = Color(0.328, 0.328, 0.328, 1)
+polygon = PackedVector2Array(5, -4, 37, -4, 37, 4, 5, 4, 3, 6, -3, 6, -6, 3, -6, -3, -3, -6, 3, -6)
+
+[node name="CartridgeSlot" type="Button" parent="TeleradioHardware/Inputs/Input/CartridgeDrive"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bddy4")
+disabled = true
+text = "Drive"
+
+[node name="CassetteEject" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/CartridgeDrive"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_dlw7l")
+volume_db = -9.0
+
+[node name="CassetteInsert" type="AudioStreamPlayer" parent="TeleradioHardware/Inputs/Input/CartridgeDrive"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_56r6h")
+volume_db = -9.0
+
+[node name="Debug" type="VBoxContainer" parent="TeleradioHardware/Inputs/Input"]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="TeleradioHardware/Inputs/Input/Debug"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Audio: Volume - 80%"
+
+[node name="VolumeSlider" type="HSlider" parent="TeleradioHardware/Inputs/Input/Debug"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="BitcrushLabel" type="Label" parent="TeleradioHardware/Inputs/Input/Debug"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Audio: Bitcrush - 0%"
+
+[node name="BitcrushSlider" type="HSlider" parent="TeleradioHardware/Inputs/Input/Debug"]
+layout_mode = 2
+min_value = 1.0
+max_value = 32.0
+step = 0.5
+value = 1.0
+
+[node name="InterruptAppCheckButton" type="CheckButton" parent="TeleradioHardware/Inputs/Input/Debug"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Interrupt App"
+
+[node name="Audio" type="Node" parent="TeleradioHardware"]
+
+[node name="LoadingSound" type="AudioStreamPlayer" parent="TeleradioHardware/Audio"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_y3gx4")
+volume_db = -12.0
+
+[node name="TurnOnSound" type="AudioStreamPlayer" parent="TeleradioHardware/Audio"]
+unique_name_in_owner = true
+stream = ExtResource("20_png4h")
+volume_db = -16.0
+
+[node name="TurnOffSound" type="AudioStreamPlayer" parent="TeleradioHardware/Audio"]
+unique_name_in_owner = true
+stream = ExtResource("21_88obj")
+volume_db = -16.0
+
+[node name="RingSound" type="AudioStreamPlayer" parent="TeleradioHardware/Audio"]
+unique_name_in_owner = true
+
+[node name="RingTimer" type="Timer" parent="TeleradioHardware/Audio/RingSound"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="FailstateTeleradioLamp" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.0234771, 0, 1)
+z_index = 40
+material = SubResource("CanvasItemMaterial_hloag")
+position = Vector2(-1, 273)
+scale = Vector2(25, 25)
+texture = SubResource("GradientTexture2D_b1ipl")
+
+[connection signal="value_changed" from="TeleradioHardware/Inputs/Input/Debug/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="TeleradioHardware/Inputs/Input/Debug/VolumeSlider" to="TeleradioLogic" method="set_volume"]
+[connection signal="value_changed" from="TeleradioHardware/Inputs/Input/Debug/BitcrushSlider" to="." method="_on_bitcrush_slider_value_changed"]
+[connection signal="value_changed" from="TeleradioHardware/Inputs/Input/Debug/BitcrushSlider" to="TeleradioLogic" method="set_bitcrush"]
+[connection signal="pressed" from="TeleradioHardware/Inputs/Input/Debug/InterruptAppCheckButton" to="." method="_on_interrupt_app_check_button_pressed"]
+[connection signal="finished" from="TeleradioHardware/Audio/RingSound" to="TeleradioHardware" method="_on_ring_sound_finished"]
+[connection signal="timeout" from="TeleradioHardware/Audio/RingSound/RingTimer" to="TeleradioHardware" method="_on_ring_timer_timeout"]
+
+[editable path="TeleradioHardware/Outputs/MarginContainer/SubViewportContainer/SubViewport/Node3D/room_teleradio_mesh_new"]
+[editable path="TeleradioHardware/Inputs/Input/Joystick"]

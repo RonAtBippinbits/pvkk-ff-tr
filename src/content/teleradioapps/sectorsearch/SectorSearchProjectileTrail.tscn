@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://xbwpt5g7uqwk"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearchProjectileTrail.gd" id="1_ls3re"]
+
+[sub_resource type="Curve" id="Curve_0k5p1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.511494, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.32967), -4.17182, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_qc3vm"]
+offsets = PackedFloat32Array(0, 0.931818, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.952941, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_bm7yt"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ysx2"]
+gradient = SubResource("Gradient_bm7yt")
+fill_from = Vector2(1, 1)
+
+[node name="SectorSearchProjectileTrail" type="Line2D"]
+width = 2.0
+width_curve = SubResource("Curve_0k5p1")
+default_color = Color(1, 1, 1, 0.447059)
+gradient = SubResource("Gradient_qc3vm")
+texture = SubResource("GradientTexture2D_4ysx2")
+texture_mode = 1
+script = ExtResource("1_ls3re")

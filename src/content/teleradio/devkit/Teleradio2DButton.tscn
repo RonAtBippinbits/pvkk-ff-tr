@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://2nmpcxxt5cab"]
+
+[ext_resource type="Script" path="res://content/teleradio/devkit/TdkHitButton.gd" id="1_v5gr8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxal6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8yhd"]
+bg_color = Color(0.238281, 0.238281, 0.238281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72f4c"]
+bg_color = Color(0.125, 0.125, 0.125, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg5cl"]
+bg_color = Color(0.167969, 0.167969, 0.167969, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Button1" type="Button"]
+custom_minimum_size = Vector2(0, 50)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sxal6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k8yhd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_72f4c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bg5cl")
+text = "1"
+script = ExtResource("1_v5gr8")

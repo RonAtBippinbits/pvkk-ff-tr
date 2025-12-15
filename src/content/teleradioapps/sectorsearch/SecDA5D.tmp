@@ -1,0 +1,280 @@
+[gd_scene load_steps=27 format=3 uid="uid://ba51m7dsjmdps"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/games/sectorsearch/SectorSearch.gd" id="1_2yk5u"]
+[ext_resource type="Shader" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_line_shader.gdshader" id="2_tmn4h"]
+[ext_resource type="PackedScene" uid="uid://bhc7smuykkyy6" path="res://content/teleradio/software/games/sectorsearch/SectorSearchSector.tscn" id="3_1bolj"]
+[ext_resource type="PackedScene" uid="uid://c3gigshkom8lj" path="res://content/teleradio/software/games/sectorsearch/SectorSearchEnemyShip.tscn" id="3_3qban"]
+[ext_resource type="AudioStream" uid="uid://c63uwbmla0u4i" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_music.mp3" id="4_eiyk1"]
+[ext_resource type="AudioStream" uid="uid://dhmggeh4xoahp" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_select.wav" id="5_k4jw8"]
+[ext_resource type="AudioStream" uid="uid://bm65aj4tfahjs" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_cannon_arm.wav" id="6_1iue4"]
+[ext_resource type="AudioStream" uid="uid://cf7s4o61hrbwg" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_shoot.wav" id="7_1m6pk"]
+[ext_resource type="AudioStream" uid="uid://rmllwr2o7cgk" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_turn_cannon.wav" id="8_gtgog"]
+[ext_resource type="AudioStream" uid="uid://d3mpi0cew2f2s" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_ship_explode.wav" id="9_xf3ha"]
+[ext_resource type="AudioStream" uid="uid://b7qowychyod6g" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_reset_zoom.wav" id="10_1yvci"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="11_16550"]
+[ext_resource type="AudioStream" uid="uid://grc3fcvcmses" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_radar.wav" id="11_r5vjb"]
+[ext_resource type="AudioStream" uid="uid://da1efgt3sa80t" path="res://content/teleradio/software/games/sectorsearch/assets/sectorsearch_radar_signal.wav" id="12_a02ac"]
+[ext_resource type="FontFile" uid="uid://csdfmdmpecyap" path="res://content/teleradio/software/os/fonts/AVHersheySimplexMediumItalic.ttf" id="12_iojmq"]
+
+[sub_resource type="Gradient" id="Gradient_rpsgm"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ra8kl"]
+gradient = SubResource("Gradient_rpsgm")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_24jr2"]
+offsets = PackedFloat32Array(0, 0.233227, 0.249201, 0.297125, 0.373802, 0.511182, 0.648562, 0.798722, 1)
+colors = PackedColorArray(0.136073, 0.185187, 0.300781, 1, 0.198667, 0.295539, 0.355469, 1, 0.334858, 0.604129, 0.785156, 1, 0.7, 0.6384, 0.546, 1, 0.221784, 0.304688, 0.234459, 1, 0.280941, 0.363281, 0.259156, 1, 0.407817, 0.527344, 0.376194, 1, 0.363153, 0.38, 0.3534, 1, 0.955667, 1, 0.93, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jx8jp"]
+frequency = 0.0042
+fractal_octaves = 7
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rfrca"]
+width = 1024
+height = 1024
+color_ramp = SubResource("Gradient_24jr2")
+noise = SubResource("FastNoiseLite_jx8jp")
+
+[sub_resource type="Gradient" id="Gradient_b8vvj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.8, 1)
+colors = PackedColorArray(0.585938, 0.585938, 0.585938, 0.820142, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nksft"]
+gradient = SubResource("Gradient_b8vvj")
+height = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpuae"]
+shader = ExtResource("2_tmn4h")
+shader_parameter/repeat = 0.1
+shader_parameter/scroll_speed = 1.0
+shader_parameter/pattern = SubResource("GradientTexture2D_nksft")
+
+[sub_resource type="Gradient" id="Gradient_rrv4j"]
+offsets = PackedFloat32Array(0, 0.00647249)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_flq6t"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4fahx"]
+gradient = SubResource("Gradient_flq6t")
+fill_to = Vector2(0, 1)
+
+[node name="SectorSearch" type="Node2D"]
+script = ExtResource("1_2yk5u")
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -5
+z_as_relative = false
+
+[node name="BackgroundSolidColor" type="ColorRect" parent="Background"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/BackgroundSolidColor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Background/BackgroundSolidColor/CenterContainer"]
+layout_mode = 2
+
+[node name="Center" type="Sprite2D" parent="Background/BackgroundSolidColor/CenterContainer/Control"]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_ra8kl")
+
+[node name="PlayArea" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = -5
+z_as_relative = false
+
+[node name="Landscape" type="Sprite2D" parent="PlayArea"]
+modulate = Color(1, 1, 1, 0.141176)
+position = Vector2(300, 222)
+scale = Vector2(0.423828, 0.423828)
+texture = SubResource("NoiseTexture2D_rfrca")
+
+[node name="RadarPings" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="Cannon" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="AimLine" type="Line2D" parent="PlayArea/Cannon"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.705882, 0, 1)
+material = SubResource("ShaderMaterial_dpuae")
+points = PackedVector2Array(5, 0, 20, 0, 2000, 0)
+width = 2.0
+default_color = Color(1, 1, 1, 0.498039)
+gradient = SubResource("Gradient_rrv4j")
+texture = SubResource("GradientTexture2D_4fahx")
+texture_mode = 1
+
+[node name="CannonVisuals" type="Polygon2D" parent="PlayArea/Cannon"]
+position = Vector2(0, -1.52588e-05)
+rotation = 1.57079
+scale = Vector2(0.05, 0.05)
+color = Color(0.0507813, 0.0507813, 0.0507813, 1)
+polygon = PackedVector2Array(-28, -12, -20, -20, -12, -44, -12, -76, -4, -84, 4, -84, 12, -76, 12, -44, 20, -20, 28, -12, 28, 12, 20, 20, 4, 28, -4, 28, -20, 20, -28, 12)
+
+[node name="Muzzleflash" type="Node2D" parent="PlayArea/Cannon/CannonVisuals"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -84)
+
+[node name="Muzzleflash" type="Polygon2D" parent="PlayArea/Cannon/CannonVisuals/Muzzleflash"]
+position = Vector2(0, 84)
+color = Color(1, 0.919898, 0.679592, 1)
+polygon = PackedVector2Array(-4, -84, 4, -84, 20, -92, 28, -108, 28, -124, 0, -196, -28, -124, -28, -108, -20, -92)
+
+[node name="MuzzleflashCenter" type="Polygon2D" parent="PlayArea/Cannon/CannonVisuals/Muzzleflash/Muzzleflash"]
+position = Vector2(0, -3)
+polygon = PackedVector2Array(-4, -84, 4, -84, 12, -92, 12, -100, 0, -132, -12, -100, -12, -92)
+
+[node name="Enemies" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+
+[node name="EnemyTarget" type="Node2D" parent="PlayArea/Enemies"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="SectorSearchEnemyShip" parent="PlayArea/Enemies" instance=ExtResource("3_3qban")]
+position = Vector2(192, 176)
+
+[node name="SectorSearchEnemyShip2" parent="PlayArea/Enemies" instance=ExtResource("3_3qban")]
+position = Vector2(368, 192)
+
+[node name="SectorSearchEnemyShip3" parent="PlayArea/Enemies" instance=ExtResource("3_3qban")]
+position = Vector2(312, 296)
+
+[node name="LandscapeMask" type="Polygon2D" parent="."]
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+polygon = PackedVector2Array(0, 0, 600, 0, 600, 456, 0, 456, 0, 0, 88, 224, 300, 436, 512, 224, 300, 12, 88, 224)
+
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="SectorL" type="Node2D" parent="."]
+position = Vector2(192.652, 224)
+
+[node name="SectorNodeL" parent="SectorL" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorU" type="Node2D" parent="."]
+position = Vector2(300.132, 116.52)
+
+[node name="SectorNodeU" parent="SectorU" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorD" type="Node2D" parent="."]
+position = Vector2(300.132, 331.48)
+
+[node name="SectorNodeD" parent="SectorD" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorR" type="Node2D" parent="."]
+position = Vector2(407.612, 224)
+
+[node name="SectorNodeR" parent="SectorR" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("4_eiyk1")
+autoplay = true
+bus = &"TeleradioCapture"
+
+[node name="SelectSector" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_k4jw8")
+bus = &"TeleradioCapture"
+
+[node name="Arm" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_1iue4")
+volume_db = 4.0
+bus = &"TeleradioCapture"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("7_1m6pk")
+bus = &"TeleradioCapture"
+
+[node name="Turn" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("8_gtgog")
+volume_db = -9.0
+bus = &"TeleradioCapture"
+
+[node name="Explode" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("9_xf3ha")
+bus = &"TeleradioCapture"
+
+[node name="ZoomOut" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("10_1yvci")
+bus = &"TeleradioCapture"
+
+[node name="RadarWave" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_r5vjb")
+volume_db = 4.0
+bus = &"TeleradioCapture"
+
+[node name="RadarHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_a02ac")
+max_polyphony = 4
+bus = &"TeleradioCapture"
+
+[node name="ControlHints" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = 372.0
+offset_right = 283.0
+offset_bottom = 432.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "(A) Zoom In
+(B) Reset Zoom
+Hold direction to Fire"
+
+[node name="Title" type="Label" parent="."]
+visible = false
+modulate = Color(1, 0.705882, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = 80.0
+offset_right = 418.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("12_iojmq")
+theme_override_font_sizes/font_size = 32
+text = "Sector Search 2"
+horizontal_alignment = 1

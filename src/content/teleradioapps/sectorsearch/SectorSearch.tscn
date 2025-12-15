@@ -1,0 +1,679 @@
+[gd_scene load_steps=38 format=3 uid="uid://262hwy6i80dj"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearch.gd" id="1_2yk5u"]
+[ext_resource type="Shader" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_line_shader.gdshader" id="2_tmn4h"]
+[ext_resource type="PackedScene" uid="uid://bhc7smuykkyy6" path="res://content/teleradioapps/sectorsearch/SectorSearchSector.tscn" id="3_1bolj"]
+[ext_resource type="AudioStream" uid="uid://dkq50s6mu3bg4" path="res://content/teleradioapps/sectorsearch/assets/Chiptune Vol2 Grouch Main.wav" id="4_dwvk3"]
+[ext_resource type="AudioStream" uid="uid://dhmggeh4xoahp" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_select.wav" id="5_k4jw8"]
+[ext_resource type="AudioStream" uid="uid://bm65aj4tfahjs" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_cannon_arm.wav" id="6_1iue4"]
+[ext_resource type="AudioStream" uid="uid://cf7s4o61hrbwg" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_shoot.wav" id="7_1m6pk"]
+[ext_resource type="AudioStream" uid="uid://rmllwr2o7cgk" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_turn_cannon.wav" id="8_gtgog"]
+[ext_resource type="AudioStream" uid="uid://d3mpi0cew2f2s" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_ship_explode.wav" id="9_xf3ha"]
+[ext_resource type="AudioStream" uid="uid://b7qowychyod6g" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_reset_zoom.wav" id="10_1yvci"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="11_16550"]
+[ext_resource type="AudioStream" uid="uid://qhd1hqv7i8h0" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_new_signal.wav" id="11_jbu40"]
+[ext_resource type="AudioStream" uid="uid://grc3fcvcmses" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_radar.wav" id="11_r5vjb"]
+[ext_resource type="AudioStream" uid="uid://da1efgt3sa80t" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_radar_signal.wav" id="12_a02ac"]
+[ext_resource type="AudioStream" uid="uid://ctuvf4a1lgstw" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_title.wav" id="13_2ssd7"]
+[ext_resource type="AudioStream" uid="uid://ig5kaav2gdl3" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_wave_alert.wav" id="15_sjkvr"]
+[ext_resource type="FontFile" uid="uid://c0iqrufaeox52" path="res://content/teleradio/software/os/fonts/AVHersheySimplexHeavy.ttf" id="15_wltky"]
+[ext_resource type="AudioStream" uid="uid://datwtb7utvgqv" path="res://content/teleradioapps/sectorsearch/assets/sectorsearch_stage_won.wav" id="16_8s7om"]
+
+[sub_resource type="Gradient" id="Gradient_rpsgm"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ra8kl"]
+gradient = SubResource("Gradient_rpsgm")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_24jr2"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.266026, 0.297125, 0.373802, 0.511182, 0.648562, 0.798722)
+colors = PackedColorArray(0.25098, 0.192157, 0.552941, 1, 0.403922, 0.713726, 0.741176, 1, 0.545098, 0.329412, 0.160784, 1, 0.215686, 0.14902, 0.0627451, 1, 0.333333, 0.627451, 0.286275, 1, 0.313726, 0.313726, 0.313726, 1, 0.623529, 0.623529, 0.623529, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jx8jp"]
+frequency = 0.0042
+fractal_octaves = 7
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rfrca"]
+width = 1024
+height = 1024
+color_ramp = SubResource("Gradient_24jr2")
+noise = SubResource("FastNoiseLite_jx8jp")
+
+[sub_resource type="Gradient" id="Gradient_b8vvj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.8, 1)
+colors = PackedColorArray(0.585938, 0.585938, 0.585938, 0.820142, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nksft"]
+gradient = SubResource("Gradient_b8vvj")
+height = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpuae"]
+shader = ExtResource("2_tmn4h")
+shader_parameter/repeat = 0.1
+shader_parameter/scroll_speed = 1.0
+shader_parameter/pattern = SubResource("GradientTexture2D_nksft")
+
+[sub_resource type="Gradient" id="Gradient_rrv4j"]
+offsets = PackedFloat32Array(0, 0.00647249)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_flq6t"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4fahx"]
+gradient = SubResource("Gradient_flq6t")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_gr17u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 300, 14, 0, 0, 0, 0, 509, 224, 0, 0, 0, 0, 300, 433, 0, 0, 0, 0, 91, 224, 0, 0, 0, 0, 300, 14)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_wbrrc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 300, 116, 0, 0, 0, 0, 411, 222, 0, 0, 0, 0, 297, 330, 0, 0, 0, 0, 196, 224, 0, 0, 0, 0, 300, 116)
+}
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_43jgv"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nw3gk"]
+gradient = SubResource("Gradient_43jgv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_15lmm"]
+offsets = PackedFloat32Array(0.965065, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fx2b5"]
+gradient = SubResource("Gradient_15lmm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2nan"]
+bg_color = Color(0.533333, 0.223529, 0.196078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr5aw"]
+bg_color = Color(0.25098, 0.192157, 0.552941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[node name="SectorSearch" type="Node2D"]
+script = ExtResource("1_2yk5u")
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -5
+z_as_relative = false
+
+[node name="BackgroundSolidColor" type="ColorRect" parent="Background"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.105469, 0.103504, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/BackgroundSolidColor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Background/BackgroundSolidColor/CenterContainer"]
+layout_mode = 2
+
+[node name="Center" type="Sprite2D" parent="Background/BackgroundSolidColor/CenterContainer/Control"]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_ra8kl")
+
+[node name="PlayArea" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = -5
+z_as_relative = false
+
+[node name="Landscape" type="Sprite2D" parent="PlayArea"]
+modulate = Color(1, 1, 1, 0.145098)
+texture_filter = 1
+position = Vector2(300, 222)
+scale = Vector2(0.423828, 0.423828)
+texture = SubResource("NoiseTexture2D_rfrca")
+
+[node name="RadarPings" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="Cannon" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="AimLine" type="Line2D" parent="PlayArea/Cannon"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+material = SubResource("ShaderMaterial_dpuae")
+points = PackedVector2Array(5, 0, 20, 0, 2000, 0)
+width = 2.0
+default_color = Color(1, 1, 1, 0.498039)
+gradient = SubResource("Gradient_rrv4j")
+texture = SubResource("GradientTexture2D_4fahx")
+texture_mode = 1
+
+[node name="CannonVisuals" type="Polygon2D" parent="PlayArea/Cannon"]
+z_index = 1
+position = Vector2(0, -1.52588e-05)
+rotation = 1.57079
+scale = Vector2(0.1, 0.1)
+polygon = PackedVector2Array(-28, -12, -20, -20, -12, -44, -12, -76, -4, -84, 4, -84, 12, -76, 12, -44, 20, -20, 28, -12, 28, 12, 20, 20, 4, 28, -4, 28, -20, 20, -28, 12)
+
+[node name="Muzzleflash" type="Node2D" parent="PlayArea/Cannon/CannonVisuals"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -84)
+
+[node name="Muzzleflash" type="Polygon2D" parent="PlayArea/Cannon/CannonVisuals/Muzzleflash"]
+position = Vector2(0, 84)
+color = Color(1, 0.919898, 0.679592, 1)
+polygon = PackedVector2Array(-4, -84, 4, -84, 20, -92, 28, -108, 28, -124, 0, -196, -28, -124, -28, -108, -20, -92)
+
+[node name="MuzzleflashCenter" type="Polygon2D" parent="PlayArea/Cannon/CannonVisuals/Muzzleflash/Muzzleflash"]
+position = Vector2(0, -3)
+polygon = PackedVector2Array(-4, -84, 4, -84, 12, -92, 12, -100, 0, -132, -12, -100, -12, -92)
+
+[node name="Enemies" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+
+[node name="EnemyGoal" type="Node2D" parent="PlayArea/Enemies"]
+unique_name_in_owner = true
+position = Vector2(300, 224)
+
+[node name="SpawnPathOuter" type="Path2D" parent="PlayArea/Enemies"]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_gr17u")
+
+[node name="SpawnPathInner" type="Path2D" parent="PlayArea/Enemies"]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_wbrrc")
+
+[node name="LandscapeMask" type="Polygon2D" parent="."]
+color = Color(0.25098, 0.192157, 0.552941, 1)
+polygon = PackedVector2Array(0, 0, 600, 0, 600, 456, 0, 456, 0, 0, 88, 224, 300, 436, 512, 224, 300, 12, 88, 224)
+
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="SectorL" type="Node2D" parent="."]
+position = Vector2(194.652, 224)
+
+[node name="SectorNodeL" parent="SectorL" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorU" type="Node2D" parent="."]
+position = Vector2(300.132, 118.52)
+
+[node name="SectorNodeU" parent="SectorU" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorD" type="Node2D" parent="."]
+position = Vector2(300.132, 329.48)
+
+[node name="SectorNodeD" parent="SectorD" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="SectorR" type="Node2D" parent="."]
+position = Vector2(405.612, 224)
+
+[node name="SectorNodeR" parent="SectorR" instance=ExtResource("3_1bolj")]
+unique_name_in_owner = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("4_dwvk3")
+bus = &"TeleradioApp"
+
+[node name="SelectSector" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_k4jw8")
+bus = &"TeleradioApp"
+
+[node name="Arm" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_1iue4")
+volume_db = 4.0
+bus = &"TeleradioApp"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("7_1m6pk")
+bus = &"TeleradioApp"
+
+[node name="Turn" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("8_gtgog")
+volume_db = -9.0
+bus = &"TeleradioApp"
+
+[node name="Explode" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("9_xf3ha")
+bus = &"TeleradioApp"
+
+[node name="ZoomOut" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("10_1yvci")
+bus = &"TeleradioApp"
+
+[node name="NewSignal" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_jbu40")
+bus = &"TeleradioApp"
+
+[node name="RadarWave" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_r5vjb")
+volume_db = -2.0
+bus = &"TeleradioApp"
+
+[node name="RadarHit1" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_a02ac")
+bus = &"TeleradioApp"
+
+[node name="RadarHit2" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_a02ac")
+bus = &"TeleradioApp"
+
+[node name="RadarHit3" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_a02ac")
+bus = &"TeleradioApp"
+
+[node name="RadarHit4" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_a02ac")
+bus = &"TeleradioApp"
+
+[node name="Title" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("13_2ssd7")
+bus = &"TeleradioApp"
+
+[node name="WaveAlert" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("15_sjkvr")
+bus = &"TeleradioApp"
+
+[node name="WaveWon" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("16_8s7om")
+bus = &"TeleradioApp"
+
+[node name="ControlHints" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = 372.0
+offset_right = 283.0
+offset_bottom = 432.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "(A) Zoom In
+(B) Reset Zoom
+Hold direction to Fire"
+
+[node name="ScoreTimeInfoLabel" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = 31.0
+offset_right = 283.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "Time:
+Wave: 
+Score:"
+
+[node name="TimeLabel" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.0
+offset_top = 31.0
+offset_right = 345.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "00:00"
+
+[node name="WaveCountLabel" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.0
+offset_top = 49.0
+offset_right = 345.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "1"
+
+[node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.0
+offset_top = 67.0
+offset_right = 212.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 17
+text = "2"
+
+[node name="ButtonSelection" type="Node2D" parent="."]
+
+[node name="1" type="Label" parent="ButtonSelection"]
+unique_name_in_owner = true
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 50.0
+offset_right = 571.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 16
+text = "Menu"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="ButtonSelection/1"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="ButtonSelection/1/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_nw3gk")
+
+[node name="2" type="Label" parent="ButtonSelection"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+custom_minimum_size = Vector2(150, 0)
+offset_left = 421.0
+offset_top = 99.0
+offset_right = 571.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 16
+text = "Play Again"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Line" type="Line2D" parent="ButtonSelection/2"]
+position = Vector2(159, 8)
+points = PackedVector2Array(0, 0, 40, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ButtonSelection/2/Line"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_fx2b5")
+
+[node name="MainMenu" type="Node2D" parent="."]
+visible = false
+z_index = 20
+
+[node name="Background" type="Node2D" parent="MainMenu"]
+z_index = -5
+
+[node name="BackgroundSolidColor" type="ColorRect" parent="MainMenu/Background"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.25098, 0.192157, 0.552941, 1)
+
+[node name="Flash" type="ColorRect" parent="MainMenu/Background"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.403922, 0.713726, 0.741176, 1)
+
+[node name="TitleLabel" type="Label" parent="MainMenu"]
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = 80.0
+offset_right = 427.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(130, 22)
+theme_override_fonts/font = ExtResource("15_wltky")
+theme_override_font_sizes/font_size = 42
+text = "Sektorheld 2"
+horizontal_alignment = 1
+
+[node name="MenuLabel" type="Label" parent="MainMenu"]
+visible = false
+modulate = Color(0.403922, 0.713726, 0.741176, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 218.0
+offset_top = 175.0
+offset_right = 485.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(130, 22)
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "(1) New Game
+
+(4) Exit"
+
+[node name="BB" type="Label" parent="MainMenu/MenuLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -351.5
+offset_top = 184.0
+offset_right = 248.5
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "Bippinbits Maschinenspielkombinat
+Alle Rechte vorbehalten"
+horizontal_alignment = 1
+
+[node name="NextStageScreen" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+
+[node name="Panel" type="Panel" parent="NextStageScreen"]
+offset_left = 120.0
+offset_top = 140.0
+offset_right = 480.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2nan")
+
+[node name="WaveStartLabel" type="Label" parent="NextStageScreen/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 98.0
+offset_right = 360.0
+offset_bottom = 121.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "ENEMIES ICOMING IN 3.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaveLabel" type="Label" parent="NextStageScreen/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 36.0
+offset_right = 360.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "WAVE 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaveFlashLabel" type="Label" parent="NextStageScreen/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 77.0
+offset_right = 360.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "RED ALERT!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SuccessScreen" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+
+[node name="Panel" type="Panel" parent="SuccessScreen"]
+offset_left = 120.0
+offset_top = 140.0
+offset_right = 480.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cr5aw")
+
+[node name="WaveOverLabel" type="Label" parent="SuccessScreen/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 36.0
+offset_right = 360.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "WAVE 1 OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaveWinLabel" type="Label" parent="SuccessScreen/Panel"]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 360.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "GLORIOUS DEFENSE!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoseScreen" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 10
+
+[node name="Panel" type="Panel" parent="LoseScreen"]
+offset_left = 120.0
+offset_top = 140.0
+offset_right = 480.0
+offset_bottom = 316.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2nan")
+
+[node name="LoseLabel" type="Label" parent="LoseScreen/Panel"]
+layout_mode = 0
+offset_top = 87.0
+offset_right = 360.0
+offset_bottom = 110.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "YOU DEFEATED X WAVES!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoseLabel3" type="Label" parent="LoseScreen/Panel"]
+layout_mode = 0
+offset_top = 127.0
+offset_right = 360.0
+offset_bottom = 150.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "YOUR SCORE: XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoseLabel2" type="Label" parent="LoseScreen/Panel"]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 360.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("11_16550")
+theme_override_font_sizes/font_size = 20
+text = "THE CITY WAS TAKEN
+BY THE ENEMY!"
+horizontal_alignment = 1
+vertical_alignment = 1

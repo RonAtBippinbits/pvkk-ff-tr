@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj2kpv4mc6qj8"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/inputdebugger/TeleradioOSInputDebugger.gd" id="1_5eiiq"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_lgjix"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wsyc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6exx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jovmh"]
+
+[node name="InputDebugger" type="Node2D"]
+script = ExtResource("1_5eiiq")
+
+[node name="Background" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="BackgroundSolidColor" type="ColorRect" parent="Background"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="Headline" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(560, 0)
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 584.0
+offset_bottom = 53.0
+size_flags_vertical = 0
+theme_override_colors/font_readonly_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/font = ExtResource("2_lgjix")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4wsyc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u6exx")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jovmh")
+text = "Input Debugger"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+draw_spaces = true
+
+[node name="Underline" type="Line2D" parent="."]
+points = PackedVector2Array(24, 56, 448, 56)
+width = 1.0
+default_color = Color(1, 0.705882, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(561, 323)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 593.0
+offset_bottom = 387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_lgjix")
+theme_override_font_sizes/font_size = 20
+text = "Test"
+
+[node name="EventTemplate" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 380.0
+offset_right = 348.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_lgjix")
+theme_override_font_sizes/font_size = 20
+text = "Signal fired"
+
+[node name="Joystick Border" type="Line2D" parent="."]
+position = Vector2(128, 288)
+points = PackedVector2Array(-32, 0, -32, -16, -16, -32, 16, -32, 32, -16, 32, 16, 16, 32, -16, 32, -32, 16, -32, 0)
+width = 1.5
+default_color = Color(1, 0.705882, 0, 1)
+
+[node name="Joystick" type="Polygon2D" parent="Joystick Border"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+polygon = PackedVector2Array(-16, 0, -16, -8, -8, -16, 8, -16, 16, -8, 16, 8, 8, 16, -8, 16, -16, 8)

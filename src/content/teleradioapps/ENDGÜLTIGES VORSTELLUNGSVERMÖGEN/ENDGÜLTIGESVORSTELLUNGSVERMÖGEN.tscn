@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0tnmyko0nc5u"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
+
+[node name="EndgültigesVorstellungsvermögen" type="Node2D"]
+script = ExtResource("1_ueaa4")

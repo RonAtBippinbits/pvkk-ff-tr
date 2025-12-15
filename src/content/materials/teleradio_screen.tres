@@ -1,0 +1,40 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://4jqawwlhj3bs"]
+
+[ext_resource type="Shader" path="res://content/shaders/crt_screen.gdshader" id="1_5dkaw"]
+[ext_resource type="Texture2D" uid="uid://g1mgp3vms5mo" path="res://content/materials/Metal046B_1K-JPG/Metal046B_1K-JPG_NormalGL.jpg" id="2_388rv"]
+[ext_resource type="Texture2D" uid="uid://u6swcoa8ny0r" path="res://content/materials/Plastic017B_1K-JPG/Plastic017B_1K-JPG_NormalGL.jpg" id="3_osioc"]
+[ext_resource type="Texture2D" uid="uid://bjpvmbm0gxjvq" path="res://content/materials/Effects/screen_edge.png" id="5_h6sxe"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_5dkaw")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/roughness = 0.17
+shader_parameter/specular = 0.13
+shader_parameter/emission_energy = 2.5
+shader_parameter/normal_scale = 0.292001
+shader_parameter/clearcoat = 0.278
+shader_parameter/clearcoat_roughness = 1.0
+shader_parameter/screen_orientation = Vector2(0, 1)
+shader_parameter/screen_orientation_i = Vector2(1, 0)
+shader_parameter/scanlines_opacity = 0.212
+shader_parameter/scanlines_width = 0.5
+shader_parameter/grille_opacity = 0.206
+shader_parameter/resolution = Vector2(320, 200)
+shader_parameter/roll = true
+shader_parameter/roll_speed = 1.0
+shader_parameter/roll_size = 22.0
+shader_parameter/roll_variation = 1.321
+shader_parameter/distort_intensity = 0.002
+shader_parameter/noise_opacity = 0.005
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.012
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.5
+shader_parameter/discolor = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.241
+shader_parameter/tv_mask = ExtResource("5_h6sxe")
+shader_parameter/texture_normal = ExtResource("3_osioc")
+shader_parameter/texture_detail_normal = ExtResource("2_388rv")

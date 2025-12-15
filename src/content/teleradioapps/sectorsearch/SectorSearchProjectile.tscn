@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu0o2h25pci7j"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearchProjectile.gd" id="1_2m1jb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_04im0"]
+radius = 0.13
+
+[node name="SectorSearchProjectile" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_2m1jb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_04im0")
+
+[node name="DebugDraw" type="Polygon2D" parent="."]
+scale = Vector2(0.01, 0.01)
+color = Color(0.101563, 0.101563, 0.101563, 1)
+polygon = PackedVector2Array(0, -17, 20, 0, 0, 17, -14, 20, -26, 20, -26, -20, -14, -20)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

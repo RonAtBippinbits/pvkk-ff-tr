@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://8opvqtvl616p"]
+
+[ext_resource type="Script" path="res://content/teleradio/software/os/apps/briefing/TeleradioContentSingleUpgrade.gd" id="1_784e0"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="1_q8oik"]
+[ext_resource type="StyleBox" uid="uid://ywsmkxyxo521" path="res://content/teleradio/software/os/apps/briefing/styles/TeleradioContentSingleUpgrade.stylebox" id="3_po7eu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igf3j"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuxg4"]
+content_margin_top = 2.0
+bg_color = Color(1, 0.705882, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 0)
+border_blend = true
+expand_margin_left = 10.0
+
+[node name="Upgrade" type="MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+focus_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 10
+script = ExtResource("1_784e0")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_igf3j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="UpgradeName" type="Label" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+z_index = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_q8oik")
+theme_override_font_sizes/font_size = 16
+text = "Upgrade Name"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+visible = false
+z_index = 1
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_wuxg4")
+
+[node name="Description" type="Label" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 0.752941)
+z_index = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_q8oik")
+theme_override_font_sizes/font_size = 14
+text = "Description"
+autowrap_mode = 3
+
+[node name="HighlightLine" type="Line2D" parent="Panel"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+z_as_relative = false
+position = Vector2(0, 17)
+points = PackedVector2Array(0, 0, -10, 0, -10, -2000)
+width = 4.0
+
+[node name="Highlight" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_po7eu")

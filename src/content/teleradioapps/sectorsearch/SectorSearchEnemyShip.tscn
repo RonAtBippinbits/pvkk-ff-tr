@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3gigshkom8lj"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/sectorsearch/SectorSearchEnemyShip.gd" id="1_1hpn0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0n2v"]
+radius = 2.0
+
+[node name="SectorSearchEnemyShip" type="Area2D" groups=["tdk-sectorsearch-enemy"]]
+scale = Vector2(0.05, 0.05)
+collision_mask = 0
+script = ExtResource("1_1hpn0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n0n2v")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+rotation = 1.57079
+color = Color(0.313726, 0.313726, 0.313726, 1)
+polygon = PackedVector2Array(-1, 2, 1, 2, 2, 1, 2, 0, 1, -2, -1, -2, -2, 0, -2, 1)
+
+[node name="DebugDraw" type="Polygon2D" parent="."]
+visible = false
+scale = Vector2(3, 3)
+polygon = PackedVector2Array(0, -20, 20, 0, 0, 20, -20, 0)

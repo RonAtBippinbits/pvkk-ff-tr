@@ -1,0 +1,237 @@
+[gd_scene load_steps=15 format=3 uid="uid://bhmq12t3q5h84"]
+
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="1_1iciq"]
+[ext_resource type="Script" path="res://content/teleradio/software/os/TeleradioOS.gd" id="1_7wgcm"]
+[ext_resource type="PackedScene" uid="uid://cbra70bf2ylfg" path="res://content/teleradio/shared/TeleradioButtonLabels.tscn" id="3_1jgeq"]
+[ext_resource type="Script" path="res://content/teleradio/software/os/TeleradioLoadingScreen.gd" id="3_cnkio"]
+[ext_resource type="Texture2D" uid="uid://nlsmqoq8h4k1" path="res://content/teleradio/software/os/images/teleradio_os_404.svg" id="3_ka2tf"]
+[ext_resource type="Script" path="res://content/teleradio/software/os/TeleradioFilesystem.gd" id="5_bsxes"]
+[ext_resource type="AudioStream" uid="uid://bwqa37sai1uem" path="res://content/teleradio/shared/teleradio_error.wav" id="6_wrdpi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wsyc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6exx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jovmh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7tit"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gjixp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwblm"]
+bg_color = Color(1, 0.705882, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eg8c"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.262745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.705882, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[node name="TeleradioOS" type="Node2D" node_paths=PackedStringArray("_loading_screen", "filesystem")]
+script = ExtResource("1_7wgcm")
+_loading_screen = NodePath("LoadingScreen")
+filesystem = NodePath("Filesystem")
+
+[node name="Background" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = -99
+z_as_relative = false
+
+[node name="BackgroundSolidColor" type="ColorRect" parent="Background"]
+custom_minimum_size = Vector2(600, 450)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="MainMenu" type="Node2D" parent="."]
+
+[node name="Headline" type="TextEdit" parent="MainMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 0)
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 584.0
+offset_bottom = 53.0
+size_flags_vertical = 0
+theme_override_colors/font_readonly_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/font = ExtResource("1_1iciq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4wsyc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u6exx")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jovmh")
+text = "Main Menu"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+draw_spaces = true
+
+[node name="Underline" type="Line2D" parent="MainMenu"]
+points = PackedVector2Array(24, 56, 448, 56)
+width = 1.0
+default_color = Color(1, 0.705882, 0, 1)
+
+[node name="Content" type="TextEdit" parent="MainMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 300)
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 592.0
+offset_bottom = 364.0
+size_flags_vertical = 0
+theme_override_colors/font_readonly_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_color = Color(1, 0.705882, 0, 1)
+theme_override_fonts/font = ExtResource("1_1iciq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4wsyc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u6exx")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jovmh")
+text = "Exams"
+editable = false
+draw_spaces = true
+
+[node name="ButtonLabels" parent="." instance=ExtResource("3_1jgeq")]
+unique_name_in_owner = true
+
+[node name="LoadingScreen" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 100
+z_as_relative = false
+script = ExtResource("3_cnkio")
+
+[node name="ColorRect" type="ColorRect" parent="LoadingScreen"]
+custom_minimum_size = Vector2(600, 400)
+offset_right = 600.0
+offset_bottom = 400.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="OptionsPanel3" type="PanelContainer" parent="LoadingScreen"]
+offset_left = 216.0
+offset_top = 248.0
+offset_right = 384.0
+offset_bottom = 266.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b7tit")
+
+[node name="LoadingBar" type="ProgressBar" parent="LoadingScreen/OptionsPanel3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_gjixp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gwblm")
+step = 1.0
+show_percentage = false
+
+[node name="OptionText3" type="Label" parent="LoadingScreen"]
+modulate = Color(1, 0.705882, 0, 1)
+offset_left = 216.0
+offset_top = 224.0
+offset_right = 384.0
+offset_bottom = 241.0
+theme_override_fonts/font = ExtResource("1_1iciq")
+theme_override_font_sizes/font_size = 19
+text = "loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Error" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 200
+
+[node name="ColorRect" type="ColorRect" parent="Error"]
+custom_minimum_size = Vector2(600, 400)
+offset_right = 600.0
+offset_bottom = 450.0
+color = Color(0.215686, 0.14902, 0.0627451, 1)
+
+[node name="ErrorPanel" type="PanelContainer" parent="Error"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = 80.0
+offset_right = 450.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4eg8c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Error/ErrorPanel"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Error/ErrorPanel/VBoxContainer"]
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+texture = ExtResource("3_ka2tf")
+stretch_mode = 3
+
+[node name="ErrorMessage" type="Label" parent="Error/ErrorPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.705882, 0, 1)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1iciq")
+theme_override_font_sizes/font_size = 16
+text = "Error 862:
+File not found or
+no access rights!"
+horizontal_alignment = 1
+autowrap_mode = 2
+visible_characters_behavior = 1
+
+[node name="ButtonLabels" parent="Error" instance=ExtResource("3_1jgeq")]
+label_1_visible = false
+label_2_visible = false
+label_3_visible = false
+
+[node name="ErrorMessageSfx" type="AudioStreamPlayer" parent="Error"]
+unique_name_in_owner = true
+stream = ExtResource("6_wrdpi")
+volume_db = 8.0
+bus = &"TeleradioApp"
+
+[node name="Filesystem" type="Node" parent="."]
+script = ExtResource("5_bsxes")
+
+[connection signal="loading_finished" from="LoadingScreen" to="." method="stop_load_sound"]
+[connection signal="loading_started" from="LoadingScreen" to="." method="start_load_sound"]

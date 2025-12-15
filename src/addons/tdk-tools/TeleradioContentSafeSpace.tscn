@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c2ctuhol8p56t"]
+
+[node name="TeleradioContentSafeSpace2" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.5)
+polygon = PackedVector2Array(-512, -512, -2, -2, 602, -2, 602, 452, -2, 452, -2, -2, -512, -512, -512, 960, 1088, 960, 1088, -512)
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-2, -2, 602, -2, 602, 452, -2, 452)
+closed = true
+width = 4.0
+default_color = Color(0, 0, 0, 1)

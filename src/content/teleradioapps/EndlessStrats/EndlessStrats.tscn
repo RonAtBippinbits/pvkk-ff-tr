@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgr0dn48xughg"]
+
+[ext_resource type="Script" path="res://content/teleradioapps/EndlessStrats/EndlessStrats.gd" id="1_u5gyq"]
+[ext_resource type="Script" path="res://content/teleradioapps/EndlessStrats/LaneManager.gd" id="2_7hrik"]
+[ext_resource type="PackedScene" uid="uid://b1m64uhuoqyl5" path="res://content/teleradioapps/EndlessStrats/Lane.tscn" id="2_c2a5h"]
+[ext_resource type="PackedScene" uid="uid://tkg4idchtayc" path="res://content/teleradioapps/EndlessStrats/Unit.tscn" id="3_5qbup"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lt0lb"]
+size = Vector2(16, 448)
+
+[node name="EndlessStrats" type="Node2D"]
+script = ExtResource("1_u5gyq")
+
+[node name="Lanes" type="Node" parent="."]
+script = ExtResource("2_7hrik")
+unit_scene = ExtResource("3_5qbup")
+
+[node name="Lane1" parent="Lanes" instance=ExtResource("2_c2a5h")]
+position = Vector2(216, 56)
+
+[node name="Lane2" parent="Lanes" instance=ExtResource("2_c2a5h")]
+position = Vector2(216, 168)
+
+[node name="Lane3" parent="Lanes" instance=ExtResource("2_c2a5h")]
+position = Vector2(216, 280)
+
+[node name="Lane4" parent="Lanes" instance=ExtResource("2_c2a5h")]
+position = Vector2(216, 392)
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Area2D" type="Area2D" parent="." groups=["Killzone"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(432, 224)
+shape = SubResource("RectangleShape2D_lt0lb")
