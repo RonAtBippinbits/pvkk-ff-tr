@@ -13,7 +13,7 @@ var state:STATES:
 			_on_state_changed(previous, value)
 #Gameflow------------------------------------------------
 func _ready():
-	state = STATES.BATTLE
+	state = STATES.MENU
 
 func _physics_process(delta: float):
 	movement()
@@ -32,12 +32,16 @@ func _on_state_changed(previous, new):
 
 func movement():
 	var character_direction : Vector2
-	if state == STATES.OVERWORLD:
+	if state == STATES.OVERWORLD: # move this into character later!
 		character_direction.x = os.input.joy_axis.x
 		character_direction.y = os.input.joy_axis.y
 		if character_direction != Vector2.ZERO:
+			if abs(character_direction.x) > abs(character_direction.y):
+				character_direction.y = 0
+			else:
+				character_direction.x = 0
 			character_direction = character_direction.normalized()
-			$Maps/PlayableCharacter.position += character_direction * 2
+			$Maps/PlayableCharacter.position += character_direction
 
 func start_battle():
 	$MainMenu.hide()
@@ -46,7 +50,6 @@ func start_battle():
 	$Maps/Overworld.show()
 	stop_all_music()
 	$Audio/Music/MusicBattle.play()
-	
 	#$BattleScene/BattleManager.start_the_battle()
 
 #MainMenu------------------------------------------------
