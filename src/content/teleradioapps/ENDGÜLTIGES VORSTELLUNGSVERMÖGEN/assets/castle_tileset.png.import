@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iempy7ocyeme"
-path="res://.godot/imported/fabula_nova.png-69881b7d669b60e1f8cfb66ee2a3d023.ctex"
+uid="uid://chyyq64lqinx0"
+path="res://.godot/imported/castle_tileset.png-c8fd7d77d8151f1a824bb3161738ada2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ripped_assets/fabula_nova.png"
-dest_files=["res://.godot/imported/fabula_nova.png-69881b7d669b60e1f8cfb66ee2a3d023.ctex"]
+source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/castle_tileset.png"
+dest_files=["res://.godot/imported/castle_tileset.png-c8fd7d77d8151f1a824bb3161738ada2.ctex"]
 
 [params]
 

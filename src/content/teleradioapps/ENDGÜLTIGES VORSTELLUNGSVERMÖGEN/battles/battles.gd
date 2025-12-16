@@ -6,13 +6,17 @@ extends Node2D
 var enemy_index: int = 0 
 @onready var character_group = $character_group
 var character_index: int = 0 
-@onready var choice : Node
+@onready var choice : Node = %Choice
+var A_locked
+var B_locked
+var axis_locked
 
 @onready var enemies: Array = []
 @onready var characters: Array = []
 
-
 var action_queue: Array = [] 
+
+
 
 enum BATTLESTATE { DEFAULT, START, PLAYER_TURN, ENEMY_TURN, WIN, GAME_OVER }
 var _battle_state: BATTLESTATE = BATTLESTATE.DEFAULT
@@ -49,28 +53,31 @@ func prepare_battle():
 	battle_state = BATTLESTATE.PLAYER_TURN
 
 func _process(delta: float):
-	if root.state != root.STATES.BATTLE: # make sure player is allowed to do someting
+	if root.state != root.STATES.BATTLE:
 		return
-
-
-		# Next step here should be a simple implementation of choice UI
-
-	if battle_state == BATTLESTATE.PLAYER_TURN: 
-		if Input.is_action_just_pressed("ui_up"): # <---------------- need teleradio input here!!!
+	if battle_state == BATTLESTATE.PLAYER_TURN: # && can interact with menu
+		# I should build some sort of input manager and move it there
+		if abs(root.os.input.joy_axis.y) <= 0.35:
+			axis_locked = false
+		if !root.joy_buttonA_down:
+			A_locked = false
+		if !root.joy_buttonB_down:
+			B_locked = false
+		
+		if root.os.input.joy_axis.y <= -0.4 && !axis_locked: # up
 			if enemy_index > 0:
 				enemy_index -= 1
 				switch_focus(enemy_index, enemy_index + 1)
-		if Input.is_action_just_pressed("ui_down"): #
+				axis_locked = true
+		if root.os.input.joy_axis.y >= 0.4 && !axis_locked: #down
 			if enemy_index < enemies.size() - 1:
 				enemy_index += 1
 				switch_focus(enemy_index, enemy_index - 1)
-		if Input.is_action_just_pressed("ui_accept"): # 
+				axis_locked = true
+		if root.joy_buttonA_down: # 
 			action_queue.push_back(enemy_index) # need to determine in any way it's an enemy?
-			if action_queue.size() != characters.size():
-				#show_choice()
-				emit_signal("next_character")
-#		if action_queue.size() == characters.size() && processing_actions == false:
-#			evaluate_action_queue(action_queue, state) # proceed to enemy turn here
+			if action_queue.size() != characters.size(): # Check for next char move
+				print("action queue") #call action queue here
 			enemy_index = 0 # reset index
 
 func switch_focus(x,y):

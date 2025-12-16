@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://f0vc7w7qqg5n"]
+
+[ext_resource type="PackedScene" uid="uid://dvg576c5u51cv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn" id="1_nddaa"]
+
+[node name="Battles" type="Node2D"]
+
+[node name="BattleScene" type="CanvasLayer" parent="."]
+
+[node name="enemy_group" type="Node2D" parent="BattleScene"]
+
+[node name="Entity" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
+position = Vector2(140, 165)
+
+[node name="Entity2" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
+position = Vector2(140, 192)
+
+[node name="Entity3" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
+position = Vector2(140, 224)
+
+[node name="character_group" type="Node2D" parent="BattleScene"]
+
+[node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
+position = Vector2(363.25, 164.25)
+
+[node name="Entity2" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
+position = Vector2(363.25, 191.25)
+
+[node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
+position = Vector2(363.25, 223.25)
+
+[node name="TextBox" type="ColorRect" parent="BattleScene"]
+modulate = Color(0.176471, 0.176471, 0.176471, 1)
+offset_left = 106.0
+offset_top = 298.0
+offset_right = 406.0
+offset_bottom = 434.48
+
+[node name="Choice" type="VBoxContainer" parent="BattleScene"]
+unique_name_in_owner = true
+offset_left = 412.0
+offset_top = 298.0
+offset_right = 512.0
+offset_bottom = 434.0
+
+[node name="Attack" type="Button" parent="BattleScene/Choice"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Special" type="Button" parent="BattleScene/Choice"]
+layout_mode = 2
+text = "Speical"
+
+[node name="Button3" type="Button" parent="BattleScene/Choice"]
+layout_mode = 2
+text = "Defend"
+
+[node name="Button4" type="Button" parent="BattleScene/Choice"]
+layout_mode = 2
+text = "Run"

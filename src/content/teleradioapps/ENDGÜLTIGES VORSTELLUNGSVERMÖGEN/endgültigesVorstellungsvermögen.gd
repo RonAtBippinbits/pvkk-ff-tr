@@ -27,8 +27,6 @@ func _on_state_changed(previous, new):
 		STATES.CUTSCENE:
 			print("cutscene")
 
-
-
 func start_battle():
 	$MainMenu.hide()
 	$Maps/ButtonSelection.show()

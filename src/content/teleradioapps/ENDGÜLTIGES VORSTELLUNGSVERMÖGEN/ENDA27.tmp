@@ -1,15 +1,17 @@
-[gd_scene load_steps=19 format=4 uid="uid://d0tnmyko0nc5u"]
+[gd_scene load_steps=21 format=4 uid="uid://d0tnmyko0nc5u"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
-[ext_resource type="Texture2D" uid="uid://iempy7ocyeme" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/fabula_nova.png" id="2_e43n2"]
+[ext_resource type="Texture2D" uid="uid://iempy7ocyeme" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ripped_assets/fabula_nova.png" id="2_e43n2"]
 [ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_sf5vs"]
 [ext_resource type="Texture2D" uid="uid://d2h3aih5a18a" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_black.png" id="3_dik8s"]
-[ext_resource type="AudioStream" uid="uid://cmautqk6agw3i" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/Dawn Of Souls Prelude.mp3" id="3_n6h1m"]
+[ext_resource type="AudioStream" uid="uid://cmautqk6agw3i" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ripped_assets/Dawn Of Souls Prelude.mp3" id="3_n6h1m"]
 [ext_resource type="Texture2D" uid="uid://cyc2120kjj5fn" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/overworld_tileset.png" id="5_tispt"]
 [ext_resource type="PackedScene" uid="uid://dyjs0oxrc2crv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character.tscn" id="6_cnt0i"]
 [ext_resource type="Texture2D" uid="uid://chyyq64lqinx0" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/castle_tileset.png" id="6_fj2lw"]
-[ext_resource type="AudioStream" uid="uid://c2p0owu2t8egx" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/world_map.mp3" id="7_0g18e"]
-[ext_resource type="AudioStream" uid="uid://18md4noikimc" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/battle.mp3" id="9_0xeqd"]
+[ext_resource type="AudioStream" uid="uid://c2p0owu2t8egx" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ripped_assets/world_map.mp3" id="7_0g18e"]
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battle_manager.gd" id="7_jrt2u"]
+[ext_resource type="PackedScene" uid="uid://dvg576c5u51cv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/entity.tscn" id="8_r1avd"]
+[ext_resource type="AudioStream" uid="uid://18md4noikimc" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ripped_assets/battle.mp3" id="9_0xeqd"]
 
 [sub_resource type="Gradient" id="Gradient_43jgv"]
 offsets = PackedFloat32Array(0.965065, 1)
@@ -311,39 +313,61 @@ width = 2.0
 scale = Vector2(0.1, 0.1)
 texture = SubResource("GradientTexture2D_0kuwl")
 
-[node name="Battles" type="Node2D" parent="."]
+[node name="BattleScene" type="CanvasLayer" parent="."]
 
-[node name="BattleScene" type="CanvasLayer" parent="Battles"]
+[node name="BattleManager" type="Node2D" parent="BattleScene" node_paths=PackedStringArray("root")]
+script = ExtResource("7_jrt2u")
+root = NodePath("../..")
 
-[node name="character_group" type="Node" parent="Battles/BattleScene"]
+[node name="enemy_group" type="Node2D" parent="BattleScene/BattleManager"]
 
-[node name="TextBox" type="ColorRect" parent="Battles/BattleScene"]
+[node name="Entity" parent="BattleScene/BattleManager/enemy_group" instance=ExtResource("8_r1avd")]
+position = Vector2(70, 100)
+
+[node name="Entity2" parent="BattleScene/BattleManager/enemy_group" instance=ExtResource("8_r1avd")]
+position = Vector2(70, 150)
+
+[node name="Entity3" parent="BattleScene/BattleManager/enemy_group" instance=ExtResource("8_r1avd")]
+position = Vector2(70, 200)
+
+[node name="character_group" type="Node2D" parent="BattleScene/BattleManager"]
+
+[node name="Entity" parent="BattleScene/BattleManager/character_group" instance=ExtResource("8_r1avd")]
+position = Vector2(328.25, 96.25)
+
+[node name="Entity2" parent="BattleScene/BattleManager/character_group" instance=ExtResource("8_r1avd")]
+position = Vector2(328.25, 146.25)
+
+[node name="Entity3" parent="BattleScene/BattleManager/character_group" instance=ExtResource("8_r1avd")]
+position = Vector2(328.25, 196.25)
+
+[node name="TextBox" type="ColorRect" parent="BattleScene"]
 modulate = Color(0.176471, 0.176471, 0.176471, 1)
 offset_left = 106.0
 offset_top = 298.0
 offset_right = 406.0
 offset_bottom = 434.48
 
-[node name="Choice" type="VBoxContainer" parent="Battles/BattleScene"]
+[node name="Choice" type="VBoxContainer" parent="BattleScene"]
 unique_name_in_owner = true
 offset_left = 412.0
 offset_top = 298.0
 offset_right = 512.0
 offset_bottom = 434.0
 
-[node name="Attack" type="Button" parent="Battles/BattleScene/Choice"]
+[node name="Attack" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
 text = "Attack"
 
-[node name="Special" type="Button" parent="Battles/BattleScene/Choice"]
+[node name="Special" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
 text = "Speical"
 
-[node name="Button3" type="Button" parent="Battles/BattleScene/Choice"]
+[node name="Button3" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
 text = "Defend"
 
-[node name="Button4" type="Button" parent="Battles/BattleScene/Choice"]
+[node name="Button4" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
 text = "Run"
 

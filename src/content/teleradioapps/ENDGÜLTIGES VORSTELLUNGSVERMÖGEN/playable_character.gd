@@ -8,8 +8,7 @@ func _physics_process(delta: float):
 		movement()
 		
 func movement():
-	character_direction.x = root.os.input.joy_axis.x
-	character_direction.y = root.os.input.joy_axis.y
+	character_direction = root.os.input.joy_axis
 	if character_direction != Vector2.ZERO:
 		if abs(character_direction.x) > abs(character_direction.y):
 			character_direction.y = 0
