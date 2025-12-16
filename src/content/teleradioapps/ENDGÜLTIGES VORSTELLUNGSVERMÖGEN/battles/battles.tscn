@@ -1,32 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://f0vc7w7qqg5n"]
+[gd_scene load_steps=3 format=3 uid="uid://f0vc7w7qqg5n"]
 
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/battles.gd" id="1_bwl5q"]
 [ext_resource type="PackedScene" uid="uid://dvg576c5u51cv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn" id="1_nddaa"]
 
 [node name="Battles" type="Node2D"]
+script = ExtResource("1_bwl5q")
 
 [node name="BattleScene" type="CanvasLayer" parent="."]
 
 [node name="enemy_group" type="Node2D" parent="BattleScene"]
 
 [node name="Entity" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 165)
+position = Vector2(140, 98)
 
 [node name="Entity2" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 192)
+position = Vector2(140, 168)
 
 [node name="Entity3" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 224)
+position = Vector2(140, 249)
 
 [node name="character_group" type="Node2D" parent="BattleScene"]
+position = Vector2(340, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(363.25, 164.25)
+position = Vector2(140, 98)
 
 [node name="Entity2" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(363.25, 191.25)
+position = Vector2(140, 168)
 
 [node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(363.25, 223.25)
+position = Vector2(140, 249)
 
 [node name="TextBox" type="ColorRect" parent="BattleScene"]
 modulate = Color(0.176471, 0.176471, 0.176471, 1)
@@ -57,3 +60,6 @@ text = "Defend"
 [node name="Button4" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
 text = "Run"
+
+[connection signal="button_down" from="BattleScene/Choice/Attack" to="." method="_on_attack_button_down"]
+[connection signal="button_down" from="BattleScene/Choice/Special" to="." method="_on_special_button_down"]

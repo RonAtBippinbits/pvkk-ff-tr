@@ -19,53 +19,69 @@ func _ready():
 func _on_state_changed(previous, new):
 	match new:
 		STATES.MENU:
+			print("STATES.MENU")
 			title_stage()
 		STATES.OVERWORLD:
-			print("State")
+			print("STATES.OVERWORLD")
+			end_battle()
 		STATES.BATTLE:
+			print("STATES.BATTLE")
 			start_battle()
 		STATES.CUTSCENE:
-			print("cutscene")
+			print("STATES.CUTSCENE")
 
 func start_battle():
-	$MainMenu.hide()
-	$Maps/ButtonSelection.show()
+	hide_everything()
+	stop_all_music()
+	$Battles/BattleScene.show()
+	$Audio/Music/MusicBattle.play()
+	$Battles.battle_state = 1 # set battle state to START
+
+func end_battle():
+	hide_everything()
+	stop_all_music()
 	$Maps/PlayableCharacter.show()
 	$Maps/Overworld.show()
-	stop_all_music()
-	$Audio/Music/MusicBattle.play()
-	#$BattleScene/BattleManager.start_the_battle()
+	$Maps/ButtonSelection.show()
+	$Audio/Music/MusicOverworld.play()
+	os.input.connect_to(os.input.just_pressed_b1, button_menu)
+
+func button_menu():
+	print("menu")
+	state = STATES.MENU
 
 #MainMenu------------------------------------------------
 func title_stage():
-	for n in $Maps.get_children(): 
-		n.hide()
+	hide_everything()
 	stop_all_music()
-	$Audio/Music/MusicTitleScreen.play()
 	$MainMenu.show()
-	os.input.disconnect_all_buttons()
+	$Audio/Music/MusicTitleScreen.play()
+
 	os.input.connect_to(os.input.just_pressed_b2, start_new_game)
 	os.input.connect_to(os.input.just_pressed_b3, exit_game)
 
 func continue_game():
 	print("Continue")
 
-func start_new_game():
-	$MainMenu.hide()
-	$Maps/ButtonSelection.show()
-	$Maps/PlayableCharacter.show()
-	$Maps/Overworld.show()
+func start_new_game(): # need to 
+	hide_everything()
 	stop_all_music()
-	
-	$Audio/Music/MusicOverworld.play()
-	os.input.disconnect_all_buttons()
-	os.input.connect_to(os.input.just_pressed_b1, title_stage)
+	# reposition character, reset function here
 	state = STATES.OVERWORLD
 
 func exit_game():
 	os.quit_app()
 
 #Utility------------------------------------------------
+func hide_everything():
+	os.input.disconnect_all_buttons()
+	$MainMenu.hide()
+	$Maps/PlayableCharacter.hide()
+	$Maps/ButtonSelection.hide()
+	for n in $Maps.get_children(): 
+		n.hide()
+	$Battles/BattleScene.hide()
+
 func stop_all_music():
 	for m in $Audio/Music.get_children():
 		m.stop()

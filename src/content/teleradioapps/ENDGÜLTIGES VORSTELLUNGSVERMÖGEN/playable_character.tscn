@@ -1,13 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyjs0oxrc2crv"]
 
-[ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="1_p71hf"]
+[ext_resource type="Texture2D" uid="uid://c8jakdl58c5ha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/playable_character_spritesheet.png" id="1_x0jle"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character.gd" id="2_53m3b"]
 
 [node name="PlayableCharacter" type="Sprite2D"]
+texture_filter = 1
 position = Vector2(316, 216)
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("1_p71hf")
+texture = ExtResource("1_x0jle")
+region_enabled = true
+region_rect = Rect2(17, 16, 14, 16)
 script = ExtResource("2_53m3b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(1.75, 1.75)

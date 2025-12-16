@@ -2,23 +2,21 @@ extends Node2D
 
 @export var root : Node # make sure it's assigned in main scene
 
-@onready var enemy_group = $enemy_group
+@onready var enemy_group = $BattleScene/enemy_group
+@onready var enemies: Array = []
 var enemy_index: int = 0 
-@onready var character_group = $character_group
+@onready var character_group = $BattleScene/character_group
+@onready var characters: Array = []
 var character_index: int = 0 
 @onready var choice : Node = %Choice
+var ui_index : int = 0
 var A_locked
 var B_locked
 var axis_locked
 
-@onready var enemies: Array = []
-@onready var characters: Array = []
+var action_queue: Array[Node] = []
 
-var action_queue: Array = [] 
-
-
-
-enum BATTLESTATE { DEFAULT, START, PLAYER_TURN, ENEMY_TURN, WIN, GAME_OVER }
+enum BATTLESTATE { DEFAULT, START, PLAYER_CHOICE, PLAYER_TURN, ENEMY_TURN, WIN, GAME_OVER }
 var _battle_state: BATTLESTATE = BATTLESTATE.DEFAULT
 var battle_state: BATTLESTATE:
 	get:
@@ -30,19 +28,28 @@ var battle_state: BATTLESTATE:
 			_on_state_changed(previous, value)
 
 func _on_state_changed(previous, new):
-	print("battle_state changed!")
+	enemies = enemy_group.get_children()
+	characters = character_group.get_children()
 	match new:
 		BATTLESTATE.START:
+			print("BattleState.START")
 			prepare_battle()
+		BATTLESTATE.PLAYER_CHOICE:
+			print("BattleState.PLAYER_CHOICE")
+			if action_queue.size() == characters.size():
+				unfocus_ui(choice.get_children())
+				evaluate_action_queue(action_queue, battle_state)
+			else: 
+				$BattleScene/Choice/Attack.grab_focus()
 		BATTLESTATE.PLAYER_TURN:
+			enemies[0].show_focus()
 			print("BattleState.PLAYER_TURN")
-			#show_choice()
 		BATTLESTATE.ENEMY_TURN:
 			print("BattleState.ENEMY_TURN")
-			#enemy_turn()
+			enemy_turn()
 		BATTLESTATE.WIN:
 			print("BattleState.WIN")
-			# end fight
+			root.state = root.STATES.OVERWORLD
 		BATTLESTATE.GAME_OVER:
 			print("BattleState.GAME_OVER")
 			# return to title 
@@ -50,36 +57,118 @@ func _on_state_changed(previous, new):
 func prepare_battle():
 	characters = character_group.get_children()
 	enemies = enemy_group.get_children()
-	battle_state = BATTLESTATE.PLAYER_TURN
+	for c in characters:
+		c.connect("destroyed", Callable(self, "_on_entity_destroyed"))
+	for e in enemies:
+		e.connect("destroyed", Callable(self, "_on_entity_destroyed"))
+	battle_state = BATTLESTATE.PLAYER_CHOICE
 
-func _process(delta: float):
+func enemy_turn():
+	for e in enemies:
+		action_queue.append(characters.pick_random())
+	evaluate_action_queue(action_queue, battle_state)
+
+var is_busy
+func evaluate_action_queue(stack, current_state):
+	reset_focus(enemies)
+	reset_focus(characters)
+	is_busy = true
+	for i in stack: 
+		if not is_instance_valid(i):
+			continue
+		i.take_damage(2)
+		await get_tree().create_timer(1).timeout
+	action_queue.clear()
+	is_busy = false
+	if battle_state == BATTLESTATE.PLAYER_CHOICE:
+		battle_state = BATTLESTATE.ENEMY_TURN
+	elif battle_state == BATTLESTATE.ENEMY_TURN:
+		battle_state = BATTLESTATE.PLAYER_CHOICE
+
+func _process(delta):
 	if root.state != root.STATES.BATTLE:
 		return
-	if battle_state == BATTLESTATE.PLAYER_TURN: # && can interact with menu
-		# I should build some sort of input manager and move it there
-		if abs(root.os.input.joy_axis.y) <= 0.35:
-			axis_locked = false
-		if !root.joy_buttonA_down:
-			A_locked = false
-		if !root.joy_buttonB_down:
-			B_locked = false
-		
-		if root.os.input.joy_axis.y <= -0.4 && !axis_locked: # up
-			if enemy_index > 0:
-				enemy_index -= 1
-				switch_focus(enemy_index, enemy_index + 1)
-				axis_locked = true
-		if root.os.input.joy_axis.y >= 0.4 && !axis_locked: #down
-			if enemy_index < enemies.size() - 1:
-				enemy_index += 1
-				switch_focus(enemy_index, enemy_index - 1)
-				axis_locked = true
-		if root.joy_buttonA_down: # 
-			action_queue.push_back(enemy_index) # need to determine in any way it's an enemy?
-			if action_queue.size() != characters.size(): # Check for next char move
-				print("action queue") #call action queue here
-			enemy_index = 0 # reset index
+	if enemies.size() == 0:
+		battle_state = BATTLESTATE.WIN
+	handle_input()
+#Input handling ----------------------------------
+func handle_input():
+	if abs(root.os.input.joy_axis.y) <= 0.35:
+		axis_locked = false
+	if !root.os.input.joy_buttonA_down:
+		A_locked = false
+	if !root.os.input.joy_buttonB_down:
+		B_locked = false
+	if battle_state == BATTLESTATE.PLAYER_CHOICE && !is_busy:
+		handle_ui_selection()
+	elif battle_state == BATTLESTATE.PLAYER_TURN && !is_busy:
+		handle_enemy_selection()
 
-func switch_focus(x,y):
-	get_child(x).show_focus()
-	get_child(y).hide_focus()
+func handle_ui_selection():
+	var buttons := choice.get_children()
+	if root.os.input.joy_axis.y <= -0.4 && !axis_locked:  # Up
+		ui_index = max(ui_index - 1, 0)
+		update_ui_focus(buttons)
+		axis_locked = true
+	if root.os.input.joy_axis.y >= 0.4 && !axis_locked:  # Down
+		ui_index = min(ui_index + 1, buttons.size() - 1)
+		update_ui_focus(buttons)
+		axis_locked = true
+	if root.os.input.joy_buttonA_down and !A_locked:  # Select
+		buttons[ui_index].emit_signal("button_down")
+		enemy_index = 0
+		enemies[enemy_index].show_focus()
+		A_locked = true
+
+func update_ui_focus(buttons: Array[Node]):
+	for i in range(buttons.size()):
+		if i == ui_index:
+			buttons[i].grab_focus()
+		else:
+			buttons[i].release_focus()
+
+func unfocus_ui(buttons: Array[Node]):
+	for b in buttons:
+		b.release_focus()
+
+func handle_enemy_selection():
+	if root.os.input.joy_axis.y <= -0.4 and !axis_locked:  # Up
+		if enemy_index > 0:
+			switch_focus(enemies, enemy_index, enemy_index - 1)
+			enemy_index -= 1
+			axis_locked = true
+	if root.os.input.joy_axis.y >= 0.4 and !axis_locked:  # Down
+		if enemy_index < enemies.size() - 1:
+			switch_focus(enemies, enemy_index, enemy_index + 1)
+			enemy_index += 1
+			axis_locked = true
+	if root.os.input.joy_buttonA_down and !A_locked :  # Confirm
+		action_queue.append(enemies[enemy_index])
+		enemy_index = 0
+		reset_focus(enemies)
+		battle_state = BATTLESTATE.PLAYER_CHOICE
+		A_locked = true
+
+#Buttons----------------------------------
+func _on_attack_button_down() -> void:
+	battle_state = BATTLESTATE.PLAYER_TURN
+
+func _on_special_button_down() -> void:
+	print("special")
+	pass #Implement specials here
+
+#Utility----------------------------------
+func switch_focus(group: Array[Node], x, y):
+	group[x].hide_focus()
+	group[y].show_focus()
+
+func reset_focus(group: Array[Node]):
+	for n in group:
+		n.hide_focus()
+
+func _on_entity_destroyed(entity):
+	print("entity removed from list: ", entity.name)
+	if entity in characters:
+		characters.erase(entity)
+	elif entity in enemies:
+		enemies.erase(entity)

@@ -1,20 +1,69 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvg576c5u51cv"]
+[gd_scene load_steps=8 format=3 uid="uid://dvg576c5u51cv"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.gd" id="1_bc7ri"]
-[ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="1_jyjdo"]
+[ext_resource type="Texture2D" uid="uid://wpeb4ifjq5tp" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/drechen_placeholder.png" id="1_qmyjw"]
 [ext_resource type="Texture2D" uid="uid://ce68jptxrptdh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/cursor_finger.png" id="2_s3axx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwtt4"]
+bg_color = Color(0.513726, 0.858824, 0.25098, 1)
+
+[sub_resource type="Animation" id="Animation_tweua"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_abujl"]
+resource_name = "take_dmg"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(29335.5, 1e-05, 1e-05, 2.75041e-05, 1e-05),
+"update": 0,
+"values": [Color(100, 100, 100, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(100, 100, 100, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yaitr"]
+_data = {
+"RESET": SubResource("Animation_tweua"),
+"take_dmg": SubResource("Animation_abujl")
+}
+
 [node name="Entity" type="Sprite2D"]
-scale = Vector2(0.025, 0.025)
-texture = ExtResource("1_jyjdo")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_qmyjw")
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]
-position = Vector2(-59, 0)
+visible = false
+position = Vector2(-480, 0)
+scale = Vector2(3, 3)
 texture = ExtResource("2_s3axx")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -84.0
-offset_top = -115.0
-offset_right = 116.0
-offset_bottom = -88.0
+offset_left = -150.0
+offset_top = -380.0
+offset_right = 150.0
+offset_bottom = -330.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_uwtt4")
+show_percentage = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yaitr")
+}
