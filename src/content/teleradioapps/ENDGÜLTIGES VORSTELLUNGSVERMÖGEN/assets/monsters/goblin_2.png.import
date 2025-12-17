@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byi8dj7e7q3wd"
-path="res://.godot/imported/goblin_1.png-94967051538b9dc219858227ad56b6ab.ctex"
+uid="uid://c07hw6oap1xkh"
+path="res://.godot/imported/goblin_2.png-8245f8124821e94220af942044541a5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/goblin_1.png"
-dest_files=["res://.godot/imported/goblin_1.png-94967051538b9dc219858227ad56b6ab.ctex"]
+source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/goblin_2.png"
+dest_files=["res://.godot/imported/goblin_2.png-8245f8124821e94220af942044541a5f.ctex"]
 
 [params]
 

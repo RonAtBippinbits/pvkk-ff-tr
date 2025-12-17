@@ -1,16 +1,14 @@
 extends AnimatedSprite2D
 
-
 @onready var focus = $Focus
 @onready var progress_bar = $ProgressBar
 @onready var animation_player = $AnimationPlayer
 
-#@export var visual : Texture2D
 @export var MAX_HEALTH :float = 1
 @export var attack : int = 1
 @export var entity_type : String
-
-signal died(entity)
+@export var is_character: bool = false
+var character_dead: bool = false
 
 var health: float = 10:
 	set(value):
@@ -18,24 +16,27 @@ var health: float = 10:
 		update_progress_bar()
 		play_animation()
 		if health <= 0:
-			queue_free()
-			emit_signal("died", self)
+			if is_character:
+				play(entity_type + "_dead")
+				character_dead = true
+			else:
+				queue_free()
 
 func _ready():
 	load_enemy_data(entity_type)
 	update_progress_bar()
 
-func load_enemy_data(entity_type: String):
-	if entity_data.has(entity_type):
-		var data = entity_data[entity_type]
+func load_enemy_data(entity_key: String):
+	if !focus: focus = $Focus
+	if !progress_bar: progress_bar = $ProgressBar
+	if !animation_player: animation_player = $AnimationPlayer
+	if entity_data.has(entity_key):
+		var data = entity_data[entity_key]
 		play(data.visual)
 		MAX_HEALTH = data.health
 		health = data.health
 		attack = data.attack
-		print("a: ", attack, "h: ", health)
-	else:
-		queue_free()
-		emit_signal("died", self)
+		entity_type = entity_key
 
 func update_progress_bar():
 	progress_bar.value = (health/MAX_HEALTH) * 100
@@ -53,7 +54,7 @@ func play_animation():
 	animation_player.play("take_dmg")
 # -------------------------------------------------------
 var entity_data = {
-	#character data
+#character data
 	"warrior": {
 		"visual": "battler_1",
 		"health": 18,
@@ -69,16 +70,46 @@ var entity_data = {
 		"health": 12,
 		"attack": 1
 	},
-	#enemy data
+#enemy data
 	"goblin_1": {
 		"visual": "e_goblin_1",
-		"health": 3,
-		"attack": 1
+		"health": 50,
+		"attack": 10
 	},
 	"goblin_2": {
 		"visual": "e_goblin_2",
 		"health": 12,
 		"attack": 3,
 	},
-	#boss data
+	"skeleton_1": {
+		"visual": "e_skeleton_2",
+		"health": 12,
+		"attack": 3,
+	},
+	"skeleton_2": {
+		"visual": "e_skeleton_2",
+		"health": 12,
+		"attack": 3,
+	},
+	"spider_1": {
+		"visual": "e_spider_2",
+		"health": 12,
+		"attack": 3,
+	},
+	"spider_2": {
+		"visual": "e_spider_2",
+		"health": 12,
+		"attack": 3,
+	},
+#boss data
+	"boss_1": {
+		"visual": "e_boss_2",
+		"health": 12,
+		"attack": 3,
+	},
+	"boss_2": {
+		"visual": "e_boss_2",
+		"health": 12,
+		"attack": 3,
+	}
 }

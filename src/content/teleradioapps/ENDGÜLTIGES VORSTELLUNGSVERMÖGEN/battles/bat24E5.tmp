@@ -24,21 +24,15 @@ position = Vector2(300, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(170, 110)
-animation = &"warrior_dead"
 entity_type = "warrior"
-is_character = true
 
 [node name="Entity2" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(160, 200)
-animation = &"w_mage_dead"
 entity_type = "b_mage"
-is_character = true
 
 [node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(150, 290)
-animation = &"warrior_dead"
 entity_type = "w_mage"
-is_character = true
 
 [node name="Panel" type="Panel" parent="BattleScene"]
 offset_left = 27.0

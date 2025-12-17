@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3rq4yon38f74"
-path="res://.godot/imported/battler_2.png-f3042594b26ae3e866519f5943e1a1ae.ctex"
+uid="uid://cj7k82pw8xamw"
+path="res://.godot/imported/skeleton_1.png-9a76a6d8336c5c7b282f33c6678249c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_2.png"
-dest_files=["res://.godot/imported/battler_2.png-f3042594b26ae3e866519f5943e1a1ae.ctex"]
+source_file="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/skeleton_1.png"
+dest_files=["res://.godot/imported/skeleton_1.png-9a76a6d8336c5c7b282f33c6678249c3.ctex"]
 
 [params]
 

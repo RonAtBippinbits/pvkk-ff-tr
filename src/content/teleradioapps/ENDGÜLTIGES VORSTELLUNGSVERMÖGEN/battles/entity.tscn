@@ -1,12 +1,23 @@
-[gd_scene load_steps=16 format=3 uid="uid://dvg576c5u51cv"]
+[gd_scene load_steps=26 format=3 uid="uid://dvg576c5u51cv"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.gd" id="1_bc7ri"]
-[ext_resource type="Texture2D" uid="uid://s7rl21040iiv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_1.png" id="1_gy4tl"]
-[ext_resource type="Texture2D" uid="uid://byi8dj7e7q3wd" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/goblin_1.png" id="1_ky0ao"]
-[ext_resource type="Texture2D" uid="uid://c07hw6oap1xkh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/goblin_2.png" id="2_2xqnv"]
-[ext_resource type="Texture2D" uid="uid://b3rq4yon38f74" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_2.png" id="2_kfgnb"]
-[ext_resource type="Texture2D" uid="uid://ce68jptxrptdh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/cursor_finger.png" id="2_s3axx"]
-[ext_resource type="Texture2D" uid="uid://b5qat7p64i7pr" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_3.png" id="3_5eplt"]
+[ext_resource type="Texture2D" uid="uid://s7rl21040iiv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battlers/battler_1.png" id="1_gy4tl"]
+[ext_resource type="Texture2D" uid="uid://byi8dj7e7q3wd" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/goblin_1.png" id="1_ky0ao"]
+[ext_resource type="Texture2D" uid="uid://c07hw6oap1xkh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/goblin_2.png" id="2_2xqnv"]
+[ext_resource type="Texture2D" uid="uid://b3rq4yon38f74" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battlers/battler_2.png" id="2_kfgnb"]
+[ext_resource type="Texture2D" uid="uid://b5qat7p64i7pr" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battlers/battler_3.png" id="3_5eplt"]
+[ext_resource type="Texture2D" uid="uid://cl2ftkqgh2iha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/boss_1.png" id="4_cwaes"]
+[ext_resource type="Texture2D" uid="uid://dhnxowv4ntsje" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/boss_2.png" id="5_x1nn1"]
+[ext_resource type="Texture2D" uid="uid://cj7k82pw8xamw" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/skeleton_1.png" id="6_gew7h"]
+[ext_resource type="Texture2D" uid="uid://b0djcoceunxva" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/focus.png" id="7_0hdmj"]
+[ext_resource type="Texture2D" uid="uid://23pngodpe47q" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/skeleton_2.png" id="7_rmg2f"]
+[ext_resource type="Texture2D" uid="uid://coa2gy6pe61r3" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/spider_1.png" id="10_3eoef"]
+[ext_resource type="Texture2D" uid="uid://ijqpva1drw7m" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/spider_2.png" id="11_ntc1e"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="14_y1ocg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit44"]
+atlas = ExtResource("2_kfgnb")
+region = Rect2(0, 12, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10pxh"]
 atlas = ExtResource("1_gy4tl")
@@ -20,8 +31,24 @@ region = Rect2(48, 38, 16, 26)
 atlas = ExtResource("3_5eplt")
 region = Rect2(48, 38, 16, 26)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_la8ys"]
+atlas = ExtResource("3_5eplt")
+region = Rect2(0, 12, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfvjg"]
+atlas = ExtResource("1_gy4tl")
+region = Rect2(0, 12, 32, 25)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_84s5q"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hit44")
+}],
+"loop": true,
+"name": &"b_mage_dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_10pxh")
@@ -53,6 +80,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("4_cwaes")
+}],
+"loop": true,
+"name": &"e_boss_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_x1nn1")
+}],
+"loop": true,
+"name": &"e_boss_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_ky0ao")
 }],
 "loop": true,
@@ -65,6 +108,54 @@ animations = [{
 }],
 "loop": true,
 "name": &"e_goblin_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_gew7h")
+}],
+"loop": true,
+"name": &"e_skeleton_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_rmg2f")
+}],
+"loop": true,
+"name": &"e_skeleton_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_3eoef")
+}],
+"loop": true,
+"name": &"e_spider_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_ntc1e")
+}],
+"loop": true,
+"name": &"e_spider_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la8ys")
+}],
+"loop": true,
+"name": &"w_mage_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfvjg")
+}],
+"loop": true,
+"name": &"warrior_dead",
 "speed": 5.0
 }]
 
@@ -112,15 +203,16 @@ _data = {
 texture_filter = 1
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_84s5q")
-animation = &"battler_3"
+animation = &"battler_1_dead"
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(34, 0)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_s3axx")
-flip_h = true
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_0hdmj")
+region_enabled = true
+region_rect = Rect2(15, 17, 18, 14)
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -20.0
@@ -134,3 +226,22 @@ show_percentage = false
 libraries = {
 "": SubResource("AnimationLibrary_yaitr")
 }
+
+[node name="BB" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 389.0
+offset_right = 600.0
+offset_bottom = 449.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("14_y1ocg")
+theme_override_font_sizes/font_size = 18
+text = "Eine Entwicklung des Bippinbits Maschinenspielkombinat"
+horizontal_alignment = 1
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
