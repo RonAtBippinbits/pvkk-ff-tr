@@ -55,12 +55,10 @@ func _on_state_changed(previous, new):
 			# return to title 
 
 func prepare_battle():
+	
 	characters = character_group.get_children()
 	enemies = enemy_group.get_children()
-	for c in characters:
-		c.connect("destroyed", Callable(self, "_on_entity_destroyed"))
-	for e in enemies:
-		e.connect("destroyed", Callable(self, "_on_entity_destroyed"))
+
 	battle_state = BATTLESTATE.PLAYER_CHOICE
 
 func enemy_turn():
@@ -154,8 +152,12 @@ func _on_attack_button_down() -> void:
 	battle_state = BATTLESTATE.PLAYER_TURN
 
 func _on_special_button_down() -> void:
-	print("special")
+	print("special not implemented")
 	pass #Implement specials here
+
+func _on_run_button_down() -> void:
+	reset_focus(enemies)
+	root.state = root.STATES.OVERWORLD
 
 #Utility----------------------------------
 func switch_focus(group: Array[Node], x, y):
@@ -165,10 +167,3 @@ func switch_focus(group: Array[Node], x, y):
 func reset_focus(group: Array[Node]):
 	for n in group:
 		n.hide_focus()
-
-func _on_entity_destroyed(entity):
-	print("entity removed from list: ", entity.name)
-	if entity in characters:
-		characters.erase(entity)
-	elif entity in enemies:
-		enemies.erase(entity)

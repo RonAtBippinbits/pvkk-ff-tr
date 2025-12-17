@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://d0tnmyko0nc5u"]
+[gd_scene load_steps=30 format=4 uid="uid://d0tnmyko0nc5u"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
 [ext_resource type="Texture2D" uid="uid://iempy7ocyeme" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/fabula_nova.png" id="2_e43n2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://chyyq64lqinx0" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/castle_tileset.png" id="6_fj2lw"]
 [ext_resource type="AudioStream" uid="uid://c2p0owu2t8egx" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/world_map.mp3" id="7_0g18e"]
 [ext_resource type="PackedScene" uid="uid://f0vc7w7qqg5n" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/battles.tscn" id="8_iaxf6"]
+[ext_resource type="Texture2D" uid="uid://c8jakdl58c5ha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/playable_character_spritesheet.png" id="8_yywj6"]
 [ext_resource type="AudioStream" uid="uid://18md4noikimc" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/battle.mp3" id="9_0xeqd"]
 
 [sub_resource type="Gradient" id="Gradient_43jgv"]
@@ -131,6 +132,86 @@ texture = ExtResource("6_fj2lw")
 
 [sub_resource type="TileSet" id="TileSet_hvns2"]
 sources/0 = SubResource("TileSetAtlasSource_ip4bu")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbk51"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibmhi"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fghvg"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqx0u"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdb5b"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js1fp"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt75g"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuv5x"]
+atlas = ExtResource("8_yywj6")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asvmh"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbk51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibmhi")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fghvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqx0u")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdb5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js1fp")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt75g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuv5x")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
 
 [node name="EndgültigesVorstellungsvermögen" type="Node2D"]
 script = ExtResource("1_ueaa4")
@@ -286,7 +367,7 @@ tile_map_data = PackedByteArray("AAAMABoAAAAKAAMAAAANABoAAAAKAAMAAAAOABoAAAAKAAM
 tile_set = SubResource("TileSet_hvns2")
 
 [node name="PlayableCharacter" parent="Maps" node_paths=PackedStringArray("root") instance=ExtResource("6_cnt0i")]
-region_rect = Rect2(16, 16, 16, 16)
+sprite_frames = SubResource("SpriteFrames_asvmh")
 root = NodePath("../..")
 
 [node name="ButtonSelection" type="CanvasLayer" parent="Maps"]

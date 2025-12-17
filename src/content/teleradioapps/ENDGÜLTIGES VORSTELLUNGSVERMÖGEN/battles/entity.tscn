@@ -1,8 +1,72 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvg576c5u51cv"]
+[gd_scene load_steps=16 format=3 uid="uid://dvg576c5u51cv"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.gd" id="1_bc7ri"]
-[ext_resource type="Texture2D" uid="uid://wpeb4ifjq5tp" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/drechen_placeholder.png" id="1_qmyjw"]
+[ext_resource type="Texture2D" uid="uid://s7rl21040iiv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_1.png" id="1_gy4tl"]
+[ext_resource type="Texture2D" uid="uid://byi8dj7e7q3wd" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/goblin_1.png" id="1_ky0ao"]
+[ext_resource type="Texture2D" uid="uid://c07hw6oap1xkh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/goblin_2.png" id="2_2xqnv"]
+[ext_resource type="Texture2D" uid="uid://b3rq4yon38f74" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_2.png" id="2_kfgnb"]
 [ext_resource type="Texture2D" uid="uid://ce68jptxrptdh" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/cursor_finger.png" id="2_s3axx"]
+[ext_resource type="Texture2D" uid="uid://b5qat7p64i7pr" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battler_3.png" id="3_5eplt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10pxh"]
+atlas = ExtResource("1_gy4tl")
+region = Rect2(48, 38, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3vul"]
+atlas = ExtResource("2_kfgnb")
+region = Rect2(48, 38, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3g4t"]
+atlas = ExtResource("3_5eplt")
+region = Rect2(48, 38, 16, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84s5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10pxh")
+}],
+"loop": true,
+"name": &"battler_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3vul")
+}],
+"loop": true,
+"name": &"battler_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3g4t")
+}],
+"loop": true,
+"name": &"battler_3",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ky0ao")
+}],
+"loop": true,
+"name": &"e_goblin_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2xqnv")
+}],
+"loop": true,
+"name": &"e_goblin_2",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwtt4"]
 bg_color = Color(0.513726, 0.858824, 0.25098, 1)
@@ -44,22 +108,25 @@ _data = {
 "take_dmg": SubResource("Animation_abujl")
 }
 
-[node name="Entity" type="Sprite2D"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_qmyjw")
+[node name="Entity" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_84s5q")
+animation = &"battler_3"
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-480, 0)
-scale = Vector2(3, 3)
+position = Vector2(34, 0)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_s3axx")
+flip_h = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -150.0
-offset_top = -380.0
-offset_right = 150.0
-offset_bottom = -330.0
+offset_left = -20.0
+offset_top = -23.3333
+offset_right = 20.0
+offset_bottom = -18.3333
 theme_override_styles/fill = SubResource("StyleBoxFlat_uwtt4")
 show_percentage = false
 

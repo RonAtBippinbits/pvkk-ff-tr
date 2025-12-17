@@ -1,65 +1,119 @@
-[gd_scene load_steps=3 format=3 uid="uid://f0vc7w7qqg5n"]
+[gd_scene load_steps=6 format=3 uid="uid://f0vc7w7qqg5n"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/battles.gd" id="1_bwl5q"]
 [ext_resource type="PackedScene" uid="uid://dvg576c5u51cv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn" id="1_nddaa"]
+[ext_resource type="StyleBox" uid="uid://xf4jmndmsj2x" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/ui.tres" id="4_x4c8a"]
+[ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="5_ekrdg"]
+[ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="6_juo7m"]
 
 [node name="Battles" type="Node2D"]
 script = ExtResource("1_bwl5q")
 
 [node name="BattleScene" type="CanvasLayer" parent="."]
 
+[node name="Background" type="Sprite2D" parent="BattleScene"]
+modulate = Color(0, 0.227451, 0.0352941, 1)
+position = Vector2(962, 539)
+scale = Vector2(4.05, 2.275)
+texture = ExtResource("6_juo7m")
+
 [node name="enemy_group" type="Node2D" parent="BattleScene"]
 
 [node name="Entity" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 98)
+position = Vector2(130, 110)
+animation = &"e_goblin_1"
+entity_type = "goblin_1"
 
 [node name="Entity2" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 168)
+position = Vector2(140, 200)
+animation = &"e_goblin_1"
+entity_type = "goblin_2"
 
 [node name="Entity3" parent="BattleScene/enemy_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 249)
+position = Vector2(150, 290)
+animation = &"e_goblin_1"
+entity_type = "goblin_1"
 
 [node name="character_group" type="Node2D" parent="BattleScene"]
-position = Vector2(340, 0)
+position = Vector2(300, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 98)
+position = Vector2(170, 110)
+entity_type = "warrior"
 
 [node name="Entity2" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 168)
+position = Vector2(160, 200)
+entity_type = "b_mage"
 
 [node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
-position = Vector2(140, 249)
+position = Vector2(150, 290)
+entity_type = "w_mage"
 
-[node name="TextBox" type="ColorRect" parent="BattleScene"]
-modulate = Color(0.176471, 0.176471, 0.176471, 1)
-offset_left = 106.0
-offset_top = 298.0
-offset_right = 406.0
-offset_bottom = 434.48
+[node name="Panel" type="Panel" parent="BattleScene"]
+offset_left = 27.0
+offset_top = 343.0
+offset_right = 393.0
+offset_bottom = 433.0
+theme_override_styles/panel = ExtResource("4_x4c8a")
+
+[node name="InfoPanel" type="Panel" parent="BattleScene"]
+offset_left = 23.0
+offset_top = 12.0
+offset_right = 586.0
+offset_bottom = 53.0
+theme_override_styles/panel = ExtResource("4_x4c8a")
+
+[node name="Text" type="Label" parent="BattleScene/InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -16.5
+offset_right = 280.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("5_ekrdg")
+theme_override_font_sizes/font_size = 18
+text = "---------------[Battle Log]---------------"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Choice" type="VBoxContainer" parent="BattleScene"]
 unique_name_in_owner = true
-offset_left = 412.0
-offset_top = 298.0
-offset_right = 512.0
-offset_bottom = 434.0
+offset_left = 396.0
+offset_top = 343.0
+offset_right = 581.0
+offset_bottom = 432.0
 
 [node name="Attack" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("5_ekrdg")
+theme_override_styles/normal = ExtResource("4_x4c8a")
 text = "Attack"
 
 [node name="Special" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
-text = "Speical"
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("5_ekrdg")
+theme_override_styles/normal = ExtResource("4_x4c8a")
+text = "Special"
 
-[node name="Button3" type="Button" parent="BattleScene/Choice"]
+[node name="Run" type="Button" parent="BattleScene/Choice"]
 layout_mode = 2
-text = "Defend"
-
-[node name="Button4" type="Button" parent="BattleScene/Choice"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("5_ekrdg")
+theme_override_styles/normal = ExtResource("4_x4c8a")
 text = "Run"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(315, 198)
 
 [connection signal="button_down" from="BattleScene/Choice/Attack" to="." method="_on_attack_button_down"]
 [connection signal="button_down" from="BattleScene/Choice/Special" to="." method="_on_special_button_down"]
+[connection signal="button_down" from="BattleScene/Choice/Run" to="." method="_on_run_button_down"]

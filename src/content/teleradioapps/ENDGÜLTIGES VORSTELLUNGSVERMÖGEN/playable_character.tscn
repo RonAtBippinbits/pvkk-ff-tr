@@ -1,14 +1,93 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyjs0oxrc2crv"]
+[gd_scene load_steps=12 format=3 uid="uid://dyjs0oxrc2crv"]
 
 [ext_resource type="Texture2D" uid="uid://c8jakdl58c5ha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/playable_character_spritesheet.png" id="1_x0jle"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character.gd" id="2_53m3b"]
 
-[node name="PlayableCharacter" type="Sprite2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbk51"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibmhi"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fghvg"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqx0u"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdb5b"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js1fp"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt75g"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuv5x"]
+atlas = ExtResource("1_x0jle")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h3g1i"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbk51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibmhi")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fghvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqx0u")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdb5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js1fp")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt75g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuv5x")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="PlayableCharacter" type="AnimatedSprite2D"]
 texture_filter = 1
 position = Vector2(316, 216)
-texture = ExtResource("1_x0jle")
-region_enabled = true
-region_rect = Rect2(17, 16, 14, 16)
+sprite_frames = SubResource("SpriteFrames_h3g1i")
+animation = &"up"
 script = ExtResource("2_53m3b")
 
 [node name="Camera2D" type="Camera2D" parent="."]

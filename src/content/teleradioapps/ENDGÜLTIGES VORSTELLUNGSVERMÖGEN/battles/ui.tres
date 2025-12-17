@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://xf4jmndmsj2x"]
+
+[ext_resource type="Texture2D" uid="uid://4jsp7sl1h7es" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/text_box.png" id="1_78542"]
+
+[resource]
+texture = ExtResource("1_78542")
+texture_margin_left = 5.27933
+texture_margin_top = 5.38085
+texture_margin_right = 5.07628
+texture_margin_bottom = 7.10679
+region_rect = Rect2(11, 11, 26, 28)
