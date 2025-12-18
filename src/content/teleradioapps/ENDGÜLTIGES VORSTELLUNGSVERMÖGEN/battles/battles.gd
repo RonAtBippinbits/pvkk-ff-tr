@@ -92,12 +92,12 @@ func enemy_turn():
 	evaluate_action_queue(action_queue, battle_state)
 
 func result_won():
-	root.state = root.STATES.OVERWORLD
 	for c in characters:
 		c.revive()
+		c.play(c.entity_type )
 	cleanup_battle_scene()
 	$Fanfare.stop()
-	pass
+	root.state = root.STATES.OVERWORLD
 
 func result_game_over():
 	root.state = root.STATES.MENU

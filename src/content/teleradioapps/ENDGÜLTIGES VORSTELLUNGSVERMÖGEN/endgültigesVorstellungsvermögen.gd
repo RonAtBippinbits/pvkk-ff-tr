@@ -2,7 +2,6 @@ extends TeleradioContent
 
 const APP_ID := "EndgültigesVorstellungsvermögen"
 
-
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
 var state:STATES:
@@ -30,8 +29,6 @@ func _on_state_changed(previous, new):
 func _ready():
 	state = STATES.MENU
 
-#Gameflow------------------------------------------------
-
 func start_battle():
 	hide_everything()
 	stop_all_music()
@@ -42,16 +39,14 @@ func start_battle():
 func end_battle():
 	hide_everything()
 	stop_all_music()
-	$Maps/PlayableCharacter.show()
-	$Maps/Overworld.show()
-	$Maps/ButtonSelection.show()
+	$Map.show()
+	$Map/ButtonSelection.show()
 	$Audio/Music/MusicOverworld.play()
 	os.input.connect_to(os.input.just_pressed_b1, button_menu)
 
 func button_menu():
 	state = STATES.MENU
 
-#MainMenu------------------------------------------------
 func title_stage():
 	hide_everything()
 	stop_all_music()
@@ -77,10 +72,8 @@ func exit_game():
 func hide_everything():
 	os.input.disconnect_all_buttons()
 	$MainMenu.hide()
-	$Maps/PlayableCharacter.hide()
-	$Maps/ButtonSelection.hide()
-	for n in $Maps.get_children(): 
-		n.hide()
+	$Map.hide()
+	$Map/ButtonSelection.hide()
 	$Battles/BattleScene.hide()
 
 func stop_all_music():
