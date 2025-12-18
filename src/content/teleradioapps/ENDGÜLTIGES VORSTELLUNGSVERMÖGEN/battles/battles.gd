@@ -36,34 +36,29 @@ func _on_state_changed(previous, new):
 	match new:
 	#BATTLE SETUP
 		BATTLESTATE.START:
-			print("BattleState.START")
 			prepare_battle_scene()
 	#BATTLE LOOP
 		BATTLESTATE.PLAYER_CHOICE:
-			print("BattleState.PLAYER_CHOICE")
 			if action_queue.size() == characters.size() && action_queue.size() > 0:
 				evaluate_action_queue(action_queue, battle_state)
 			else: 
 				$BattleScene/Choice/Attack.grab_focus()
 				update_description_log("attack", true)
 		BATTLESTATE.PLAYER_TURN:
-			print("BattleState.PLAYER_TURN")
 			enemies[0].show_focus()
 			update_description_log(characters[character_index].entity_type + " will attack " + enemies[enemy_index].entity_type, false)
 		BATTLESTATE.ENEMY_TURN:
-			print("BattleState.ENEMY_TURN")
 			enemy_turn()
 	#BATTLE RESULTS
 		BATTLESTATE.WIN:
-			print("BattleState.WIN")
 			update_description_log("won", true) 
 			root.stop_all_music()
 			$Fanfare.play()
-			#result_won()
+			for c in characters:
+				if !c.character_dead:
+					c.play(c.entity_type + "_won")
 		BATTLESTATE.GAME_OVER:
-			print("BattleState.GAME_OVER")
 			update_description_log("game_over", true) 
-			#result_game_over()
 #---------------------------------------------------------------------------------------------------------
 func _process(delta):
 	if root.state != root.STATES.BATTLE:

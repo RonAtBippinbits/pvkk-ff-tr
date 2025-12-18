@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvg576c5u51cv"]
+[gd_scene load_steps=31 format=3 uid="uid://dvg576c5u51cv"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.gd" id="1_bc7ri"]
 [ext_resource type="Texture2D" uid="uid://s7rl21040iiv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/battlers/battler_1.png" id="1_gy4tl"]
@@ -22,6 +22,14 @@ region = Rect2(48, 38, 16, 26)
 atlas = ExtResource("2_kfgnb")
 region = Rect2(0, 12, 32, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwj6a"]
+atlas = ExtResource("2_kfgnb")
+region = Rect2(48, 37, 16, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5a5p"]
+atlas = ExtResource("2_kfgnb")
+region = Rect2(16, 37, 16, 27)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3g4t"]
 atlas = ExtResource("3_5eplt")
 region = Rect2(48, 38, 16, 26)
@@ -30,6 +38,14 @@ region = Rect2(48, 38, 16, 26)
 atlas = ExtResource("3_5eplt")
 region = Rect2(0, 12, 32, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h15na"]
+atlas = ExtResource("3_5eplt")
+region = Rect2(48, 37, 16, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uakdx"]
+atlas = ExtResource("3_5eplt")
+region = Rect2(0, 37, 16, 27)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_10pxh"]
 atlas = ExtResource("1_gy4tl")
 region = Rect2(48, 38, 16, 26)
@@ -37,6 +53,14 @@ region = Rect2(48, 38, 16, 26)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfvjg"]
 atlas = ExtResource("1_gy4tl")
 region = Rect2(0, 12, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un5me"]
+atlas = ExtResource("1_gy4tl")
+region = Rect2(48, 37, 16, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsm0t"]
+atlas = ExtResource("1_gy4tl")
+region = Rect2(0, 37, 16, 27)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_84s5q"]
 animations = [{
@@ -54,6 +78,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"b_mage_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_lwj6a")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_q5a5p")
+}],
+"loop": true,
+"name": &"b_mage_won",
 "speed": 5.0
 }, {
 "frames": [],
@@ -142,6 +177,17 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_h15na")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_uakdx")
+}],
+"loop": true,
+"name": &"w_mage_won",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_10pxh")
 }],
@@ -155,6 +201,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"warrior_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_un5me")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_hsm0t")
+}],
+"loop": true,
+"name": &"warrior_won",
 "speed": 5.0
 }]
 
@@ -202,7 +259,7 @@ _data = {
 texture_filter = 1
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_84s5q")
-animation = &"w_mage"
+animation = &"warrior"
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]

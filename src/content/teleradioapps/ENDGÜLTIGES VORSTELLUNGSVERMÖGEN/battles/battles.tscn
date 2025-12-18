@@ -25,7 +25,6 @@ position = Vector2(300, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(170, 110)
-animation = &"warrior"
 entity_type = "warrior"
 is_character = true
 
@@ -37,6 +36,7 @@ is_character = true
 
 [node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(150, 290)
+animation = &"w_mage"
 entity_type = "w_mage"
 is_character = true
 
@@ -64,6 +64,7 @@ theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
 theme_override_fonts/font = ExtResource("5_ekrdg")
 theme_override_font_sizes/font_size = 16
 text = "Description"
+autowrap_mode = 3
 text_overrun_behavior = 2
 
 [node name="Choice" type="VBoxContainer" parent="BattleScene"]
