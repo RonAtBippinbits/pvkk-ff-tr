@@ -12,7 +12,6 @@ var enemy_index: int = 0
 var character_index: int = 0 
 
 @onready var battle_log_text = $BattleScene/BattleLog/Text
-@onready var description_log_text = $"BattleScene/Description Panel/Text"
 @onready var choice : Node = %Choice
 var ui_index : int = 0
 
@@ -208,16 +207,6 @@ func unfocus_ui(buttons: Array[Node]):
 	for b in buttons:
 		b.release_focus()
 
-func switch_entity_focus(group: Array[Node], x, y):
-	group[x].hide_focus()
-	group[y].show_focus()
-
-func reset_entity_focus(group: Array[Node]):
-	if group.size() == 0:
-		return
-	for n in group:
-		n.hide_focus()
-
 func handle_enemy_selection():
 	if root.os.input.joy_axis.y <= -0.4 and !axis_locked:  # Up
 		if enemy_index > 0:
@@ -235,9 +224,20 @@ func handle_enemy_selection():
 		character_index += 1
 		enemy_index = 0
 		reset_entity_focus(enemies)
+		#update_description_log(characters[character_index].entity_type + " will attack " + enemies[enemy_index].entity_type, false)
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 		A_locked = true
 
+
+func switch_entity_focus(group: Array[Node], x, y):
+	group[x].hide_focus()
+	group[y].show_focus()
+
+func reset_entity_focus(group: Array[Node]):
+	if group.size() == 0:
+		return
+	for n in group:
+		n.hide_focus()
 #endregion
 
 #region Button functions
@@ -253,30 +253,42 @@ func _on_run_button_down() -> void:
 	for c in characters:
 		c.revive()
 	root.state = root.STATES.OVERWORLD
+
+func _on_attack_focus_entered() -> void:
+	update_description_log("attack", true)
+	pass # Replace with function body.
+
+func _on_special_focus_entered() -> void:
+	update_description_log("special_" + characters[character_index].entity_type, true)
+
+
+func _on_run_focus_entered() -> void:
+	update_description_log("run", true)
+
 #endregion
 
+func update_description_log(msg: String, is_key: bool):
+	print("call")
+	if is_key:
+		if text_data.has(msg):
+			battle_log_text.text = text_data[msg]["text"]
+	else:
+		battle_log_text.text = msg
 
-func _ready():
-	update_battle_log("a")
-	update_description_log("b")
-
-func update_description_log(message: String):
-	description_log_text.text = "test"
-	pass
-
-func update_battle_log(message: String):
-	battle_log_text.text = "test"
-	pass
-	
 var text_data = { # separate this later 
-	"warrior": {
-		"visual": "battler_1",
-		"health": 18,
-		"attack": 3
+	"attack": {
+		"text": "Deals Damage to a single enemy"
 	},
-		"warrior1": {
-		"visual": "battler_1",
-		"health": 18,
-		"attack": 3
+	"special_warrior": {
+		"text": "special_warroir not implemented yet"
+	},
+	"special_b_mage": {
+		"text": "special_b_mage not implemented yet"
+	},
+	"special_w_mage": {
+		"text": "special_w_mage not implemented yet"
+	},
+	"run": {
+		"text": "Time to get outta here!"
 	},
 }

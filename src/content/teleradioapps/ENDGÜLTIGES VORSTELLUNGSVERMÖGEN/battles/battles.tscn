@@ -39,36 +39,11 @@ position = Vector2(150, 290)
 entity_type = "w_mage"
 is_character = true
 
-[node name="Description Panel" type="Panel" parent="BattleScene"]
+[node name="BattleLog" type="Panel" parent="BattleScene"]
 offset_left = 27.0
 offset_top = 343.0
 offset_right = 393.0
 offset_bottom = 433.0
-theme_override_styles/panel = ExtResource("4_x4c8a")
-
-[node name="Text" type="Label" parent="BattleScene/Description Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -179.0
-offset_top = -42.0
-offset_right = 179.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
-theme_override_fonts/font = ExtResource("5_ekrdg")
-theme_override_font_sizes/font_size = 16
-text = "Description"
-
-[node name="BattleLog" type="Panel" parent="BattleScene"]
-offset_left = 23.0
-offset_top = 12.0
-offset_right = 586.0
-offset_bottom = 53.0
 theme_override_styles/panel = ExtResource("4_x4c8a")
 
 [node name="Text" type="Label" parent="BattleScene/BattleLog"]
@@ -78,18 +53,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -16.5
-offset_right = 280.0
-offset_bottom = 13.5
+offset_left = -176.0
+offset_top = -40.0
+offset_right = 175.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
 theme_override_fonts/font = ExtResource("5_ekrdg")
-theme_override_font_sizes/font_size = 18
-text = "---------------[Battle Log]---------------"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 16
+text = "Description"
 
 [node name="Choice" type="VBoxContainer" parent="BattleScene"]
 unique_name_in_owner = true
@@ -120,5 +93,8 @@ theme_override_styles/normal = ExtResource("4_x4c8a")
 text = "Run"
 
 [connection signal="button_down" from="BattleScene/Choice/Attack" to="." method="_on_attack_button_down"]
+[connection signal="focus_entered" from="BattleScene/Choice/Attack" to="." method="_on_attack_focus_entered"]
 [connection signal="button_down" from="BattleScene/Choice/Special" to="." method="_on_special_button_down"]
+[connection signal="focus_entered" from="BattleScene/Choice/Special" to="." method="_on_special_focus_entered"]
 [connection signal="button_down" from="BattleScene/Choice/Run" to="." method="_on_run_button_down"]
+[connection signal="focus_entered" from="BattleScene/Choice/Run" to="." method="_on_run_focus_entered"]
