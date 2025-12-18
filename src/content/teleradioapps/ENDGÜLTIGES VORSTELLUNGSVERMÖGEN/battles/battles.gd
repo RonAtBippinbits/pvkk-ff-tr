@@ -45,9 +45,11 @@ func _on_state_changed(previous, new):
 				evaluate_action_queue(action_queue, battle_state)
 			else: 
 				$BattleScene/Choice/Attack.grab_focus()
+				update_description_log("attack", true)
 		BATTLESTATE.PLAYER_TURN:
 			print("BattleState.PLAYER_TURN")
 			enemies[0].show_focus()
+			update_description_log(characters[character_index].entity_type + " will attack " + enemies[enemy_index].entity_type, false)
 		BATTLESTATE.ENEMY_TURN:
 			print("BattleState.ENEMY_TURN")
 			enemy_turn()
@@ -224,7 +226,6 @@ func handle_enemy_selection():
 		character_index += 1
 		enemy_index = 0
 		reset_entity_focus(enemies)
-		#update_description_log(characters[character_index].entity_type + " will attack " + enemies[enemy_index].entity_type, false)
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 		A_locked = true
 
@@ -232,6 +233,7 @@ func handle_enemy_selection():
 func switch_entity_focus(group: Array[Node], x, y):
 	group[x].hide_focus()
 	group[y].show_focus()
+	update_description_log(characters[character_index].entity_type + " will attack " + enemies[enemy_index].entity_type, false)
 
 func reset_entity_focus(group: Array[Node]):
 	if group.size() == 0:
@@ -261,14 +263,12 @@ func _on_attack_focus_entered() -> void:
 func _on_special_focus_entered() -> void:
 	update_description_log("special_" + characters[character_index].entity_type, true)
 
-
 func _on_run_focus_entered() -> void:
 	update_description_log("run", true)
 
 #endregion
 
 func update_description_log(msg: String, is_key: bool):
-	print("call")
 	if is_key:
 		if text_data.has(msg):
 			battle_log_text.text = text_data[msg]["text"]
