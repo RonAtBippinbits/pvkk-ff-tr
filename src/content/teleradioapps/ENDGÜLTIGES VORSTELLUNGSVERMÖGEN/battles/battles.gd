@@ -56,10 +56,14 @@ func _on_state_changed(previous, new):
 	#BATTLE RESULTS
 		BATTLESTATE.WIN:
 			print("BattleState.WIN")
-			result_won()
+			update_description_log("won", true) 
+			root.stop_all_music()
+			$Fanfare.play()
+			#result_won()
 		BATTLESTATE.GAME_OVER:
 			print("BattleState.GAME_OVER")
-			result_game_over()
+			update_description_log("game_over", true) 
+			#result_game_over()
 #---------------------------------------------------------------------------------------------------------
 func _process(delta):
 	if root.state != root.STATES.BATTLE:
@@ -89,7 +93,7 @@ func enemy_turn():
 	if enemies.size() == 0:
 		return
 	for e in enemies:
-		queue_attack(e, characters.pick_random(), e.attack)
+		queue_attack(e, characters.pick_random(), e.attack, character_group)
 	evaluate_action_queue(action_queue, battle_state)
 
 func result_won():
@@ -97,6 +101,7 @@ func result_won():
 	for c in characters:
 		c.revive()
 	cleanup_battle_scene()
+	$Fanfare.stop()
 	pass
 
 func result_game_over():
@@ -105,7 +110,6 @@ func result_game_over():
 		c.revive()
 		c.recover()
 	cleanup_battle_scene()
-	pass
 
 func cleanup_battle_scene():
 	for c in characters:
@@ -119,8 +123,8 @@ func cleanup_battle_scene():
 
 #region Queue for attacks
 var action_queue: Array = []
-func queue_attack(attacker: Node, target: Node, damage: int): 
-	var action = { "attacker": attacker, "target": target, "damage": damage} 
+func queue_attack(attacker: Node, target: Node, damage: int, group: Node): 
+	var action = { "attacker": attacker, "target": target, "damage": damage, "group": group} 
 	action_queue.append(action)
 
 func evaluate_action_queue(stack, current_state):
@@ -145,26 +149,26 @@ func evaluate_action_queue(stack, current_state):
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 
 func execute_action(action: Dictionary):
-	var target = get_valid_target(action["target"])
-	if target == null:
+	enemies = enemy_group.get_children()
+	characters = character_group.get_children()
+	var target = action["target"]
+	if not is_instance_valid(target):
+		target = null
+	var validated_target = get_valid_target(target, action["group"])
+	if validated_target == null:
 		return
-	target.take_damage(action["damage"])
+	validated_target.take_damage(action["damage"])
 	#attacker.play_attack_animation() <- should implement that later!
-	update_description_log(action["attacker"].entity_type + " deals " + str(action["damage"]) + " damage to " + target.entity_type + ".", false)
+	update_description_log(action["attacker"].entity_type + " deals " + str(action["damage"]) + " damage to " + validated_target.entity_type + ".", false)
 	await get_tree().create_timer(1).timeout
 
-func get_valid_target(original_target: Node):
-	if is_instance_valid(original_target) and not original_target.character_dead:
-		return original_target #return the original target
-	var group: Array
-	if characters.has(original_target):
-		group = characters
-	else:
-		group = enemies
+func get_valid_target(original_target: Object, group: Node):
+	if original_target != null and not original_target.character_dead:
+		return original_target
 	var valid_targets := []
-	for n in group:
-		if is_instance_valid(n) and not n.character_dead:
-			valid_targets.append(n)
+	for t in group.get_children():
+		if is_instance_valid(t) and not t.character_dead:
+			valid_targets.append(t)
 	if valid_targets.is_empty():
 		return null # there is no valid target left
 	return valid_targets.pick_random() # return an alternative legal target 
@@ -182,6 +186,14 @@ func handle_input():
 		handle_ui_selection()
 	elif battle_state == BATTLESTATE.PLAYER_TURN && !is_busy:
 		handle_enemy_selection()
+	elif battle_state == BATTLESTATE.WIN:
+		if root.os.input.joy_buttonA_down and !A_locked:
+			result_won()
+			A_locked = true
+	elif battle_state == BATTLESTATE.GAME_OVER:
+		if root.os.input.joy_buttonA_down and !A_locked:
+			result_game_over()
+			A_locked = true
 
 func handle_ui_selection():
 	var buttons := choice.get_children()
@@ -222,8 +234,7 @@ func handle_enemy_selection():
 			enemy_index += 1
 			axis_locked = true
 	if root.os.input.joy_buttonA_down and !A_locked :  # Confirm
-		queue_attack(enemies[enemy_index], characters[character_index], enemies[enemy_index].attack)
-		#action_queue.append(enemies[enemy_index])
+		queue_attack(characters[character_index], enemies[enemy_index], characters[character_index].attack, enemy_group)
 		character_index += 1
 		enemy_index = 0
 		reset_entity_focus(enemies)
@@ -293,5 +304,11 @@ var text_data = { # separate this later
 	"run": {
 		"text": "Time to get outta here!"
 	},
+	"game_over": {
+		"text": "All characters are dead! This is the end of our journey..."
+	},
+	"won": {
+		"text": "All monsters perished! Let's continue!"
+	}
 }
 #endregion

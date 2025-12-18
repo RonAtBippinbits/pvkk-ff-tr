@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://f0vc7w7qqg5n"]
+[gd_scene load_steps=7 format=3 uid="uid://f0vc7w7qqg5n"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/battles.gd" id="1_bwl5q"]
 [ext_resource type="PackedScene" uid="uid://dvg576c5u51cv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn" id="1_nddaa"]
 [ext_resource type="StyleBox" uid="uid://xf4jmndmsj2x" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/ui.tres" id="4_x4c8a"]
 [ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="5_ekrdg"]
 [ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="6_juo7m"]
+[ext_resource type="AudioStream" uid="uid://dn0242jiia02" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/Fanfare.mp3" id="6_pyoky"]
 
 [node name="Battles" type="Node2D"]
 script = ExtResource("1_bwl5q")
@@ -63,6 +64,7 @@ theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
 theme_override_fonts/font = ExtResource("5_ekrdg")
 theme_override_font_sizes/font_size = 16
 text = "Description"
+text_overrun_behavior = 2
 
 [node name="Choice" type="VBoxContainer" parent="BattleScene"]
 unique_name_in_owner = true
@@ -91,6 +93,10 @@ theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
 theme_override_fonts/font = ExtResource("5_ekrdg")
 theme_override_styles/normal = ExtResource("4_x4c8a")
 text = "Run"
+
+[node name="Fanfare" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_pyoky")
+bus = &"TeleradioApp"
 
 [connection signal="button_down" from="BattleScene/Choice/Attack" to="." method="_on_attack_button_down"]
 [connection signal="focus_entered" from="BattleScene/Choice/Attack" to="." method="_on_attack_focus_entered"]

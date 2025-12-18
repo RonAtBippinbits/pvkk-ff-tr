@@ -17,9 +17,9 @@ var health: float = 10:
 		if health != MAX_HEALTH:
 			play_animation()
 		if health <= 0:
+			character_dead = true
 			if is_character:
 				play(entity_type + "_dead")
-				character_dead = true
 			else:
 				queue_free()
 
@@ -83,8 +83,8 @@ var entity_data = { # separate this later
 #enemy data
 	"goblin_1": {
 		"visual": "e_goblin_1",
-		"health": 50,
-		"attack": 10
+		"health": 2,
+		"attack": 1
 	},
 	"goblin_2": {
 		"visual": "e_goblin_2",

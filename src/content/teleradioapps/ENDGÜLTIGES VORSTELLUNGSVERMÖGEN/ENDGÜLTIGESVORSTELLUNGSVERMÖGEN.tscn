@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=4 uid="uid://d0tnmyko0nc5u"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
-[ext_resource type="Texture2D" uid="uid://iempy7ocyeme" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/fabula_nova.png" id="2_e43n2"]
 [ext_resource type="FontFile" uid="uid://bu6u5s3vo2y27" path="res://content/teleradio/software/os/fonts/VCR_OSD_MONO.ttf" id="2_sf5vs"]
+[ext_resource type="Texture2D" uid="uid://dt1bnajpjkjba" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/title_crystal.png" id="3_6u8re"]
 [ext_resource type="Texture2D" uid="uid://d2h3aih5a18a" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_black.png" id="3_dik8s"]
 [ext_resource type="AudioStream" uid="uid://cmautqk6agw3i" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/Dawn Of Souls Prelude.mp3" id="3_n6h1m"]
 [ext_resource type="Texture2D" uid="uid://cyc2120kjj5fn" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/overworld_tileset.png" id="5_tispt"]
@@ -227,8 +227,8 @@ texture = ExtResource("3_dik8s")
 modulate = Color(1, 1, 1, 0.627451)
 texture_filter = 1
 position = Vector2(303, 225)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_e43n2")
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("3_6u8re")
 
 [node name="Labels" type="Node2D" parent="MainMenu"]
 

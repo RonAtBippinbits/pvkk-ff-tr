@@ -2,6 +2,7 @@ extends TeleradioContent
 
 const APP_ID := "EndgültigesVorstellungsvermögen"
 
+
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
 var state:STATES:
@@ -12,10 +13,6 @@ var state:STATES:
 			var previous = _state
 			_state = value
 			_on_state_changed(previous, value)
-#Gameflow------------------------------------------------
-func _ready():
-	state = STATES.MENU
-
 func _on_state_changed(previous, new):
 	match new:
 		STATES.MENU:
@@ -29,6 +26,11 @@ func _on_state_changed(previous, new):
 			start_battle()
 		STATES.CUTSCENE:
 			print("STATES.CUTSCENE")
+
+func _ready():
+	state = STATES.MENU
+
+#Gameflow------------------------------------------------
 
 func start_battle():
 	hide_everything()
@@ -47,7 +49,6 @@ func end_battle():
 	os.input.connect_to(os.input.just_pressed_b1, button_menu)
 
 func button_menu():
-	print("menu")
 	state = STATES.MENU
 
 #MainMenu------------------------------------------------
