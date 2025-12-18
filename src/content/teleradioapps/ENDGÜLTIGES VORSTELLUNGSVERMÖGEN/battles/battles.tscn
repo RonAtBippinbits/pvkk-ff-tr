@@ -24,37 +24,54 @@ position = Vector2(300, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(170, 110)
-animation = &"warrior_dead"
+animation = &"warrior"
 entity_type = "warrior"
 is_character = true
 
 [node name="Entity2" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(160, 200)
-animation = &"w_mage_dead"
+animation = &"b_mage"
 entity_type = "b_mage"
 is_character = true
 
 [node name="Entity3" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(150, 290)
-animation = &"warrior_dead"
 entity_type = "w_mage"
 is_character = true
 
-[node name="Panel" type="Panel" parent="BattleScene"]
+[node name="Description Panel" type="Panel" parent="BattleScene"]
 offset_left = 27.0
 offset_top = 343.0
 offset_right = 393.0
 offset_bottom = 433.0
 theme_override_styles/panel = ExtResource("4_x4c8a")
 
-[node name="InfoPanel" type="Panel" parent="BattleScene"]
+[node name="Text" type="Label" parent="BattleScene/Description Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = -42.0
+offset_right = 179.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.737255, 0.780392, 0.360784, 1)
+theme_override_fonts/font = ExtResource("5_ekrdg")
+theme_override_font_sizes/font_size = 16
+text = "Description"
+
+[node name="BattleLog" type="Panel" parent="BattleScene"]
 offset_left = 23.0
 offset_top = 12.0
 offset_right = 586.0
 offset_bottom = 53.0
 theme_override_styles/panel = ExtResource("4_x4c8a")
 
-[node name="Text" type="Label" parent="BattleScene/InfoPanel"]
+[node name="Text" type="Label" parent="BattleScene/BattleLog"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

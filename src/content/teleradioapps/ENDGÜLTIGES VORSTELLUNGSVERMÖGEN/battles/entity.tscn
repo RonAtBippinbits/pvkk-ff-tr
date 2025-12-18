@@ -14,17 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://coa2gy6pe61r3" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/spider_1.png" id="10_3eoef"]
 [ext_resource type="Texture2D" uid="uid://ijqpva1drw7m" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/monsters/spider_2.png" id="11_ntc1e"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hit44"]
-atlas = ExtResource("2_kfgnb")
-region = Rect2(0, 12, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_10pxh"]
-atlas = ExtResource("1_gy4tl")
-region = Rect2(48, 38, 16, 26)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_k3vul"]
 atlas = ExtResource("2_kfgnb")
 region = Rect2(48, 38, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit44"]
+atlas = ExtResource("2_kfgnb")
+region = Rect2(0, 12, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3g4t"]
 atlas = ExtResource("3_5eplt")
@@ -34,6 +30,10 @@ region = Rect2(48, 38, 16, 26)
 atlas = ExtResource("3_5eplt")
 region = Rect2(0, 12, 32, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_10pxh"]
+atlas = ExtResource("1_gy4tl")
+region = Rect2(48, 38, 16, 26)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfvjg"]
 atlas = ExtResource("1_gy4tl")
 region = Rect2(0, 12, 32, 25)
@@ -42,34 +42,18 @@ region = Rect2(0, 12, 32, 25)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_k3vul")
+}],
+"loop": true,
+"name": &"b_mage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hit44")
 }],
 "loop": true,
 "name": &"b_mage_dead",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_10pxh")
-}],
-"loop": true,
-"name": &"battler_1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k3vul")
-}],
-"loop": true,
-"name": &"battler_2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e3g4t")
-}],
-"loop": true,
-"name": &"battler_3",
 "speed": 5.0
 }, {
 "frames": [],
@@ -143,10 +127,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_e3g4t")
+}],
+"loop": true,
+"name": &"w_mage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_la8ys")
 }],
 "loop": true,
 "name": &"w_mage_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10pxh")
+}],
+"loop": true,
+"name": &"warrior",
 "speed": 5.0
 }, {
 "frames": [{
@@ -202,6 +202,7 @@ _data = {
 texture_filter = 1
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_84s5q")
+animation = &"w_mage"
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]

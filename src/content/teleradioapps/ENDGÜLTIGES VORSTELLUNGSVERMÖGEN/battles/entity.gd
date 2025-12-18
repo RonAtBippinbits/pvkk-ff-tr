@@ -14,7 +14,8 @@ var health: float = 10:
 	set(value):
 		health = value
 		update_progress_bar()
-		play_animation()
+		if health != MAX_HEALTH:
+			play_animation()
 		if health <= 0:
 			if is_character:
 				play(entity_type + "_dead")
@@ -23,10 +24,10 @@ var health: float = 10:
 				queue_free()
 
 func _ready():
-	load_enemy_data(entity_type)
+	load_entity_data(entity_type)
 	update_progress_bar()
 
-func load_enemy_data(entity_key: String):
+func load_entity_data(entity_key: String):
 	if !focus: focus = $Focus
 	if !progress_bar: progress_bar = $ProgressBar
 	if !animation_player: animation_player = $AnimationPlayer
@@ -50,7 +51,7 @@ func revive(): # to revive characters at the end of a battle
 		play(entity_type)
 		health = 1
 
-func recover(): # fully recover characters?
+func recover():
 	health = MAX_HEALTH
 
 func show_focus():

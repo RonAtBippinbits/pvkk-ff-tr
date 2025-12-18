@@ -1,21 +1,26 @@
 extends Node2D
 
 @export var root : Node # make sure it's assigned in main scene
-
 var entity = preload("res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn")
+
 @onready var enemy_group = $BattleScene/enemy_group
 @onready var enemies: Array = []
 var enemy_index: int = 0 
+
 @onready var character_group = $BattleScene/character_group
 @onready var characters: Array = []
 var character_index: int = 0 
+
+@onready var battle_log_text = $BattleScene/BattleLog/Text
+@onready var description_log_text = $"BattleScene/Description Panel/Text"
 @onready var choice : Node = %Choice
 var ui_index : int = 0
+
 var A_locked
 var B_locked
 var axis_locked
 var is_busy = false
-
+#---------------------------------------------------------------------------------------------------------
 enum BATTLESTATE { DEFAULT, START, PLAYER_CHOICE, PLAYER_TURN, ENEMY_TURN, WIN, GAME_OVER }
 var _battle_state: BATTLESTATE = BATTLESTATE.DEFAULT
 var battle_state: BATTLESTATE:
@@ -26,7 +31,6 @@ var battle_state: BATTLESTATE:
 			var previous = _battle_state
 			_battle_state = value
 			_on_state_changed(previous, value)
-
 func _on_state_changed(previous, new):
 	enemies = enemy_group.get_children()
 	characters = character_group.get_children()
@@ -55,7 +59,7 @@ func _on_state_changed(previous, new):
 		BATTLESTATE.GAME_OVER:
 			print("BattleState.GAME_OVER")
 			result_game_over()
-
+#---------------------------------------------------------------------------------------------------------
 func _process(delta):
 	if root.state != root.STATES.BATTLE:
 		return
@@ -69,7 +73,7 @@ func _process(delta):
 func create_enemy_cast(enemy_count : int): #add an option to define which enemies are used
 	for i in enemy_count:
 		var entity_scene = entity.instantiate()
-		entity_scene.load_enemy_data("goblin_1")
+		entity_scene.load_entity_data("goblin_1")
 		enemy_group.add_child(entity_scene)
 		entity_scene.position = Vector2 (160 + 10 * i, 145 + 80 * i)
 
@@ -90,6 +94,8 @@ func enemy_turn():
 
 func result_won():
 	root.state = root.STATES.OVERWORLD
+	for c in characters:
+		c.revive()
 	cleanup_battle_scene()
 	pass
 
@@ -248,3 +254,29 @@ func _on_run_button_down() -> void:
 		c.revive()
 	root.state = root.STATES.OVERWORLD
 #endregion
+
+
+func _ready():
+	update_battle_log("a")
+	update_description_log("b")
+
+func update_description_log(message: String):
+	description_log_text.text = "test"
+	pass
+
+func update_battle_log(message: String):
+	battle_log_text.text = "test"
+	pass
+	
+var text_data = { # separate this later 
+	"warrior": {
+		"visual": "battler_1",
+		"health": 18,
+		"attack": 3
+	},
+		"warrior1": {
+		"visual": "battler_1",
+		"health": 18,
+		"attack": 3
+	},
+}
