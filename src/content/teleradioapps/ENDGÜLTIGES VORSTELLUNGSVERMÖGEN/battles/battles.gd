@@ -89,8 +89,7 @@ func enemy_turn():
 	if enemies.size() == 0:
 		return
 	for e in enemies:
-		queue_attack(e.attack, characters.pick_random())
-		#action_queue.append(characters.pick_random())
+		queue_attack(e, characters.pick_random(), e.attack)
 	evaluate_action_queue(action_queue, battle_state)
 
 func result_won():
@@ -120,8 +119,8 @@ func cleanup_battle_scene():
 
 #region Queue for attacks
 var action_queue: Array = []
-func queue_attack(damage: int, target: Node): 
-	var action = { "target": target, "damage": damage } 
+func queue_attack(attacker: Node, target: Node, damage: int): 
+	var action = { "attacker": attacker, "target": target, "damage": damage} 
 	action_queue.append(action)
 
 func evaluate_action_queue(stack, current_state):
@@ -150,6 +149,8 @@ func execute_action(action: Dictionary):
 	if target == null:
 		return
 	target.take_damage(action["damage"])
+	#attacker.play_attack_animation() <- should implement that later!
+	update_description_log(action["attacker"].entity_type + " deals " + str(action["damage"]) + " damage to " + target.entity_type + ".", false)
 	await get_tree().create_timer(1).timeout
 
 func get_valid_target(original_target: Node):
@@ -221,7 +222,7 @@ func handle_enemy_selection():
 			enemy_index += 1
 			axis_locked = true
 	if root.os.input.joy_buttonA_down and !A_locked :  # Confirm
-		queue_attack(characters[character_index].attack, enemies[enemy_index])
+		queue_attack(enemies[enemy_index], characters[character_index], enemies[enemy_index].attack)
 		#action_queue.append(enemies[enemy_index])
 		character_index += 1
 		enemy_index = 0
@@ -268,6 +269,7 @@ func _on_run_focus_entered() -> void:
 
 #endregion
 
+#region BattleLog
 func update_description_log(msg: String, is_key: bool):
 	if is_key:
 		if text_data.has(msg):
@@ -292,3 +294,4 @@ var text_data = { # separate this later
 		"text": "Time to get outta here!"
 	},
 }
+#endregion
