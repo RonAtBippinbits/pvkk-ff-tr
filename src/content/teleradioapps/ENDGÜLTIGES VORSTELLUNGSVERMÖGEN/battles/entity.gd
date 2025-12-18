@@ -44,6 +44,15 @@ func update_progress_bar():
 func take_damage(value):
 	health -= value
 
+func revive(): # to revive characters at the end of a battle
+	if character_dead:
+		character_dead = false
+		play(entity_type)
+		health = 1
+
+func recover(): # fully recover characters?
+	health = MAX_HEALTH
+
 func show_focus():
 	focus.show()
 
@@ -52,8 +61,8 @@ func hide_focus():
 
 func play_animation():
 	animation_player.play("take_dmg")
-# -------------------------------------------------------
-var entity_data = {
+# ------------------------------------------------------- #
+var entity_data = { # separate this later 
 #character data
 	"warrior": {
 		"visual": "battler_1",

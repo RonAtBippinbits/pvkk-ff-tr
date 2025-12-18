@@ -14,11 +14,7 @@ var ui_index : int = 0
 var A_locked
 var B_locked
 var axis_locked
-
-var action_queue: Array = []
-func queue_attack(damage: int, target: Node): 
-	var action = { "target": target, "damage": damage } 
-	action_queue.append(action)
+var is_busy = false
 
 enum BATTLESTATE { DEFAULT, START, PLAYER_CHOICE, PLAYER_TURN, ENEMY_TURN, WIN, GAME_OVER }
 var _battle_state: BATTLESTATE = BATTLESTATE.DEFAULT
@@ -43,26 +39,39 @@ func _on_state_changed(previous, new):
 		BATTLESTATE.PLAYER_CHOICE:
 			print("BattleState.PLAYER_CHOICE")
 			if action_queue.size() == characters.size() && action_queue.size() > 0:
-				unfocus_ui(choice.get_children())
 				evaluate_action_queue(action_queue, battle_state)
 			else: 
 				$BattleScene/Choice/Attack.grab_focus()
 		BATTLESTATE.PLAYER_TURN:
-			enemies[0].show_focus()
 			print("BattleState.PLAYER_TURN")
+			enemies[0].show_focus()
 		BATTLESTATE.ENEMY_TURN:
 			print("BattleState.ENEMY_TURN")
-			character_index = 0
 			enemy_turn()
 	#BATTLE RESULTS
 		BATTLESTATE.WIN:
 			print("BattleState.WIN")
-			root.state = root.STATES.OVERWORLD
-			cleanup_battle_scene() # need to recover characters and remove enemies
+			result_won()
 		BATTLESTATE.GAME_OVER:
 			print("BattleState.GAME_OVER")
-			root.state = root.STATES.MENU
-			cleanup_battle_scene()
+			result_game_over()
+
+func _process(delta):
+	if root.state != root.STATES.BATTLE:
+		return
+	if enemies.size() == 0 && battle_state != BATTLESTATE.WIN:
+		battle_state = BATTLESTATE.WIN
+	if characters.size() == 0 && battle_state != BATTLESTATE.GAME_OVER:
+		battle_state = BATTLESTATE.GAME_OVER
+	handle_input()
+
+#region Battle logic
+func create_enemy_cast(enemy_count : int): #add an option to define which enemies are used
+	for i in enemy_count:
+		var entity_scene = entity.instantiate()
+		entity_scene.load_enemy_data("goblin_1")
+		enemy_group.add_child(entity_scene)
+		entity_scene.position = Vector2 (160 + 10 * i, 145 + 80 * i)
 
 func prepare_battle_scene():
 	create_enemy_cast(3)
@@ -70,13 +79,8 @@ func prepare_battle_scene():
 	enemies = enemy_group.get_children()
 	battle_state = BATTLESTATE.PLAYER_CHOICE
 
-func cleanup_battle_scene():
-	pass
-	# characters 1hp and not dead
-	# enemies deleted
-	# other states? reset values?
-
 func enemy_turn():
+	character_index = 0
 	if enemies.size() == 0:
 		return
 	for e in enemies:
@@ -84,42 +88,81 @@ func enemy_turn():
 		#action_queue.append(characters.pick_random())
 	evaluate_action_queue(action_queue, battle_state)
 
-var is_busy
+func result_won():
+	root.state = root.STATES.OVERWORLD
+	cleanup_battle_scene()
+	pass
+
+func result_game_over():
+	root.state = root.STATES.MENU
+	for c in characters:
+		c.revive()
+		c.recover()
+	cleanup_battle_scene()
+	pass
+
+func cleanup_battle_scene():
+	for c in characters:
+		if c.character_dead:
+			c.revive()
+	for e in enemies:
+		e.health = 0 # to kill them
+	action_queue.clear()
+	# other states? reset values?
+#endregion
+
+#region Queue for attacks
+var action_queue: Array = []
+func queue_attack(damage: int, target: Node): 
+	var action = { "target": target, "damage": damage } 
+	action_queue.append(action)
+
 func evaluate_action_queue(stack, current_state):
-	reset_focus(enemies)
-	reset_focus(characters)
+	unfocus_ui(choice.get_children())
+	reset_entity_focus(enemies)
+	reset_entity_focus(characters)
 	is_busy = true
-	for i in stack: 
-		if not is_instance_valid(i["target"]):
-			continue # lazy workaround atm, replace with logic to identify legal target
-		i["target"].take_damage(i["damage"])
-		await get_tree().create_timer(1).timeout
+	for action in stack:
+		await execute_action(action)
 	action_queue.clear()
 	is_busy = false
-	
-	var d = 0
+	var dead = 0
 	for c in characters:
 		if c.character_dead == true:
-			d += 1
-	if d == 3:
+			dead += 1
+	if dead == 3:
 		battle_state = BATTLESTATE.GAME_OVER
 		return
-	
 	if battle_state == BATTLESTATE.PLAYER_CHOICE:
 		battle_state = BATTLESTATE.ENEMY_TURN
 	elif battle_state == BATTLESTATE.ENEMY_TURN:
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 
-func _process(delta):
-	if root.state != root.STATES.BATTLE:
+func execute_action(action: Dictionary):
+	var target = get_valid_target(action["target"])
+	if target == null:
 		return
-	if enemies.size() == 0 && battle_state != BATTLESTATE.WIN:
-		battle_state = BATTLESTATE.WIN
-	#if characters.size() == 0 && battle_state != BATTLESTATE.GAME_OVER:
-	#	battle_state = BATTLESTATE.GAME_OVER
-	handle_input()
+	target.take_damage(action["damage"])
+	await get_tree().create_timer(1).timeout
 
-#Input handling ----------------------------------
+func get_valid_target(original_target: Node):
+	if is_instance_valid(original_target) and not original_target.character_dead:
+		return original_target #return the original target
+	var group: Array
+	if characters.has(original_target):
+		group = characters
+	else:
+		group = enemies
+	var valid_targets := []
+	for n in group:
+		if is_instance_valid(n) and not n.character_dead:
+			valid_targets.append(n)
+	if valid_targets.is_empty():
+		return null # there is no valid target left
+	return valid_targets.pick_random() # return an alternative legal target 
+#endregion
+
+#region Input handling 
 func handle_input():
 	if abs(root.os.input.joy_axis.y) <= 0.35:
 		axis_locked = false
@@ -159,15 +202,25 @@ func unfocus_ui(buttons: Array[Node]):
 	for b in buttons:
 		b.release_focus()
 
+func switch_entity_focus(group: Array[Node], x, y):
+	group[x].hide_focus()
+	group[y].show_focus()
+
+func reset_entity_focus(group: Array[Node]):
+	if group.size() == 0:
+		return
+	for n in group:
+		n.hide_focus()
+
 func handle_enemy_selection():
 	if root.os.input.joy_axis.y <= -0.4 and !axis_locked:  # Up
 		if enemy_index > 0:
-			switch_focus(enemies, enemy_index, enemy_index - 1)
+			switch_entity_focus(enemies, enemy_index, enemy_index - 1)
 			enemy_index -= 1
 			axis_locked = true
 	if root.os.input.joy_axis.y >= 0.4 and !axis_locked:  # Down
 		if enemy_index < enemies.size() - 1:
-			switch_focus(enemies, enemy_index, enemy_index + 1)
+			switch_entity_focus(enemies, enemy_index, enemy_index + 1)
 			enemy_index += 1
 			axis_locked = true
 	if root.os.input.joy_buttonA_down and !A_locked :  # Confirm
@@ -175,11 +228,13 @@ func handle_enemy_selection():
 		#action_queue.append(enemies[enemy_index])
 		character_index += 1
 		enemy_index = 0
-		reset_focus(enemies)
+		reset_entity_focus(enemies)
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 		A_locked = true
 
-#Buttons----------------------------------
+#endregion
+
+#region Button functions
 func _on_attack_button_down() -> void:
 	battle_state = BATTLESTATE.PLAYER_TURN
 
@@ -188,23 +243,8 @@ func _on_special_button_down() -> void:
 	pass #Implement specials here
 
 func _on_run_button_down() -> void:
-	reset_focus(enemies)
+	reset_entity_focus(enemies)
+	for c in characters:
+		c.revive()
 	root.state = root.STATES.OVERWORLD
-
-#Utility----------------------------------
-func switch_focus(group: Array[Node], x, y):
-	group[x].hide_focus()
-	group[y].show_focus()
-
-func reset_focus(group: Array[Node]):
-	if group.size() == 0:
-		return
-	for n in group:
-		n.hide_focus()
-
-func create_enemy_cast(enemy_count : int):
-	for i in enemy_count:
-		var entity_scene = entity.instantiate()
-		entity_scene.load_enemy_data("goblin_1")
-		enemy_group.add_child(entity_scene)
-		entity_scene.position = Vector2 (160 + 10 * i, 145 + 80 * i)
+#endregion

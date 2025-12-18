@@ -87,7 +87,7 @@ animations = [{
 texture_filter = 1
 position = Vector2(316, 216)
 sprite_frames = SubResource("SpriteFrames_h3g1i")
-animation = &"up"
+animation = &"down"
 script = ExtResource("2_53m3b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
