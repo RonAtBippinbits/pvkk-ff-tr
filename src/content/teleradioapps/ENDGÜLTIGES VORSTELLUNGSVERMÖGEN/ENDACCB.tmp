@@ -378,6 +378,7 @@ position = Vector2(430, 354)
 root = NodePath("../..")
 
 [node name="Castle" type="Area2D" parent="Map" node_paths=PackedStringArray("root", "character")]
+visible = false
 position = Vector2(432, 312)
 scale = Vector2(1.8, 2.6)
 script = ExtResource("9_klnlr")
@@ -389,9 +390,9 @@ place_type1 = "castle"
 shape = SubResource("RectangleShape2D_823kc")
 
 [node name="PlaceUI" type="CanvasLayer" parent="Map/Castle"]
+visible = false
 
 [node name="Dialogue" type="Panel" parent="Map/Castle/PlaceUI"]
-visible = false
 offset_left = 27.0
 offset_top = 375.13
 offset_right = 393.0
@@ -419,7 +420,6 @@ autowrap_mode = 3
 text_overrun_behavior = 2
 
 [node name="Choice" type="VBoxContainer" parent="Map/Castle/PlaceUI"]
-visible = false
 offset_left = 396.0
 offset_top = 375.13
 offset_right = 581.0

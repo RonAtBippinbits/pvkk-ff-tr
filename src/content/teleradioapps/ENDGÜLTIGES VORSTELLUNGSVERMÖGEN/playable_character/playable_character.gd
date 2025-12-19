@@ -2,19 +2,19 @@ extends CharacterBody2D
 
 @export var root : Node # make sure it's assigned in main scene
 var character_direction : Vector2
-var has_collided := false
+var block_moving : bool = false
 var encounter_dist := 75
 var last_encounter_pos := Vector2.ZERO
 
 func _ready() -> void:
 	last_encounter_pos = position
-	#$"../../MainMenu/AnimatedSprite2D".play("default")
 
 func _physics_process(delta: float):
 	if root.state == root.STATES.OVERWORLD:
-		movement()
+		if !block_moving:
+			movement()
+			encounter()
 		animate()
-		encounter()
 
 func movement():
 	character_direction = root.os.input.joy_axis
@@ -34,6 +34,10 @@ func encounter(): # iterate this implementation asap
 		encounter_dist = randi_range(50, 150)
 
 func animate():
+	if block_moving  && $AnimatedSprite2D.is_playing() or character_direction == Vector2.ZERO && $AnimatedSprite2D.is_playing():
+		$AnimatedSprite2D.stop()
+		character_direction = Vector2.ZERO
+		return
 	if character_direction.x > 0:
 		$AnimatedSprite2D.play("right")
 	elif character_direction.x < 0:
@@ -42,5 +46,3 @@ func animate():
 		$AnimatedSprite2D.play("down")
 	elif character_direction.y < 0:
 		$AnimatedSprite2D.play("up")
-	else:
-		$AnimatedSprite2D.stop()

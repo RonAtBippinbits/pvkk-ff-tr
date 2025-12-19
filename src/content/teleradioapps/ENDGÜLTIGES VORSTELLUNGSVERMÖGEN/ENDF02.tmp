@@ -196,6 +196,7 @@ sources/0 = SubResource("TileSetAtlasSource_ohkwi")
 script = ExtResource("1_ueaa4")
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Background" type="Sprite2D" parent="MainMenu"]
 self_modulate = Color(0.0784314, 0.0745098, 0.0117647, 1)
@@ -391,7 +392,6 @@ shape = SubResource("RectangleShape2D_823kc")
 [node name="PlaceUI" type="CanvasLayer" parent="Map/Castle"]
 
 [node name="Dialogue" type="Panel" parent="Map/Castle/PlaceUI"]
-visible = false
 offset_left = 27.0
 offset_top = 375.13
 offset_right = 393.0
@@ -419,7 +419,6 @@ autowrap_mode = 3
 text_overrun_behavior = 2
 
 [node name="Choice" type="VBoxContainer" parent="Map/Castle/PlaceUI"]
-visible = false
 offset_left = 396.0
 offset_top = 375.13
 offset_right = 581.0
@@ -440,7 +439,6 @@ theme_override_styles/normal = ExtResource("10_kj2d8")
 text = "No"
 
 [node name="Fade" type="Sprite2D" parent="Map/Castle/PlaceUI"]
-visible = false
 self_modulate = Color(0.0784314, 0.0745098, 0.0117647, 1)
 position = Vector2(304, 226)
 scale = Vector2(1.22, 1.22)
