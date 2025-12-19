@@ -70,18 +70,41 @@ func _process(delta):
 	handle_input()
 
 #region Battle logic
-func create_enemy_cast(enemy_count : int): #add an option to define which enemies are used
-	for i in enemy_count:
-		var entity_scene = entity.instantiate()
-		entity_scene.load_entity_data("goblin_1")
-		enemy_group.add_child(entity_scene)
-		entity_scene.position = Vector2 (160 + 10 * i, 145 + 80 * i)
+func create_enemy_cast(enemy_count: int, enemy_types: Array):
+	var start_pos := Vector2(100, 105)
+	var spacing_x := 120
+	var spacing_y := 90
+	var columns := 2
+	for i in range(enemy_count):
+		var enemy_key = enemy_types.pick_random()
+		var enemy = entity.instantiate()
+		enemy.load_entity_data(enemy_key)
+		enemy_group.add_child(enemy)
+		var column = i % columns
+		var row = i / columns
+		enemy.position = Vector2(
+			start_pos.x + column * spacing_x,
+			start_pos.y + row * spacing_y
+		)
+
+func final_boss(): # lazy implementation, need a proper pass on enemy casting
+	var enemy = entity.instantiate()
+	enemy.load_entity_data("e_boss_1")
+	enemy_group.add_child(enemy)
+	enemy.position = Vector2(200, 200)
+	enemy.scale = Vector2(enemy.scale.x * 1.5, enemy.scale.y * 1.5)
+	enemy.get_node("Focus").texture = null
 
 func prepare_battle_scene():
-	create_enemy_cast(3)
+	if root.final_boss:
+		final_boss()
+	else:
+		var possible_enemies = ["goblin_1", "skeleton_1", "spider_1"]
+		create_enemy_cast(randi_range(3, 5), possible_enemies)
 	characters = character_group.get_children()
 	enemies = enemy_group.get_children()
 	reset_entity_focus(enemies)
+	ui_index = 0
 	battle_state = BATTLESTATE.PLAYER_CHOICE
 
 func enemy_turn():
@@ -260,6 +283,7 @@ func _on_special_button_down() -> void:
 
 func _on_run_button_down() -> void:
 	reset_entity_focus(enemies)
+	cleanup_battle_scene()
 	for c in characters:
 		c.revive()
 	root.state = root.STATES.OVERWORLD

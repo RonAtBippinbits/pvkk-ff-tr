@@ -2,6 +2,7 @@ extends TeleradioContent
 
 const APP_ID := "EndgültigesVorstellungsvermögen"
 
+var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
 var state:STATES:

@@ -377,7 +377,7 @@ scale = Vector2(0.1, 0.1)
 texture = SubResource("GradientTexture2D_0kuwl")
 
 [node name="PlayableCharacter" parent="Map" node_paths=PackedStringArray("root") instance=ExtResource("6_cnt0i")]
-position = Vector2(479, 376)
+position = Vector2(118, 119)
 root = NodePath("../..")
 
 [node name="Castle" type="Area2D" parent="Map" node_paths=PackedStringArray("root", "character")]

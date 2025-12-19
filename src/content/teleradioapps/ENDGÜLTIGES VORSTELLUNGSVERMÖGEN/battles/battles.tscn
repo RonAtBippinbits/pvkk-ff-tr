@@ -25,6 +25,7 @@ position = Vector2(300, 0)
 
 [node name="Entity" parent="BattleScene/character_group" instance=ExtResource("1_nddaa")]
 position = Vector2(170, 110)
+animation = &"warrior"
 entity_type = "warrior"
 is_character = true
 

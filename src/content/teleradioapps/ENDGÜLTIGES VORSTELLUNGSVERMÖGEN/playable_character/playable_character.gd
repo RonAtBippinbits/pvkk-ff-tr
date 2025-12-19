@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var root : Node # make sure it's assigned in main scene
 var character_direction : Vector2
 var block_moving : bool = false
-var encounter_dist := 75
+var encounter_dist := 110
 var last_encounter_pos := Vector2.ZERO
 
 func _ready() -> void:

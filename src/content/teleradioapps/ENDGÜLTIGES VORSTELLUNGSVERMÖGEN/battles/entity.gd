@@ -67,59 +67,59 @@ var entity_data = { # separate this later
 #character data
 	"warrior": {
 		"visual": "battler_1",
-		"health": 18,
+		"health": 19,
 		"attack": 3
 	},
 	"b_mage": {
 		"visual": "battler_2",
 		"health": 12,
-		"attack": 1
+		"attack": 2
 	},
 	"w_mage": {
 		"visual": "battler_3",
-		"health": 12,
-		"attack": 1
+		"health": 13,
+		"attack": 2
 	},
 #enemy data
 	"goblin_1": {
 		"visual": "e_goblin_1",
-		"health": 2,
-		"attack": 1
+		"health": 3,
+		"attack": 2
 	},
 	"goblin_2": {
 		"visual": "e_goblin_2",
-		"health": 12,
-		"attack": 3,
+		"health": 1,
+		"attack": 1,
 	},
 	"skeleton_1": {
-		"visual": "e_skeleton_2",
-		"health": 12,
+		"visual": "e_skeleton_1",
+		"health": 5,
 		"attack": 3,
 	},
 	"skeleton_2": {
 		"visual": "e_skeleton_2",
-		"health": 12,
-		"attack": 3,
+		"health": 1,
+		"attack": 1,
 	},
 	"spider_1": {
-		"visual": "e_spider_2",
-		"health": 12,
-		"attack": 3,
+		"visual": "e_spider_1",
+		"health": 9,
+		"attack": 1,
 	},
 	"spider_2": {
 		"visual": "e_spider_2",
-		"health": 12,
-		"attack": 3,
+		"health": 1,
+		"attack": 1,
 	},
 #boss data
-	"boss_1": {
-		"visual": "e_boss_2",
-		"health": 12,
+	"e_boss_1": {
+		"visual": "e_boss_1",
+		"health": 25,
 		"attack": 3,
 	},
-	"boss_2": {
+	"e_boss_2": {
 		"visual": "e_boss_2",
-		"health": 12,
-		"attack": 3,
+		"health": 1,
+		"attack": 1,
 	}
 }

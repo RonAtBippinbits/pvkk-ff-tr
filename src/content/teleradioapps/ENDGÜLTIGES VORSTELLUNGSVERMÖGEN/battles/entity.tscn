@@ -259,7 +259,7 @@ _data = {
 texture_filter = 1
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_84s5q")
-animation = &"warrior"
+animation = &"b_mage"
 script = ExtResource("1_bc7ri")
 
 [node name="Focus" type="Sprite2D" parent="."]
