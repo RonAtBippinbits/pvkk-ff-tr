@@ -1,41 +1,40 @@
-[gd_scene load_steps=12 format=3 uid="uid://dyjs0oxrc2crv"]
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://db5ov3yxpj4uf"]
 
-[ext_resource type="Texture2D" uid="uid://c8jakdl58c5ha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/playable_character_spritesheet.png" id="1_x0jle"]
-[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character.gd" id="2_53m3b"]
+[ext_resource type="Texture2D" uid="uid://c8jakdl58c5ha" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/playable_character_spritesheet.png" id="1_oblbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbk51"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibmhi"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fghvg"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqx0u"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdb5b"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_js1fp"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bt75g"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuv5x"]
-atlas = ExtResource("1_x0jle")
+atlas = ExtResource("1_oblbm")
 region = Rect2(48, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_h3g1i"]
+[resource]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -82,13 +81,3 @@ animations = [{
 "name": &"up",
 "speed": 5.0
 }]
-
-[node name="PlayableCharacter" type="AnimatedSprite2D"]
-texture_filter = 1
-position = Vector2(316, 216)
-sprite_frames = SubResource("SpriteFrames_h3g1i")
-animation = &"down"
-script = ExtResource("2_53m3b")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.75, 1.75)

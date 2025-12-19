@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyjs0oxrc2crv"]
+
+[ext_resource type="SpriteFrames" uid="uid://db5ov3yxpj4uf" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character/playable_character_animations.tres" id="2_0bihe"]
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character/playable_character.gd" id="2_53m3b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3c25"]
+size = Vector2(14, 7)
+
+[node name="PlayableCharacter" type="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(316, 216)
+script = ExtResource("2_53m3b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_0bihe")
+animation = &"down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_d3c25")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)

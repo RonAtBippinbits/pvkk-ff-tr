@@ -1,4 +1,4 @@
-extends AnimatedSprite2D
+extends CharacterBody2D
 
 @export var root : Node # make sure it's assigned in main scene
 var character_direction : Vector2
@@ -12,6 +12,9 @@ func _physics_process(delta: float):
 	if root.state == root.STATES.OVERWORLD:
 		movement()
 		animate()
+		encounter()
+		if is_colliding():
+			print("collided")
 
 func movement():
 	character_direction = root.os.input.joy_axis
@@ -21,20 +24,30 @@ func movement():
 		else:
 			character_direction.x = 0
 		character_direction = character_direction.normalized()
-		position += character_direction
-		if position.distance_to(last_encounter_pos) >= encounter_dist:
-			root.state = root.STATES.BATTLE
-			last_encounter_pos = position
-			encounter_dist = randi_range(50, 150)
+		velocity = character_direction.normalized() * 32
+		move_and_slide()
+
+func is_colliding() -> bool:
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		if collision:
+			return true
+	return false
+
+func encounter(): # iterate this implementation asap
+	if position.distance_to(last_encounter_pos) >= encounter_dist:
+		root.state = root.STATES.BATTLE
+		last_encounter_pos = position
+		encounter_dist = randi_range(50, 150)
 
 func animate():
 	if character_direction.x > 0:
-		play("right")
+		$AnimatedSprite2D.play("right")
 	elif character_direction.x < 0:
-		play("left")
+		$AnimatedSprite2D.play("left")
 	elif character_direction.y > 0:
-		play("down")
+		$AnimatedSprite2D.play("down")
 	elif character_direction.y < 0:
-		play("up")
+		$AnimatedSprite2D.play("up")
 	else:
-		stop()
+		$AnimatedSprite2D.stop()
