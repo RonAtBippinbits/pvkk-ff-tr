@@ -81,6 +81,7 @@ func prepare_battle_scene():
 	create_enemy_cast(3)
 	characters = character_group.get_children()
 	enemies = enemy_group.get_children()
+	reset_entity_focus(enemies)
 	battle_state = BATTLESTATE.PLAYER_CHOICE
 
 func enemy_turn():
