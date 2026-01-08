@@ -9,9 +9,47 @@ var is_busy = false
 
 var place_type: String 
 
-# when restructring the code this should handle everything happening on the world map
-# encounters
+@export var encounter_dist_min := 50
+@export var encounter_dist_max := 150
 
+var last_encounter_pos := Vector2.ZERO
+var next_encounter_dist := 0
+
+func _ready():
+	await get_tree().process_frame
+	last_encounter_pos = root.Character.global_position
+	next_encounter_dist = randi_range(encounter_dist_min, encounter_dist_max)
+
+func _process(delta):
+	if root.state != root.STATES.OVERWORLD:
+		return
+	if root.Character.block_moving:
+		return
+	check_encounter_distance()
+	#Input
+	if abs(root.os.input.joy_axis.y) <= 0.35:
+		axis_locked = false
+	if not root.os.input.joy_buttonA_down:
+		A_locked = false
+	if $PlaceUI/Choice.visible and not axis_locked:
+		handle_ui_selection()
+
+#region Ecounters
+func check_encounter_distance():
+	if root.Character.velocity.length() == 0:
+		return
+	var pos = root.Character.global_position
+	if pos.distance_to(last_encounter_pos) >= next_encounter_dist:
+		trigger_encounter()
+
+func trigger_encounter():
+	last_encounter_pos = root.Character.global_position
+	next_encounter_dist = randi_range(encounter_dist_min, encounter_dist_max)
+	root.Character.block_moving = true
+	root.state = root.STATES.BATTLE
+#endregion
+
+#region Places
 func entered_place(type : String):
 	place_type = type
 	$PlaceUI/Dialogue.show()
@@ -40,6 +78,7 @@ func resting():
 	for c in root.CharacterGroup.get_children():
 		c.revive()
 		c.recover()
+#endregion
 
 #region Button functions
 func _on_yes_button_down() -> void:
@@ -64,16 +103,6 @@ func _on_no_button_down() -> void:
 #endregion
 
 #region Input handling 
-func _process(delta):
-	if abs(root.os.input.joy_axis.y) <= 0.35:
-		axis_locked = false
-
-	if not root.os.input.joy_buttonA_down:
-		A_locked = false
-
-	if $PlayableCharacter.block_moving and $PlaceUI/Choice.visible and not axis_locked:
-		handle_ui_selection()
-
 func handle_ui_selection():
 	var buttons := $PlaceUI/Choice.get_children()
 	if root.os.input.joy_axis.y <= -0.4 and not axis_locked:  # Up

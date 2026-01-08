@@ -47,6 +47,7 @@ func end_battle():
 	hide_everything()
 	stop_all_music()
 	Map.show()
+	Character.block_moving = false
 	$Audio/Music/MusicOverworld.play()
 	update_button_selection(1, "Main Menu")
 	os.input.connect_to(os.input.just_pressed_b1, button_show_menu)

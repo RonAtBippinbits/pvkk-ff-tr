@@ -3,6 +3,8 @@ extends Node2D
 @export var root : Node # make sure it's assigned in main scene
 var entity = preload("res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/entity.tscn")
 
+var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
+
 @onready var enemy_group = $BattleScene/enemy_group
 @onready var enemies: Array = []
 var enemy_index: int = 0 
@@ -11,7 +13,6 @@ var enemy_index: int = 0
 @onready var characters: Array = []
 var character_index: int = 0 
 
-@onready var battle_log_text = $BattleScene/BattleLog/Text
 @onready var choice : Node = %Choice
 var ui_index : int = 0
 
@@ -87,7 +88,7 @@ func create_enemy_cast(enemy_count: int, enemy_types: Array):
 			start_pos.y + row * spacing_y
 		)
 
-func final_boss(): # lazy implementation, need a proper pass on enemy casting
+func final_boss_battle(): # lazy implementation, need a proper pass on enemy casting
 	var enemy = entity.instantiate()
 	enemy.load_entity_data("e_boss_1")
 	enemy_group.add_child(enemy)
@@ -96,8 +97,8 @@ func final_boss(): # lazy implementation, need a proper pass on enemy casting
 	enemy.get_node("Focus").texture = null
 
 func prepare_battle_scene():
-	if root.final_boss:
-		final_boss()
+	if final_boss:
+		final_boss_battle()
 	else:
 		var possible_enemies = ["goblin_1", "skeleton_1", "spider_1"]
 		create_enemy_cast(randi_range(3, 5), possible_enemies)
@@ -265,9 +266,9 @@ func handle_enemy_selection():
 func update_description_log(msg: String, is_key: bool):
 	if is_key:
 		if root.Data.text_data_battles.has(msg):
-			battle_log_text.text = root.Data.text_data_battles[msg]["text"]
+			$BattleScene/BattleLog/Text.text = root.Data.text_data_battles[msg]["text"]
 	else:
-		battle_log_text.text = msg
+		$BattleScene/BattleLog/Text.text = msg
 
 func switch_entity_focus(group: Array[Node], x, y):
 	group[x].hide_focus()
