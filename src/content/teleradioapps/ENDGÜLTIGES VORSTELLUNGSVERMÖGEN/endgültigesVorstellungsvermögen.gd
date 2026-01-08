@@ -5,6 +5,7 @@ const APP_ID := "EndgültigesVorstellungsvermögen"
 @onready var Data : Node = $Data
 @onready var MainMenu : Node = $MainMenu
 @onready var Map : Node = $Map
+@onready var Character : Node = $Map/PlayableCharacter
 @onready var Battles : Node = $Battles
 
 var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
