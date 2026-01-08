@@ -6,9 +6,8 @@ const APP_ID := "EndgültigesVorstellungsvermögen"
 @onready var MainMenu : Node = $MainMenu
 @onready var Map : Node = $Map
 @onready var Character : Node = $Map/PlayableCharacter
+@onready var CharacterGroup : Node = $Battles/BattleScene/character_group
 @onready var Battles : Node = $Battles
-
-var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
 
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
@@ -61,6 +60,7 @@ func title_stage():
 	os.input.connect_to(os.input.just_pressed_b1, button_new_game)
 	update_button_selection(2, "Exit Game")
 	os.input.connect_to(os.input.just_pressed_b2, exit_game)
+	Battles.final_boss = false 
 
 #region ButtonSelection
 func button_new_game():

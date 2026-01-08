@@ -11,7 +11,6 @@ var place_type: String
 
 # when restructring the code this should handle everything happening on the world map
 # encounters
-# places handling
 
 func entered_place(type : String):
 	place_type = type
@@ -35,6 +34,34 @@ func fade_out_in():
 	tween.tween_property($PlaceUI/Fade, "modulate:a", 0, 0.6)
 	await tween.finished
 	$PlaceUI/Fade.hide()
+
+func resting():
+	await fade_out_in()
+	for c in root.CharacterGroup.get_children():
+		c.revive()
+		c.recover()
+
+#region Button functions
+func _on_yes_button_down() -> void:
+	$PlaceUI/Dialogue.hide() 
+	$PlaceUI/Choice.hide()
+	match place_type:
+		"empty":
+			print("type not defined")
+		"castle":
+			await resting()
+		"village":
+			await resting()
+		"dungeon":
+			root.Battles.final_boss = true 
+			root.state = root.STATES.BATTLE
+	root.Character.block_moving = false
+
+func _on_no_button_down() -> void:
+		$PlaceUI/Dialogue.hide() 
+		$PlaceUI/Choice.hide()
+		root.Character.block_moving = false
+#endregion
 
 #region Input handling 
 func _process(delta):
@@ -72,31 +99,4 @@ func update_dialogue(msg: String, is_key: bool):
 			$PlaceUI/Dialogue/Text.text = root.Data.text_data_places[msg]["text"]
 	else:
 		$PlaceUI/Dialogue/Text.text = msg
-#endregion
-
-#region Button functions
-func _on_yes_button_down() -> void:
-	$PlaceUI/Dialogue.hide() 
-	$PlaceUI/Choice.hide()
-	match place_type:
-		"empty":
-			print("type not defined")
-		"castle":
-			fade_out_in()
-			#await resting()
-			pass
-		"village":
-			fade_out_in()
-			#await resting()
-			pass
-		"dungeon":
-			root.final_boss = true 
-			root.state = root.STATES.BATTLE
-			print("b")
-	root.Character.block_moving = false
-
-func _on_no_button_down() -> void:
-		$PlaceUI/Dialogue.hide() 
-		$PlaceUI/Choice.hide()
-		root.Character.block_moving = false
 #endregion
