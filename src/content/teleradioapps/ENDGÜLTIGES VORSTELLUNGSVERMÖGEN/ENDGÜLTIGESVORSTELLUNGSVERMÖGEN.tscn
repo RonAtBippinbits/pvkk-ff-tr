@@ -387,7 +387,7 @@ scale = Vector2(1.8, 2.6)
 script = ExtResource("9_klnlr")
 root = NodePath("../..")
 character = NodePath("../PlayableCharacter")
-place_type1 = "castle"
+place_type = "castle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Castle"]
 shape = SubResource("RectangleShape2D_823kc")
@@ -456,7 +456,7 @@ scale = Vector2(0.92, 0.88001)
 script = ExtResource("9_klnlr")
 root = NodePath("../..")
 character = NodePath("../PlayableCharacter")
-place_type1 = "village"
+place_type = "village"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Village"]
 shape = SubResource("RectangleShape2D_823kc")
@@ -525,7 +525,7 @@ scale = Vector2(0.92, 0.88001)
 script = ExtResource("9_klnlr")
 root = NodePath("../..")
 character = NodePath("../PlayableCharacter")
-place_type1 = "village"
+place_type = "village"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Village2"]
 shape = SubResource("RectangleShape2D_823kc")
@@ -594,7 +594,7 @@ scale = Vector2(1.8, 1.48)
 script = ExtResource("9_klnlr")
 root = NodePath("../..")
 character = NodePath("../PlayableCharacter")
-place_type1 = "dungeon"
+place_type = "dungeon"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Dungeon"]
 shape = SubResource("RectangleShape2D_823kc")
@@ -666,6 +666,8 @@ visible = false
 
 [node name="Background" parent="Battles/BattleScene" index="0"]
 modulate = Color(0.0784314, 0.0745098, 0.0117647, 1)
+
+[node name="________________________________" type="Node" parent="."]
 
 [node name="Data" type="Node" parent="."]
 script = ExtResource("13_rnxqp")
