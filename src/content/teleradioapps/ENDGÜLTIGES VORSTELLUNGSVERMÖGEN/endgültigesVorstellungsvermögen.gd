@@ -1,9 +1,14 @@
 extends TeleradioContent
 
 const APP_ID := "EndgültigesVorstellungsvermögen"
-@export var data : Node
+
+@onready var Data : Node = $Data
+@onready var MainMenu : Node = $MainMenu
+@onready var Map : Node = $Map
+@onready var Battles : Node = $Battles
 
 var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
+
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
 var state:STATES:
@@ -30,55 +35,63 @@ func _on_state_changed(previous, new):
 
 func _ready():
 	state = STATES.MENU
-	data = $Data
 
 func start_battle():
 	hide_everything()
 	stop_all_music()
-	$Battles/BattleScene.show()
+	#$Battles/BattleScene.show()
 	$Audio/Music/MusicBattle.play()
-	$Battles.battle_state = 1 # set battle state to START
+	Battles.battle_state = 1 # set battle state to START
 
 func end_battle():
 	hide_everything()
 	stop_all_music()
-	$Map.show()
-	$Map/ButtonSelection.show()
+	Map.show()
 	$Audio/Music/MusicOverworld.play()
-	os.input.connect_to(os.input.just_pressed_b1, button_menu)
-
-func button_menu():
-	state = STATES.MENU
+	update_button_selection(1, "Main Menu")
+	os.input.connect_to(os.input.just_pressed_b1, button_show_menu)
 
 func title_stage():
 	hide_everything()
 	stop_all_music()
-	$MainMenu.show()
+	MainMenu.show()
 	$Audio/Music/MusicTitleScreen.play()
+	update_button_selection(1, "Start Game")
+	os.input.connect_to(os.input.just_pressed_b1, button_new_game)
+	update_button_selection(2, "Exit Game")
+	os.input.connect_to(os.input.just_pressed_b2, exit_game)
 
-	os.input.connect_to(os.input.just_pressed_b2, start_new_game)
-	os.input.connect_to(os.input.just_pressed_b3, exit_game)
-
-func continue_game():
-	print("Continue")
-
-func start_new_game(): # need to 
+#region ButtonSelection
+func button_new_game():
 	hide_everything()
 	stop_all_music()
 	# reposition character, reset function here
 	state = STATES.OVERWORLD
 
+func continue_game():
+	print("Continue") #not implemented right now
+
 func exit_game():
 	os.quit_app()
 
-#Utility------------------------------------------------
+func button_show_menu():
+	state = STATES.MENU
+#endregion
+
+#region Utility
 func hide_everything():
-	os.input.disconnect_all_buttons()
-	$MainMenu.hide()
-	$Map.hide()
-	$Map/ButtonSelection.hide()
+	MainMenu.hide()
+	Map.hide()
 	$Battles/BattleScene.hide()
+	os.input.disconnect_all_buttons()
+	for b in $ButtonSelection.get_children():
+		b.hide()
+
+func update_button_selection(button_index: int, text : String):
+	$ButtonSelection.get_child(button_index - 1).text = text
+	$ButtonSelection.get_child(button_index - 1).show()
 
 func stop_all_music():
 	for m in $Audio/Music.get_children():
 		m.stop()
+#endregion

@@ -106,6 +106,8 @@ func prepare_battle_scene():
 	reset_entity_focus(enemies)
 	ui_index = 0
 	battle_state = BATTLESTATE.PLAYER_CHOICE
+	
+	$BattleScene.show()
 
 func enemy_turn():
 	character_index = 0
@@ -262,8 +264,8 @@ func handle_enemy_selection():
 
 func update_description_log(msg: String, is_key: bool):
 	if is_key:
-		if root.data.text_data_battles.has(msg):
-			battle_log_text.text = root.data.text_data_battles[msg]["text"]
+		if root.Data.text_data_battles.has(msg):
+			battle_log_text.text = root.Data.text_data_battles[msg]["text"]
 	else:
 		battle_log_text.text = msg
 
