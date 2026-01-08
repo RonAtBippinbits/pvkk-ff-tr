@@ -1,6 +1,7 @@
 extends TeleradioContent
 
 const APP_ID := "EndgültigesVorstellungsvermögen"
+@export var data : Node
 
 var final_boss : bool = false # lazy implementation, need a proper pass on enemy casting
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
@@ -29,6 +30,7 @@ func _on_state_changed(previous, new):
 
 func _ready():
 	state = STATES.MENU
+	data = $Data
 
 func start_battle():
 	hide_everything()

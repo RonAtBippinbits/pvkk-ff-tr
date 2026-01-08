@@ -260,6 +260,12 @@ func handle_enemy_selection():
 		battle_state = BATTLESTATE.PLAYER_CHOICE
 		A_locked = true
 
+func update_description_log(msg: String, is_key: bool):
+	if is_key:
+		if root.data.text_data_battles.has(msg):
+			battle_log_text.text = root.data.text_data_battles[msg]["text"]
+	else:
+		battle_log_text.text = msg
 
 func switch_entity_focus(group: Array[Node], x, y):
 	group[x].hide_focus()
@@ -297,38 +303,4 @@ func _on_special_focus_entered() -> void:
 
 func _on_run_focus_entered() -> void:
 	update_description_log("run", true)
-
-#endregion
-
-#region BattleLog
-func update_description_log(msg: String, is_key: bool):
-	if is_key:
-		if text_data.has(msg):
-			battle_log_text.text = text_data[msg]["text"]
-	else:
-		battle_log_text.text = msg
-
-var text_data = { # separate this later 
-	"attack": {
-		"text": "Deals Damage to a single enemy"
-	},
-	"special_warrior": {
-		"text": "special_warroir not implemented yet"
-	},
-	"special_b_mage": {
-		"text": "special_b_mage not implemented yet"
-	},
-	"special_w_mage": {
-		"text": "special_w_mage not implemented yet"
-	},
-	"run": {
-		"text": "Time to get outta here!"
-	},
-	"game_over": {
-		"text": "All characters are dead! This is the end of our journey..."
-	},
-	"won": {
-		"text": "All monsters perished! Let's continue!"
-	}
-}
 #endregion

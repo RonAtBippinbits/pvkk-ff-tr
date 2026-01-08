@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://d0tnmyko0nc5u"]
+[gd_scene load_steps=36 format=4 uid="uid://d0tnmyko0nc5u"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
 [ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="2_kkf0t"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://18md4noikimc" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/battle.mp3" id="9_0xeqd"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/Place.gd" id="9_klnlr"]
 [ext_resource type="StyleBox" uid="uid://xf4jmndmsj2x" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/ui.tres" id="10_kj2d8"]
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/data.gd" id="13_rnxqp"]
 
 [sub_resource type="Gradient" id="Gradient_43jgv"]
 offsets = PackedFloat32Array(0.965065, 1)
@@ -665,6 +666,9 @@ visible = false
 
 [node name="Background" parent="Battles/BattleScene" index="0"]
 modulate = Color(0.0784314, 0.0745098, 0.0117647, 1)
+
+[node name="Data" type="Node" parent="."]
+script = ExtResource("13_rnxqp")
 
 [node name="Audio" type="Node" parent="."]
 
