@@ -4,10 +4,12 @@ const APP_ID := "EndgültigesVorstellungsvermögen"
 
 @onready var Data : Node = $Data
 @onready var MainMenu : Node = $MainMenu
+@onready var Cutscene : Node = $Cutscene
 @onready var Map : Node = $Map
+@onready var Battles : Node = $Battles
+
 @onready var Character : Node = $Map/PlayableCharacter
 @onready var CharacterGroup : Node = $Battles/BattleScene/character_group
-@onready var Battles : Node = $Battles
 
 enum STATES {LAUNCH, MENU, OVERWORLD, BATTLE, CUTSCENE}
 var _state: STATES = STATES.LAUNCH
@@ -32,6 +34,7 @@ func _on_state_changed(previous, new):
 			start_battle()
 		STATES.CUTSCENE:
 			print("STATES.CUTSCENE")
+			cutscene()
 
 func _ready():
 	state = STATES.MENU
@@ -61,7 +64,16 @@ func title_stage():
 	os.input.connect_to(os.input.just_pressed_b1, button_new_game)
 	update_button_selection(2, "Exit Game")
 	os.input.connect_to(os.input.just_pressed_b2, exit_game)
+	# for testing new game narration
+	update_button_selection(3, "Test cutscene")
+	os.input.connect_to(os.input.just_pressed_b3, button_show_cutscene)
+	
 	Battles.final_boss = false 
+
+func cutscene():
+	hide_everything()
+	stop_all_music()
+	Cutscene.show()
 
 #region ButtonSelection
 func button_new_game():
@@ -78,6 +90,9 @@ func exit_game():
 
 func button_show_menu():
 	state = STATES.MENU
+
+func button_show_cutscene():
+	state = STATES.CUTSCENE
 #endregion
 
 #region Utility
