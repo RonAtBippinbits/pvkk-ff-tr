@@ -49,11 +49,16 @@ func start_battle():
 func end_battle():
 	hide_everything()
 	stop_all_music()
-	Map.show()
-	Character.block_moving = false
-	$Audio/Music/MusicOverworld.play()
-	update_button_selection(1, "Main Menu")
-	os.input.connect_to(os.input.just_pressed_b1, button_show_menu)
+	
+	if Battles.final_boss == true:
+		state = STATES.CUTSCENE
+		#Character.block_moving = false
+	else:
+		Map.show()
+		Character.block_moving = false
+		$Audio/Music/MusicOverworld.play()
+		update_button_selection(1, "Main Menu")
+		os.input.connect_to(os.input.just_pressed_b1, button_show_menu)
 
 func title_stage():
 	hide_everything()
@@ -65,8 +70,8 @@ func title_stage():
 	update_button_selection(2, "Exit Game")
 	os.input.connect_to(os.input.just_pressed_b2, exit_game)
 	# for testing new game narration
-	#update_button_selection(3, "Test cutscene")
-	#os.input.connect_to(os.input.just_pressed_b3, button_show_cutscene)
+	update_button_selection(3, "Test Epilogue")
+	os.input.connect_to(os.input.just_pressed_b3, button_show_cutscene)
 	
 	Battles.final_boss = false 
 
@@ -83,6 +88,7 @@ func button_new_game():
 	hide_everything()
 	stop_all_music()
 	# reposition character, reset function here
+	#reset character pos 
 	state = STATES.CUTSCENE
 
 func continue_game():
@@ -95,10 +101,11 @@ func button_show_menu():
 	state = STATES.MENU
 
 func button_show_cutscene():
+	Battles.final_boss = true
 	state = STATES.CUTSCENE
 	
 func button_skip_cutscene():
-	state = STATES.OVERWORLD
+	Cutscene.crawl_finished()
 #endregion
 
 #region Utility

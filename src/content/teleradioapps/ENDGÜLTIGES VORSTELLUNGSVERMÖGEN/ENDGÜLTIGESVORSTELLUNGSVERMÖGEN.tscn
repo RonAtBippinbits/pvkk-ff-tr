@@ -328,6 +328,29 @@ Each carries a Crystal, dull but unbroken.
 Their journey begins."
 horizontal_alignment = 1
 
+[node name="EpilogueText" type="Label" parent="Cutscene"]
+offset_top = 458.0
+offset_right = 604.0
+offset_bottom = 819.0
+theme_override_fonts/font = ExtResource("2_sf5vs")
+text = "The shadow has lifted.
+
+The winds return to the skies…
+The seas calm…
+The earth heals…
+
+The Crystals shine once more,
+their light restored by the courage of three.
+
+Garland’s darkness is no more,
+and the land breathes freely again.
+
+The travelers, guided by their Crystals,
+turn from the paths they have walked,
+their journey complete…
+yet the world will always remember the light they brought."
+horizontal_alignment = 1
+
 [node name="Foreground" type="Sprite2D" parent="Cutscene"]
 position = Vector2(298.375, 227)
 scale = Vector2(0.75, 0.75)
