@@ -23,16 +23,18 @@ func _ready():
 func _process(delta):
 	if root.state != root.STATES.OVERWORLD:
 		return
-	if root.Character.block_moving:
-		return
-	check_encounter_distance()
-	#Input
+	
 	if abs(root.os.input.joy_axis.y) <= 0.35:
 		axis_locked = false
 	if not root.os.input.joy_buttonA_down:
 		A_locked = false
 	if $PlaceUI/Choice.visible and not axis_locked:
 		handle_ui_selection()
+		print("ui selection")
+	
+	if root.Character.block_moving:
+		return
+		check_encounter_distance()
 
 #region Ecounters
 func check_encounter_distance():
