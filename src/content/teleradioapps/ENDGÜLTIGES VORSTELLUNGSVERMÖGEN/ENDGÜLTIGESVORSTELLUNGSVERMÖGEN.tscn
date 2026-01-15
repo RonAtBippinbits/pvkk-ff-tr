@@ -512,6 +512,8 @@ width = 2.0
 scale = Vector2(0.1, 0.1)
 texture = SubResource("GradientTexture2D_y4nph")
 
+[node name="_______________________________" type="Node" parent="."]
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="Music" type="Node" parent="Audio"]
