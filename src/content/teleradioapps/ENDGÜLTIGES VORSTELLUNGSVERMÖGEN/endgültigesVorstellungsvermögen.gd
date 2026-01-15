@@ -80,6 +80,7 @@ func cutscene():
 	stop_all_music()
 	Cutscene.reset_crawl_text()
 	Cutscene.show()
+	$Audio/Music/MusicCutscene.play()
 	update_button_selection(1, "Skip")
 	os.input.connect_to(os.input.just_pressed_b1, button_skip_cutscene)
 

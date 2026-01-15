@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://d0tnmyko0nc5u"]
+[gd_scene load_steps=40 format=4 uid="uid://d0tnmyko0nc5u"]
 
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/endgültigesVorstellungsvermögen.gd" id="1_ueaa4"]
 [ext_resource type="Texture2D" uid="uid://fv1vh32gn5tk" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/placeholder_white.png" id="2_kkf0t"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/Place.gd" id="9_klnlr"]
 [ext_resource type="StyleBox" uid="uid://xf4jmndmsj2x" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/ui.tres" id="10_kj2d8"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/data.gd" id="13_rnxqp"]
+[ext_resource type="AudioStream" uid="uid://bit1rhiev1nkx" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/FF I OST _ Opening Theme.mp3" id="19_6128e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7alpj"]
 atlas = ExtResource("6_wdkkj")
@@ -566,6 +567,10 @@ bus = &"TeleradioApp"
 
 [node name="MusicBattle" type="AudioStreamPlayer" parent="Audio/Music"]
 stream = ExtResource("9_0xeqd")
+bus = &"TeleradioApp"
+
+[node name="MusicCutscene" type="AudioStreamPlayer" parent="Audio/Music"]
+stream = ExtResource("19_6128e")
 bus = &"TeleradioApp"
 
 [node name="Data" type="Node" parent="."]
