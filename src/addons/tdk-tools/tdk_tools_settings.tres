@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_s8ap2")
-content_selected = "res://content/teleradioapps/boilerplate/BoilerplateApp.tscn"
+content_selected = "res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/ENDGÜLTIGESVORSTELLUNGSVERMÖGEN.tscn"
 custom_play_pressed = false
 last_audio_check_path = "res://content/teleradioapps/"
