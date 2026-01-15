@@ -65,22 +65,25 @@ func title_stage():
 	update_button_selection(2, "Exit Game")
 	os.input.connect_to(os.input.just_pressed_b2, exit_game)
 	# for testing new game narration
-	update_button_selection(3, "Test cutscene")
-	os.input.connect_to(os.input.just_pressed_b3, button_show_cutscene)
+	#update_button_selection(3, "Test cutscene")
+	#os.input.connect_to(os.input.just_pressed_b3, button_show_cutscene)
 	
 	Battles.final_boss = false 
 
 func cutscene():
 	hide_everything()
 	stop_all_music()
+	Cutscene.reset_crawl_text()
 	Cutscene.show()
+	update_button_selection(1, "Skip")
+	os.input.connect_to(os.input.just_pressed_b1, button_skip_cutscene)
 
 #region ButtonSelection
 func button_new_game():
 	hide_everything()
 	stop_all_music()
 	# reposition character, reset function here
-	state = STATES.OVERWORLD
+	state = STATES.CUTSCENE
 
 func continue_game():
 	print("Continue") #not implemented right now
@@ -93,12 +96,16 @@ func button_show_menu():
 
 func button_show_cutscene():
 	state = STATES.CUTSCENE
+	
+func button_skip_cutscene():
+	state = STATES.OVERWORLD
 #endregion
 
 #region Utility
 func hide_everything():
 	MainMenu.hide()
 	Map.hide()
+	Cutscene.hide()
 	$Battles/BattleScene.hide()
 	os.input.disconnect_all_buttons()
 	for b in $ButtonSelection.get_children():

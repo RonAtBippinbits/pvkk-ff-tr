@@ -10,13 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://dyjs0oxrc2crv" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/playable_character/playable_character.tscn" id="6_cnt0i"]
 [ext_resource type="Texture2D" uid="uid://hwdumch4n4nu" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/animated_crystal.png" id="6_wdkkj"]
 [ext_resource type="AudioStream" uid="uid://c2p0owu2t8egx" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/world_map.mp3" id="7_0g18e"]
+[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/cutscene.gd" id="7_175gy"]
 [ext_resource type="Texture2D" uid="uid://dp3rj3hhj5k4d" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/cutscene_background.png" id="7_rfxhr"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/map.gd" id="8_8lwa4"]
 [ext_resource type="PackedScene" uid="uid://f0vc7w7qqg5n" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/battles.tscn" id="8_iaxf6"]
 [ext_resource type="Texture2D" uid="uid://b341vrnmbyh7m" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/assets/cutscene_foreground.png" id="8_lde2e"]
 [ext_resource type="AudioStream" uid="uid://18md4noikimc" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/_ripped_assets/battle.mp3" id="9_0xeqd"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/Place.gd" id="9_klnlr"]
-[ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/crawl_text.gd" id="9_mvu2g"]
 [ext_resource type="StyleBox" uid="uid://xf4jmndmsj2x" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/battles/ui.tres" id="10_kj2d8"]
 [ext_resource type="Script" path="res://content/teleradioapps/ENDGÜLTIGES VORSTELLUNGSVERMÖGEN/data.gd" id="13_rnxqp"]
 
@@ -277,8 +277,11 @@ sprite_frames = SubResource("SpriteFrames_751my")
 frame_progress = 0.417546
 speed_scale = 0.5
 
-[node name="Cutscene" type="CanvasLayer" parent="."]
+[node name="Cutscene" type="CanvasLayer" parent="." node_paths=PackedStringArray("root")]
 visible = false
+script = ExtResource("7_175gy")
+root = NodePath("..")
+speed = 35.0
 
 [node name="Background" type="Sprite2D" parent="Cutscene"]
 self_modulate = Color(0.0784314, 0.0745098, 0.0117647, 1)
@@ -291,32 +294,44 @@ position = Vector2(298.375, 227)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("7_rfxhr")
 
+[node name="PrologueText" type="Label" parent="Cutscene"]
+offset_top = 458.0
+offset_right = 604.0
+offset_bottom = 819.0
+theme_override_fonts/font = ExtResource("2_sf5vs")
+text = "The world lies shrouded in darkness.
+
+The winds fade…
+The seas rage…
+The earth decays…
+
+
+No throne summons the brave.
+Only stories warn of Garland,
+whose return shrouds the land in darkness.
+
+
+Yet the prophecy endures:
+
+\"When darkness veils the world,
+three shall walk the land.
+Guided by their Crystals,
+their courage shall light the path,
+and even the deepest shadow shall fade.\"
+
+
+
+At the edge of the world, three travelers appear.
+Each carries a Crystal, dull but unbroken.
+
+
+Their journey begins."
+horizontal_alignment = 1
+
 [node name="Foreground" type="Sprite2D" parent="Cutscene"]
 position = Vector2(298.375, 227)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("8_lde2e")
-
-[node name="Label" type="Label" parent="Cutscene"]
-offset_top = 458.0
-offset_right = 604.0
-offset_bottom = 793.0
-text = "TEXT
-
-TEXT
-
-TEXT
-
-TEXT
-
-
-
-TEXT
-
-
-TEXT"
-horizontal_alignment = 1
-script = ExtResource("9_mvu2g")
-speed = 30.0
 
 [node name="Map" type="TileMapLayer" parent="." node_paths=PackedStringArray("root")]
 visible = false
