@@ -30,7 +30,6 @@ func _process(delta):
 		A_locked = false
 	if $PlaceUI/Choice.visible and not axis_locked:
 		handle_ui_selection()
-		print("ui selection")
 	
 	if root.Character.block_moving:
 		return
